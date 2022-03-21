@@ -2,6 +2,7 @@
   <div class="home" id="home">
     <AddMusicApi />
     <hr id="hr">
+    <PlaylistsOcApi />
     <ListMusicApi />
   </div>
 </template>
@@ -9,12 +10,14 @@
 <script>
 import AddMusicApi from '../components/AddMusicApi.vue'
 import ListMusicApi from '../components/ListMusicsApi.vue'
+import PlaylistsOcApi from '../components/PlaylistsOcApi.vue'
 
 export default {
   name: 'HomeView',
   components: {
     AddMusicApi,
-    ListMusicApi
+    ListMusicApi,
+    PlaylistsOcApi
   }
 }
 </script>
