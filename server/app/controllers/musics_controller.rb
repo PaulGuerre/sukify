@@ -21,7 +21,9 @@ class MusicsController < ApplicationController
 
     def delete
         music = Music.find(params[:id])
-        if music.delete
+        path = "#{ Rails.root }/src/#{ music.title }.mp3"
+        File.delete(path.tr('"', "'"))
+        if music.delete && !File.exist?(path.tr('"', "'"))
             render json: { message: 'success' }
         else
             render json: { message: 'error' }
