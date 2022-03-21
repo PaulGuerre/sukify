@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
-  #root "test#index"
+  root "musics#index"
 
-  get "/play", to: "test#play"
-
-  post "/dl", to: "dl#dl"
+  get "/musics", to: "musics#index"
+  post "/musics", to: "musics#add"
+  get "/musics/:id", to: "musics#play"
+  delete "/musics/:id", to: "musics#delete"
 end
