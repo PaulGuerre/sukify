@@ -6,7 +6,8 @@ class MusicsController < ApplicationController
 
     def play
         music = Music.find(params[:id])
-        render file: "#{ Rails.root }/src/#{ music.title }.mp3"
+        path = "#{ Rails.root }/src/#{ music.title }.mp3"
+        render file: path.tr('"', "'")
     end
 
     def add
