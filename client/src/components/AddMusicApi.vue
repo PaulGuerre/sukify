@@ -40,8 +40,8 @@ export default {
   methods: {
     addMusic () {
       axios.post('http://localhost:3000/musics', {
-        url: 'https://www.youtube.com/watch?v=s5yRZOQ3EWI',
-        title: 'El Alfa "El Jefe" x CJ x El Cherry Scom - La Mamá de la Mamá (Video Oficial)'
+        url: 'https://youtu.be/ZLYhZiDmWro',
+        title: 'PIDI - Ça va aller (Clip Officiel)'
       })
         .then(response => {
           console.log(response.message)

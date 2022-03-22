@@ -1,5 +1,5 @@
 <template>
-    <button class="btn btn-success" type="button" @click="play(this.id)"><i  class="fas fa-play"></i></button>
+    <button class="btn btn-success" id="playButton" type="button" @click="play(this.id)"><i  class="fas fa-play"></i></button>
 </template>
 
 <script>

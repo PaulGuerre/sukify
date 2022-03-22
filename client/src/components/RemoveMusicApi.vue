@@ -1,5 +1,5 @@
 <template>
-  <button class="btn btn-danger" type="button" @click="remove(this.id)"><i  class="fas fa-trash"></i></button>
+  <button class="btn btn-danger" id="removeButton" type="button" @click="remove(this.id)"><i  class="fas fa-trash"></i></button>
 </template>
 
 <script>
