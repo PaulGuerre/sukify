@@ -12,5 +12,6 @@ body, html {
 
 #app {
   background-color: darkslategray;
+  overflow-x: hidden;
 }
 </style>
