@@ -41,16 +41,6 @@ export default {
     }
   },
   methods: {
-    getThumbnail (id) {
-      axios.get('http://localhost:3000/musics/' + id + '/thumbnail')
-        .then(reponse => {
-          console.log(reponse)
-          return reponse
-        })
-        .catch(e => {
-          this.error.push(e)
-        })
-    },
     play (id) {
       if (this.audio.src !== 'http://localhost:3000/musics/' + id) {
         this.audio.src = 'http://localhost:3000/musics/' + id
