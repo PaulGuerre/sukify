@@ -34,14 +34,15 @@ export default {
     return {
       format: 'url',
       musicInput: '',
+      banWords: ['Clip', 'Lyrics', 'Lyric', 'Officiel', 'Official', 'Video'],
       errors: []
     }
   },
   methods: {
     addMusic () {
       axios.post('http://localhost:3000/musics', {
-        url: 'https://youtu.be/ZLYhZiDmWro',
-        title: 'PIDI - Ça va aller (Clip Officiel)'
+        url: 'https://youtu.be/APKfnqKgdQw',
+        title: this.titleReplace('Marwa Loud feat. Moha K - Bimbo (Clip Officiel)')
       })
         .then(response => {
           console.log(response.message)
@@ -50,6 +51,14 @@ export default {
         .catch(e => {
           this.error.push(e)
         })
+    },
+    titleReplace (title) {
+      let newTitle = title.split(' ')
+      for (let i = 0; i < newTitle.length; i++) {
+        newTitle[i] = newTitle[i].replace(/["'()]/g, '')
+      }
+      newTitle = newTitle.filter(item => !this.banWords.includes(item))
+      return newTitle.join(' ')
     }
   }
 }
