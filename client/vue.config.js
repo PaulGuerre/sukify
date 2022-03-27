@@ -3,6 +3,6 @@ module.exports = defineConfig({
   transpileDependencies: true,
   // Allows every hosts to connect -- Docker only
   devServer: {
-        allowedHosts: "all",
+    allowedHosts: 'all'
   }
 })

@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+import ApiManager from '@/services/ApiManager'
 
 export default {
   name: 'AddMusic',
@@ -34,23 +34,15 @@ export default {
     return {
       format: 'url',
       musicInput: '',
-      banWords: ['Clip', 'Lyrics', 'Lyric', 'Officiel', 'Official', 'Video'],
-      errors: []
+      banWords: ['Clip', 'Lyrics', 'Lyric', 'Officiel', 'Official', 'Video']
     }
   },
   methods: {
     addMusic () {
-      axios.post('http://localhost:3000/musics', {
-        url: 'https://youtu.be/APKfnqKgdQw',
-        title: this.titleReplace('Marwa Loud feat. Moha K - Bimbo (Clip Officiel)')
+      const newMusic = { url: 'https://youtu.be/APKfnqKgdQw', title: this.titleReplace('Marwa Loud feat. Moha K - Bimbo (Clip Officiel)') }
+      ApiManager.addMusic(newMusic).then(response => {
+        this.$emit('add', newMusic)
       })
-        .then(response => {
-          console.log(response.message)
-          this.$router.go(0)
-        })
-        .catch(e => {
-          this.error.push(e)
-        })
     },
     titleReplace (title) {
       let newTitle = title.split(' ')
