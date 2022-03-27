@@ -5,7 +5,7 @@
         <div class="card">
           <img :src="'http://localhost:3000/musics/' + music.id + '/thumbnail'" class="card-img-top">
           <div class="card-body">
-            <p class="card-text">{{ music.title }}</p>
+            <p class="card-text text-truncate">{{ music.title }}</p>
           </div>
           <div class="card-footer text-center">
             <div class="btn-group" role="group">
