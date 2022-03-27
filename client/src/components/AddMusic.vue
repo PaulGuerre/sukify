@@ -3,6 +3,7 @@
       <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-sm">
           <div class="modal-content">
+            <button type="button" class="btn-close" id="closeModal" data-bs-dismiss="modal" aria-label="Close" hidden></button>
             <div class="modal-body text-center">
               <button class="btn btn-success" type="button" disabled>
                 <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
@@ -26,8 +27,8 @@
 </template>
 
 <script>
-import ApiManager from '@/services/ApiManager'
 
+import ApiManager from '@/services/ApiManager.js'
 export default {
   name: 'AddMusic',
   data () {
@@ -40,8 +41,9 @@ export default {
   methods: {
     addMusic () {
       const newMusic = { url: 'https://youtu.be/APKfnqKgdQw', title: this.titleReplace('Marwa Loud feat. Moha K - Bimbo (Clip Officiel)') }
-      ApiManager.addMusic(newMusic).then(response => {
-        this.$emit('add', newMusic)
+      ApiManager.addMusic(newMusic).then(() => {
+        this.$emit('add')
+        document.getElementById('closeModal').click()
       })
     },
     titleReplace (title) {

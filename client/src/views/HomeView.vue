@@ -1,6 +1,6 @@
 <template>
   <div class="home" id="home">
-    <AddMusicApi :musics="musics" v-on:add="addMusic($event)" />
+    <AddMusicApi :musics="musics" v-on:add="addMusic()" />
     <hr id="hr">
     <PlaylistsOcApi />
     <ListMusicApi :audio="audio" v-on:play="play($event)" v-on:pause="pause()" :musics="musics" v-on:remove="removeMusic($event)" :connect="connect" />
@@ -41,15 +41,18 @@ export default {
     removeMusic (id) {
       this.musics = this.musics.filter(music => music.id !== id)
     },
-    addMusic ($event) {
-      this.musics.push($event)
+    addMusic () {
+      this.loadMusic()
+    },
+    loadMusic () {
+      ApiManager.getMusics().then(response => {
+        this.musics = response.data
+        this.connect = true
+      })
     }
   },
   mounted () {
-    this.musics = ApiManager.getMusics().then(response => {
-      this.musics = response.data
-      this.connect = true
-    })
+    this.loadMusic()
   }
 }
 </script>
