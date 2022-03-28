@@ -2,7 +2,7 @@ FROM ruby:3.0.3 AS sukify_backend
 
 RUN apt-get update -qq && apt-get install -y build-essential libpq-dev nodejs python3-pip ffmpeg
 
-RUN pip3 install youtube-dl
+RUN pip3 install yt-dlp
 
 WORKDIR /sukify
 

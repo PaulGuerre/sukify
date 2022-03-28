@@ -12,7 +12,7 @@ class MusicsController < ApplicationController
     def add
         music = Music.new(title: params[:title], videoID: params[:videoID])
         if music.save
-            system("youtube-dl -o #{ Rails.root }/src/#{ music.id }'.%(ext)s' --extract-audio --audio-format mp3 https://www.youtube.com/watch?v=#{ params[:videoID] }")
+            system("yt-dlp -o #{ Rails.root }/src/#{ music.id }'.%(ext)s' --extract-audio --audio-format mp3 https://www.youtube.com/watch?v=#{ params[:videoID] }")
             render json: { message: 'success' }
         else
             render json: { message: 'error' }

@@ -45,6 +45,7 @@ export default {
         ApiManager.addMusic(newMusic).then(() => {
           this.$emit('add')
           document.getElementById('closeModal').click()
+          this.musicInput = ''
         })
       })
     }
