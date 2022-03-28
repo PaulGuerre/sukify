@@ -3,8 +3,7 @@
     <div v-if="connect" class="row row-cols-md-3 row-cols-lg-5">
       <div class="col" v-for="music in musics" :key="music.id">
         <div class="card">
-          <img v-if="imageExist(music.id)" :src="'http://localhost:3000/musics/' + music.id + '/thumbnail'" class="card-img-top">
-          <img v-else src="../assets/placeholder.png" class="card-img-top placeholder placeholder-wave">
+          <img :src="'http://localhost:3000/musics/' + music.id + '/thumbnail'" class="card-img-top">
           <div class="card-body">
             <p class="card-text text-truncate">{{ music.title }}</p>
           </div>
@@ -81,11 +80,6 @@ export default {
     },
     removeMusic (id) {
       this.$emit('remove', id)
-    },
-    imageExist (id) {
-      const img = new Image()
-      img.src = 'http://localhost:3000/musics/' + id + '/thumbnail'
-      return img.height !== 0
     }
   }
 }
