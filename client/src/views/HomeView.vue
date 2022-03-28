@@ -1,9 +1,9 @@
 <template>
   <div class="home" id="home">
-    <AddMusicApi :musics="musics" v-on:add="addMusic()" />
+    <AddMusicApi :musics="musics" v-on:add="loadMusic" />
     <hr id="hr">
     <PlaylistsOcApi />
-    <ListMusicApi :audio="audio" v-on:play="play($event)" v-on:pause="pause()" :musics="musics" v-on:remove="removeMusic($event)" :connect="connect" />
+    <ListMusicApi :audio="audio" v-on:play="play($event)" v-on:pause="pause" :musics="musics" v-on:remove="removeMusic($event)" :connect="connect" />
   </div>
 </template>
 
@@ -40,9 +40,7 @@ export default {
     },
     removeMusic (id) {
       this.musics = this.musics.filter(music => music.id !== id)
-    },
-    addMusic () {
-      this.loadMusic()
+      this.pause()
     },
     loadMusic () {
       ApiManager.getMusics().then(response => {

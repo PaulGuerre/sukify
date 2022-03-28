@@ -1,6 +1,6 @@
 <template>
-  <button v-if="playStatus === id" class="btn btn-success" id="playButton" type="button" @click="pause()"><i  class="fas fa-pause"></i></button>
-  <button v-else class="btn btn-success" id="playButton" type="button" @click="play(id)"><i  class="fas fa-play"></i></button>
+  <button v-if="playStatus === id" class="btn btn-success" type="button" @click="pause()"><i  class="fas fa-pause"></i></button>
+  <button v-else class="btn btn-success" type="button" @click="play(id)"><i  class="fas fa-play"></i></button>
 </template>
 
 <script>

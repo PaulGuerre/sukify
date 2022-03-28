@@ -3,6 +3,6 @@ Rails.application.config.middleware.insert_before 0, Rack::Cors do
         origins '*'
         resource '*',
             headers: :any,
-            methods: [:get, :post, :delete]
+            methods: [:get, :post, :delete, :put]
     end
 end

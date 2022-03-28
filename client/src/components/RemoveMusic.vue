@@ -1,5 +1,5 @@
 <template>
-  <button class="btn btn-danger" id="removeButton" type="button" @click="remove(id)"><i  class="fas fa-trash"></i></button>
+  <button class="btn btn-danger" type="button" @click="remove(id)"><i  class="fas fa-trash"></i></button>
 </template>
 
 <script>
@@ -10,8 +10,11 @@ export default {
   props: ['id'],
   methods: {
     remove (id) {
-      ApiManager.removeMusic(id)
-      this.$emit('remove', id)
+      ApiManager.removeMusic(id).then(response => {
+        if (response.data.message === 'success') {
+          this.$emit('remove', id)
+        }
+      })
     }
   }
 }

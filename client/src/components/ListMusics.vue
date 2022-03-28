@@ -10,7 +10,6 @@
           <div class="card-footer text-center">
             <div class="btn-group" role="group">
               <PlayMusic :id="music.id" :audio="audio" v-on:play="play($event)" v-on:pause="pause()" :playStatus="playStatus" />
-              <button class="btn btn-warning" type="button"><i  class="fas fa-edit"></i></button>
               <RemoveMusic :id="music.id" :musics="musics" v-on:remove="removeMusic($event)" />
             </div>
           </div>
@@ -65,7 +64,6 @@ export default {
   data () {
     return {
       playStatus: null,
-      // currentMusic: null,
       errors: []
     }
   },
