@@ -20,7 +20,7 @@
             <option value="url" selected>URL</option>
           </select>
         </span>
-        <input type="text" class="form-control border-success text-success" placeholder="Music name" v-model="musicInput">
+        <input type="text" class="form-control border-success text-success" :placeholder="format === 'title' ? 'Music name' : 'Youtube url'" v-model="musicInput">
         <button class="btn btn-success" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop" @click="addMusic(musicInput)"><i  class="fas fa-plus"></i></button>
       </div>
   </div>
