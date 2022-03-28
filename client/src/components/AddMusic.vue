@@ -7,7 +7,7 @@
             <div class="modal-body text-center">
               <button class="btn btn-success" type="button" disabled>
                 <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                Downloading <bold>{{ musicInput }}</bold>
+                Downloading : <bold>{{ musicInput }}</bold>
               </button>
             </div>
           </div>
@@ -21,38 +21,32 @@
           </select>
         </span>
         <input type="text" class="form-control border-success text-success" placeholder="Music name" v-model="musicInput">
-        <button class="btn btn-success" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop" @click="addMusic()"><i  class="fas fa-plus"></i></button>
+        <button class="btn btn-success" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop" @click="addMusic(musicInput)"><i  class="fas fa-plus"></i></button>
       </div>
   </div>
 </template>
 
 <script>
-
 import ApiManager from '@/services/ApiManager.js'
+import YoutubeApiManager from '@/services/YoutubeApiManager.js'
+
 export default {
   name: 'AddMusic',
   data () {
     return {
-      format: 'url',
-      musicInput: '',
-      banWords: ['Clip', 'Lyrics', 'Lyric', 'Officiel', 'Official', 'Video']
+      format: 'title',
+      musicInput: ''
     }
   },
   methods: {
-    addMusic () {
-      const newMusic = { url: 'https://youtu.be/APKfnqKgdQw', title: this.titleReplace('Marwa Loud feat. Moha K - Bimbo (Clip Officiel)') }
-      ApiManager.addMusic(newMusic).then(() => {
-        this.$emit('add')
-        document.getElementById('closeModal').click()
+    addMusic (musicInput) {
+      YoutubeApiManager.getVideo(musicInput).then(response => {
+        const newMusic = { title: response.data.items[0].snippet.title, videoID: response.data.items[0].id.videoId }
+        ApiManager.addMusic(newMusic).then(() => {
+          this.$emit('add')
+          document.getElementById('closeModal').click()
+        })
       })
-    },
-    titleReplace (title) {
-      let newTitle = title.split(' ')
-      for (let i = 0; i < newTitle.length; i++) {
-        newTitle[i] = newTitle[i].replace(/["'()]/g, '')
-      }
-      newTitle = newTitle.filter(item => !this.banWords.includes(item))
-      return newTitle.join(' ')
     }
   }
 }

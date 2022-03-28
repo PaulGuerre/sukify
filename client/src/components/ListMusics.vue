@@ -3,7 +3,7 @@
     <div v-if="connect" class="row row-cols-md-3 row-cols-lg-5">
       <div class="col" v-for="music in musics" :key="music.id">
         <div class="card">
-          <img :src="'http://localhost:3000/musics/' + music.id + '/thumbnail'" class="card-img-top">
+          <img :src="'https://i.ytimg.com/vi/' + music.videoID + '/mqdefault.jpg'" class="card-img-top">
           <div class="card-body">
             <p class="card-text text-truncate">{{ music.title }}</p>
           </div>
