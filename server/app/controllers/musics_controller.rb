@@ -11,9 +11,14 @@ class MusicsController < ApplicationController
 
     def add
         music = Music.new(title: params[:title], videoID: params[:videoID])
-        system("yt-dlp -o #{ Rails.root }/src/#{ music.id }'.%(ext)s' --extract-audio --audio-format mp3 https://www.youtube.com/watch?v=#{ params[:videoID] }")
-        if music.save && File.exist?("#{ Rails.root }/src/#{ music.id }.mp3")
-            render json: { message: 'success' }
+        if music.save
+            system("yt-dlp -o #{ Rails.root }/src/#{ music.id }'.%(ext)s' --extract-audio --audio-format mp3 https://www.youtube.com/watch?v=#{ params[:videoID] }")
+            if File.exist?("#{ Rails.root }/src/#{ music.id }.mp3")
+                render json: { message: 'success' }
+            else 
+                music.delete
+                render json: { message: 'error' }
+            end
         else
             render json: { message: 'error' }
         end
@@ -21,10 +26,23 @@ class MusicsController < ApplicationController
 
     def delete
         music = Music.find(params[:id])
-        File.delete("#{ Rails.root }/src/#{ music.id }.mp3")
+        if File.exist?("#{ Rails.root }/src/#{ music.id }.mp3")
+            File.delete("#{ Rails.root }/src/#{ music.id }.mp3")
+        end
+
         if music.delete && !File.exist?("#{ Rails.root }/src/#{ music.id }.mp3")
             render json: { message: 'success' }
         else
+            render json: { message: 'error' }
+        end
+    end
+
+    def update
+        music = Music.find(params[:id])
+        music.update(title: params[:title], videoID: params[:videoID])
+        if music.save
+            render json: { message: 'success' }
+        else 
             render json: { message: 'error' }
         end
     end

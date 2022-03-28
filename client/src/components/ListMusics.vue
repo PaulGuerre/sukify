@@ -1,5 +1,23 @@
 <template>
   <div id="musicList">
+    <div class="modal fade" id="editModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Update music</h5>
+            <button type="button" class="btn-close" id="modalCloseButton" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <input type="text" class="form-control" placeholder="" v-model="musicInput">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-success" @click="editMusic(modalMusic)" >Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div v-if="connect" class="row row-cols-md-3 row-cols-lg-5">
       <div class="col" v-for="music in musics" :key="music.id">
         <div class="card">
@@ -10,12 +28,14 @@
           <div class="card-footer text-center">
             <div class="btn-group" role="group">
               <PlayMusic :id="music.id" :audio="audio" v-on:play="play($event)" v-on:pause="pause()" :playStatus="playStatus" />
+              <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editModal" @click="modalMusic = music" ><i class="fas fa-edit"></i></button>
               <RemoveMusic :id="music.id" :musics="musics" v-on:remove="removeMusic($event)" />
             </div>
           </div>
         </div>
       </div>
     </div>
+
     <div v-else class="row row-cols-md-3 row-cols-lg-5">
       <div class="col" v-for="index in 5" :key="index">
         <div class="card placeholder-wave">
@@ -63,6 +83,8 @@ export default {
   props: ['audio', 'musics', 'connect'],
   data () {
     return {
+      musicInput: '',
+      modalMusic: [],
       playStatus: null,
       errors: []
     }
@@ -78,6 +100,12 @@ export default {
     },
     removeMusic (id) {
       this.$emit('remove', id)
+    },
+    editMusic (modalMusic) {
+      modalMusic.title = this.musicInput
+      this.$emit('edit', modalMusic)
+      document.getElementById('modalCloseButton').click()
+      this.musicInput = ''
     }
   }
 }

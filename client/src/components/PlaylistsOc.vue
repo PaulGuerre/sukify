@@ -9,9 +9,17 @@
       <!-- BODY -->
       </div>
     </div>
-    <button type="button" class="btn btn-success" data-bs-toggle="offcanvas" data-bs-target="#offCanvasPlaylists">Playlists</button>
+    <button v-if="connect" type="button" class="btn btn-success" data-bs-toggle="offcanvas" data-bs-target="#offCanvasPlaylists">Playlists</button>
+    <button v-else type="button" class="btn btn-success placeholder placeholder-wave" >Playlists</button>
   </div>
 </template>
+
+<script>
+export default {
+  name: 'PlaylistsOc',
+  props: ['connect']
+}
+</script>
 
 <style>
 #playlists {

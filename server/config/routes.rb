@@ -5,4 +5,5 @@ Rails.application.routes.draw do
   get "/musics/:id", to: "musics#play"
   post "/musics", to: "musics#add"
   delete "/musics/:id", to: "musics#delete"
+  put "/musics/:id", to: "musics#update"
 end
