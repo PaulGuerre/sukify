@@ -53,6 +53,7 @@
         </div>
       </div>
     </div>
+    <ErrorManager />
     <!--<div id="shuffle" class="bg-dark">
       <ul class="nav nav-pills nav-fill">
         <li class="nav-item placeholder-wave">
@@ -73,12 +74,14 @@
 <script>
 import RemoveMusic from '@/components/RemoveMusic.vue'
 import PlayMusic from '@/components/PlayMusic.vue'
+import ErrorManager from '@/services/ErrorManager.js'
 
 export default {
   name: 'ListMusic',
   components: {
     RemoveMusic,
-    PlayMusic
+    PlayMusic,
+    ErrorManager
   },
   props: ['audio', 'musics', 'connect'],
   data () {
@@ -102,10 +105,14 @@ export default {
       this.$emit('remove', id)
     },
     editMusic (modalMusic) {
-      modalMusic.title = this.musicInput
-      this.$emit('edit', modalMusic)
-      document.getElementById('modalCloseButton').click()
-      this.musicInput = ''
+      if (this.musicInput !== '') {
+        modalMusic.title = this.musicInput
+        this.$emit('edit', modalMusic)
+        document.getElementById('modalCloseButton').click()
+        this.musicInput = ''
+      } else {
+        ErrorManager.showErrorMessage('Title can\'t be empty')
+      }
     }
   }
 }

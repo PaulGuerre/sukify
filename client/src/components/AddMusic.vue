@@ -21,7 +21,7 @@
         </select>
       </span>
       <input type="text" class="form-control border-success text-success" :placeholder="format === 'title' ? 'Music name' : 'Youtube url'" v-model="musicInput">
-      <button class="btn btn-success" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop" @click="addMusic(musicInput)"><i  class="fas fa-plus"></i></button>
+      <button class="btn btn-success" type="button" data-bs-toggle="modal" :data-bs-target="musicInput === '' ? null : '#staticBackdrop'" @click="addMusic(musicInput)"><i  class="fas fa-plus"></i></button>
     </div>
     <div v-else class="input-group mb-3 placeholder-wave">
       <span class="placeholder bg-light col-1"></span>
@@ -34,6 +34,7 @@
 <script>
 import ApiManager from '@/services/ApiManager.js'
 import YoutubeApiManager from '@/services/YoutubeApiManager.js'
+import ErrorManager from '@/services/ErrorManager.js'
 
 export default {
   name: 'AddMusic',
@@ -46,19 +47,23 @@ export default {
   },
   methods: {
     addMusic (musicInput) {
-      YoutubeApiManager.getVideo(musicInput).then(response => {
-        const newMusic = { title: response.data.items[0].snippet.title, videoID: response.data.items[0].id.videoId }
-        ApiManager.addMusic(newMusic).then(response => {
-          if (response.data.message === 'success') {
-            this.$emit('add')
-            document.getElementById('closeModal').click()
-            this.musicInput = ''
-          } else {
-            document.getElementById('closeModal').click()
-            this.musicInput = ''
-          }
+      if (musicInput !== '') {
+        YoutubeApiManager.getVideo(musicInput).then(response => {
+          const newMusic = { title: response.data.items[0].snippet.title, videoID: response.data.items[0].id.videoId }
+          ApiManager.addMusic(newMusic).then(response => {
+            if (response.data.message === 'success') {
+              this.$emit('add')
+              document.getElementById('closeModal').click()
+              this.musicInput = ''
+            } else {
+              document.getElementById('closeModal').click()
+              this.musicInput = ''
+            }
+          })
         })
-      })
+      } else {
+        ErrorManager.showErrorMessage('Music name can\'t empty')
+      }
     }
   }
 }

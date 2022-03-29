@@ -4,6 +4,7 @@
     <hr id="hr">
     <PlaylistsOcApi :connect="connect" />
     <ListMusicApi :audio="audio" v-on:play="play($event)" v-on:pause="pause" :musics="musics" v-on:remove="removeMusic($event)" v-on:edit="editMusic($event)" :connect="connect" />
+    <ErrorDisplayer />
   </div>
 </template>
 
@@ -12,13 +13,15 @@ import AddMusicApi from '@/components/AddMusic.vue'
 import ListMusicApi from '@/components/ListMusics.vue'
 import PlaylistsOcApi from '@/components/PlaylistsOc.vue'
 import ApiManager from '@/services/ApiManager'
+import ErrorDisplayer from '@/components/ErrorDisplayer.vue'
 
 export default {
   name: 'HomeView',
   components: {
     AddMusicApi,
     ListMusicApi,
-    PlaylistsOcApi
+    PlaylistsOcApi,
+    ErrorDisplayer
   },
   data () {
     return {
