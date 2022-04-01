@@ -4,7 +4,7 @@
 
 <style>
 #liveAlertPlaceholder {
-  position: absolute;
+  position: fixed;
   bottom: 0;
   right: 0;
   z-index: 2000;
