@@ -83,22 +83,19 @@ export default {
     PlayMusic,
     ErrorManager
   },
-  props: ['audio', 'musics', 'connect'],
+  props: ['audio', 'musics', 'connect', 'playStatus'],
   data () {
     return {
       musicInput: '',
       modalMusic: [],
-      playStatus: null,
       errors: []
     }
   },
   methods: {
     play (id) {
-      this.playStatus = id
       this.$emit('play', id)
     },
     pause () {
-      this.playStatus = null
       this.$emit('pause')
     },
     removeMusic (id) {

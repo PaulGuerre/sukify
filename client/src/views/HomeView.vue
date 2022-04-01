@@ -3,7 +3,7 @@
     <AddMusicApi :musics="musics" v-on:add="loadMusic" :connect="connect" />
     <hr id="hr">
     <PlaylistsOcApi :connect="connect" />
-    <ListMusicApi :audio="audio" v-on:play="play($event)" v-on:pause="pause" :musics="musics" v-on:remove="removeMusic($event)" v-on:edit="editMusic($event)" :connect="connect" />
+    <ListMusicApi :audio="audio" v-on:play="play($event)" v-on:pause="pause" :musics="musics" v-on:remove="removeMusic($event)" v-on:edit="editMusic($event)" :connect="connect" :playStatus="playStatus" />
     <ErrorDisplayer />
   </div>
 </template>
@@ -27,7 +27,8 @@ export default {
     return {
       audio: new Audio(),
       musics: [],
-      connect: false
+      connect: false,
+      playStatus: null
     }
   },
   methods: {
@@ -36,9 +37,11 @@ export default {
         this.audio.src = 'http://localhost:3000/musics/' + id
         this.audio.load()
       }
+      this.playStatus = id
       this.audio.play()
     },
     pause () {
+      this.playStatus = null
       this.audio.pause()
     },
     removeMusic (id) {
@@ -63,6 +66,9 @@ export default {
   },
   mounted () {
     this.loadMusic()
+    this.audio.addEventListener('ended', () => {
+      this.playStatus = null
+    })
   }
 }
 </script>
