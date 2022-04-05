@@ -4,7 +4,6 @@
     <hr id="hr">
     <PlaylistsOcApi :connect="connect" />
     <ListMusicApi :audio="audio" v-on:play="play($event)" v-on:pause="pause" :musics="musics" v-on:remove="removeMusic($event)" v-on:edit="editMusic($event)" :connect="connect" :playStatus="playStatus" />
-    <MusicBottomNav :audio="audio" v-on:play="play($event)" v-on:pause="pause" :playStatus="playStatus" :currentMusic="currentMusic" :currentVideoID="currentVideoID" />
     <ErrorDisplayer />
   </div>
 </template>
@@ -15,7 +14,6 @@ import ListMusicApi from '@/components/ListMusics.vue'
 import PlaylistsOcApi from '@/components/PlaylistsOc.vue'
 import ApiManager from '@/services/ApiManager'
 import ErrorDisplayer from '@/components/ErrorDisplayer.vue'
-import MusicBottomNav from '@/components/MusicBottomNav.vue'
 
 export default {
   name: 'HomeView',
@@ -23,17 +21,14 @@ export default {
     AddMusicApi,
     ListMusicApi,
     PlaylistsOcApi,
-    ErrorDisplayer,
-    MusicBottomNav
+    ErrorDisplayer
   },
   data () {
     return {
       audio: new Audio(),
       musics: [],
       connect: false,
-      playStatus: null,
-      currentMusic: '',
-      currentVideoID: null
+      playStatus: null
     }
   },
   methods: {
@@ -41,10 +36,6 @@ export default {
       if (this.audio.src !== 'http://localhost:3000/musics/' + id) {
         this.audio.src = 'http://localhost:3000/musics/' + id
         this.audio.load()
-        this.currentMusic = id
-        this.currentVideoID = ApiManager.getVideoID(this.currentMusic).then(response => {
-          this.currentVideoID = response.data.videoID
-        })
       }
       this.playStatus = id
       this.audio.play()
