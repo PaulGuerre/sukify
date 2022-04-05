@@ -1,7 +1,4 @@
 <template>
-  <nav class="nav bg-success text-light">
-    <router-link class="nav-link text-light route" to="/">Home</router-link>
-  </nav>
   <router-view/>
 </template>
 
