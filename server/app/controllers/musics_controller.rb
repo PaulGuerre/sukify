@@ -9,6 +9,11 @@ class MusicsController < ApplicationController
         render file: "#{ Rails.root }/src/#{ music.id }.mp3"
     end
 
+    def videoID
+        music = Music.find(params[:id])
+        render json: { videoID: music.videoID }
+    end
+
     def add
         music = Music.new(title: params[:title], videoID: params[:videoID])
         if music.save

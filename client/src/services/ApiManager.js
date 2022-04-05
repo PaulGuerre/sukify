@@ -5,6 +5,10 @@ class ApiManager {
     return axios.get('http://localhost:3000/musics')
   }
 
+  getVideoID (id) {
+    return axios.get('http://localhost:3000/musics/' + id + '/videoID')
+  }
+
   addMusic (music) {
     return axios.post('http://localhost:3000/musics', music)
   }

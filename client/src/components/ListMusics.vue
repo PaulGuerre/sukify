@@ -54,20 +54,6 @@
       </div>
     </div>
     <ErrorManager />
-    <!--<div id="shuffle" class="bg-dark">
-      <ul class="nav nav-pills nav-fill">
-        <li class="nav-item placeholder-wave">
-          <img v-if="currentMusic !== null" :src="'http://localhost:3000/musics/' + currentMusic + '/thumbnail'" class="img-thumbnail bg-dark border-dark" id="shuffleImg" />
-          <img v-else src="../assets/shufflePlaceholder.png" class="img-thumbnail bg-dark border-dark placeholder" id="shuffleImg" />
-        </li>
-        <li class="nav-item">
-          <button class="btn btn-success border-dark border-4 rounded-3" id="shufflePlayButton" type="button"><i class="fas fa-play"></i></button>
-        </li>
-        <li class="nav-item">
-          <button class="btn btn-success border-dark border-4 rounded-3" id="playingStyle" type="button"><i class="fas fa-undo"></i></button>
-        </li>
-      </ul>
-    </div>-->
   </div>
 </template>
 
@@ -118,33 +104,7 @@ export default {
 <style>
 #musicList {
   background-color: darkslategray;
-}
-
-#listGroupItems {
-  background-color: darkslategray;
-  border-color: darkslategray;
-}
-
-#shuffle {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-}
-
-#shuffleImg {
-  width: 100px;
-  float: left;
-}
-
-#playingStyle {
-  height: 100%;
-  width: 100px;
-  float: right;
-}
-
-#shufflePlayButton {
-  height: 100%;
-  width: 100px;
+  margin-bottom: 22%;
 }
 
 .card {
