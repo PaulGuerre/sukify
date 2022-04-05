@@ -14,13 +14,7 @@
       </div>
     </div>
     <div v-if="connect" class="input-group mb-3">
-      <span>
-        <select class="form-select border-success bg-success text-light" v-model="format">
-          <option value="title">Title</option>
-          <option value="url" selected>URL</option>
-        </select>
-      </span>
-      <input type="text" class="form-control border-success text-success" :placeholder="format === 'title' ? 'Music name' : 'Youtube url'" v-model="musicInput">
+      <input type="text" class="form-control border-success text-success" placeholder="Title or URL" v-model="musicInput">
       <button class="btn btn-success" type="button" data-bs-toggle="modal" :data-bs-target="musicInput === '' ? null : '#staticBackdrop'" @click="addMusic(musicInput)"><i  class="fas fa-plus"></i></button>
     </div>
     <div v-else class="input-group mb-3 placeholder-wave">
@@ -41,7 +35,6 @@ export default {
   props: ['connect'],
   data () {
     return {
-      format: 'title',
       musicInput: ''
     }
   },
