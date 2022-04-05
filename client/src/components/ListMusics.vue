@@ -104,7 +104,6 @@ export default {
 <style>
 #musicList {
   background-color: darkslategray;
-  margin-bottom: 22%;
 }
 
 .card {
