@@ -3,14 +3,18 @@
   <div class="container-fluid">
     <router-link to="/" class="navbar-brand text-light">Home</router-link>
     <form v-if="connect" class="d-flex">
-      <PlayMusic class="bg-light text-success" :id="currentMusic" :audio="audio" v-on:play="play($event)" v-on:pause="pause()" :playStatus="playStatus" />
-      <RepeatMusic :playMode="playMode" v-on:repeat="repeatMode($event)" />
+      <PreviousMusicButton v-on:previous="previousMusic" />&nbsp;
+      <PlayMusic class="bg-light text-success" :id="currentMusic" :audio="audio" v-on:play="play($event)" v-on:pause="pause()" :playStatus="playStatus" />&nbsp;
+      <NextMusicButton v-on:next="nextMusic" />&nbsp;
+      <RepeatMusic :playMode="playMode" v-on:repeat="repeatMode($event)" />&nbsp;
       <RandomMusic :playMode="playMode" v-on:random="randomMode($event)" />
     </form>
     <form v-else class="d-flex placeholder-wave">
-      <button class="btn btn-light disabled placeholder"><i class="fas fa-play"></i></button>
-      <button class="btn btn-light disabled placeholder"><i class="fas fa-redo"></i></button>
-      <button class="btn btn-light disabled placeholder"><i class="fas fa-random"></i></button>
+      <button class="btn btn-light disabled placeholder"><i class="fas fa-angle-double-left"></i></button>&nbsp;
+      <button class="btn btn-light disabled placeholder"><i class="fas fa-play"></i></button>&nbsp;
+      <button class="btn btn-light disabled placeholder"><i class="fas fa-angle-double-right"></i></button>&nbsp;
+      <button class="btn btn-light disabled placeholder"><i class="fas fa-redo"></i></button>&nbsp;
+      <button class="btn btn-light disabled placeholder"><i class="fas fa-random"></i></button>&nbsp;
     </form>
   </div>
 </nav>
@@ -20,6 +24,8 @@
 import PlayMusic from './PlayMusic.vue'
 import RepeatMusic from './RepeatMusic.vue'
 import RandomMusic from './RandomMusic.vue'
+import NextMusicButton from './NextMusicButton.vue'
+import PreviousMusicButton from './PreviousMusicButton.vue'
 
 export default {
   props: ['connect', 'currentMusic', 'audio', 'playStatus', 'playMode'],
@@ -27,7 +33,9 @@ export default {
   components: {
     PlayMusic,
     RepeatMusic,
-    RandomMusic
+    RandomMusic,
+    NextMusicButton,
+    PreviousMusicButton
   },
   methods: {
     play (id) {
@@ -41,13 +49,13 @@ export default {
     },
     randomMode (mode) {
       this.$emit('random', mode)
+    },
+    nextMusic () {
+      this.$emit('next')
+    },
+    previousMusic () {
+      this.$emit('previous')
     }
   }
 }
 </script>
-
-<style>
-.btn {
-    margin-right: 2%;
-}
-</style>

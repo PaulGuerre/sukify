@@ -44,7 +44,7 @@
             <span class="placeholder col-6 placeholder-lg"></span>
           </div>
           <div class="card-footer text-center placeholder-wave">
-            <div class="btn-group col-6" role="group">
+            <div class="btn-group btn-group-sm" role="group">
               <button class="btn btn-success disabled placeholder" type="button"></button>
               <button class="btn btn-warning disabled placeholder" type="button"></button>
               <button class="btn btn-danger disabled placeholder" type="button"></button>

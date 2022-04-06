@@ -1,6 +1,6 @@
 <template>
   <div class="home" id="home">
-    <NavBarMusic :connect="connect" :currentMusic="currentMusic" :audio="audio" v-on:play="play($event)" v-on:pause="pause" :playStatus="playStatus" :playMode="playMode" v-on:repeat="enableRepeat($event)" v-on:random="enableRandom($event)" />
+    <NavBarMusic :connect="connect" :currentMusic="currentMusic" :audio="audio" v-on:play="play($event)" v-on:pause="pause" :playStatus="playStatus" :playMode="playMode" v-on:repeat="enableRepeat($event)" v-on:random="enableRandom($event)" v-on:next="nextMusic"  v-on:previous="previousMusic" />
     <AddMusicApi :musics="musics" v-on:add="loadMusic" :connect="connect" />
     <hr id="hr">
     <PlaylistsOcApi :connect="connect" />
@@ -39,11 +39,11 @@ export default {
   methods: {
     play (id) {
       if (this.audio.src !== 'http://localhost:3000/musics/' + id) {
-        this.audio.src = 'http://localhost:3000/musics/' + id
+        this.audio.src = id === '' ? 'http://localhost:3000/musics/' + this.musics[0].id : 'http://localhost:3000/musics/' + id
         this.audio.load()
-        this.currentMusic = id
+        this.currentMusic = id === '' ? this.musics[0].id : id
       }
-      this.playStatus = id
+      this.playStatus = id === '' ? this.musics[0].id : id
       this.audio.play()
     },
     pause () {
@@ -74,6 +74,14 @@ export default {
     },
     enableRandom (mode) {
       this.playMode = mode
+    },
+    nextMusic () {
+      this.currentMusic = this.currentMusic === this.musics[this.musics.length - 1].id ? this.musics[0].id : this.currentMusic + 1
+      this.play(this.currentMusic)
+    },
+    previousMusic () {
+      this.currentMusic = this.currentMusic === this.musics[0].id ? this.musics[this.musics.length - 1].id : this.currentMusic - 1
+      this.play(this.currentMusic)
     }
   },
   mounted () {
