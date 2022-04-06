@@ -64,6 +64,6 @@ export default {
 <style>
 #addMusic {
   margin: 5%;
-  margin-top: 10%;
+  margin-top: 12vh;
 }
 </style>
