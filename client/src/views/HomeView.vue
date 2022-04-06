@@ -3,7 +3,6 @@
     <NavBarMusic :connect="connect" :currentMusic="currentMusic" :audio="audio" v-on:play="play($event)" v-on:pause="pause" :playStatus="playStatus" :playMode="playMode" v-on:repeat="enableRepeat($event)" v-on:random="enableRandom($event)" v-on:next="nextMusic"  v-on:previous="previousMusic" />
     <AddMusicApi :musics="musics" v-on:add="loadMusic" :connect="connect" />
     <hr id="hr">
-    <PlaylistsOcApi :connect="connect" />
     <ListMusicApi :audio="audio" v-on:play="play($event)" v-on:pause="pause" :musics="musics" v-on:remove="removeMusic($event)" v-on:edit="editMusic($event)" :connect="connect" :playStatus="playStatus" />
     <ErrorDisplayer />
   </div>
@@ -12,7 +11,6 @@
 <script>
 import AddMusicApi from '@/components/AddMusic.vue'
 import ListMusicApi from '@/components/ListMusics.vue'
-import PlaylistsOcApi from '@/components/PlaylistsOc.vue'
 import ApiManager from '@/services/ApiManager'
 import ErrorDisplayer from '@/components/ErrorDisplayer.vue'
 import NavBarMusic from '@/components/NavBarMusic.vue'
@@ -22,7 +20,6 @@ export default {
   components: {
     AddMusicApi,
     ListMusicApi,
-    PlaylistsOcApi,
     ErrorDisplayer,
     NavBarMusic
   },
