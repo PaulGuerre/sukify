@@ -26,7 +26,7 @@
             <p class="card-text text-truncate">{{ music.title }}</p>
           </div>
           <div class="card-footer text-center">
-            <div class="btn-group" role="group">
+            <div class="btn-group btn-group-sm" role="group">
               <PlayMusic :id="music.id" :audio="audio" v-on:play="play($event)" v-on:pause="pause()" :playStatus="playStatus" />
               <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editModal" @click="modalMusic = music" ><i class="fas fa-edit"></i></button>
               <RemoveMusic :id="music.id" :musics="musics" v-on:remove="removeMusic($event)" />
