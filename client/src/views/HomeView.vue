@@ -1,6 +1,6 @@
 <template>
   <div class="home" id="home">
-    <NavBarMusic :currentMusic="currentMusic" :audio="audio" v-on:play="play($event)" v-on:pause="pause" :playStatus="playStatus" :playMode="playMode" v-on:repeat="enableRepeat($event)" v-on:random="enableRandom($event)" />
+    <NavBarMusic :connect="connect" :currentMusic="currentMusic" :audio="audio" v-on:play="play($event)" v-on:pause="pause" :playStatus="playStatus" :playMode="playMode" v-on:repeat="enableRepeat($event)" v-on:random="enableRandom($event)" />
     <AddMusicApi :musics="musics" v-on:add="loadMusic" :connect="connect" />
     <hr id="hr">
     <PlaylistsOcApi :connect="connect" />
