@@ -18,8 +18,7 @@
       <button class="btn btn-success" type="button" data-bs-toggle="modal" :data-bs-target="musicInput === '' ? null : '#staticBackdrop'" @click="addMusic(musicInput)"><i  class="fas fa-plus"></i></button>
     </div>
     <div v-else class="input-group mb-3 placeholder-wave">
-      <span class="placeholder bg-light col-1"></span>
-      <input type="text" class="form-control bg-ligth placeholder" placeholder="Not connected">
+      <input type="text" class="form-control bg-dark placeholder" placeholder="Not connected" disabled>
       <button class="btn bg-light disabled placeholder" type="button"><i  class="fas fa-plus"></i></button>
     </div>
   </div>
