@@ -4,6 +4,7 @@
     <AddMusicApi :musics="musics" v-on:add="loadMusic" :connect="connect" />
     <hr id="hr">
     <ListMusicApi :audio="audio" v-on:play="play($event)" v-on:pause="pause" :musics="musics" v-on:remove="removeMusic($event)" v-on:edit="editMusic($event)" :connect="connect" :playStatus="playStatus" />
+    <MusicLevel :audio="audio" v-on:volume="updateVolume($event)" />
     <ErrorDisplayer />
   </div>
 </template>
@@ -14,6 +15,7 @@ import ListMusicApi from '@/components/ListMusics.vue'
 import ApiManager from '@/services/ApiManager'
 import ErrorDisplayer from '@/components/ErrorDisplayer.vue'
 import NavBarMusic from '@/components/NavBarMusic.vue'
+import MusicLevel from '../components/MusicLevel.vue'
 
 export default {
   name: 'HomeView',
@@ -21,7 +23,8 @@ export default {
     AddMusicApi,
     ListMusicApi,
     ErrorDisplayer,
-    NavBarMusic
+    NavBarMusic,
+    MusicLevel
   },
   data () {
     return {
@@ -65,6 +68,7 @@ export default {
         this.musics = response.data
         this.connect = true
       })
+      this.audio.volume = 0.5
     },
     enableRepeat (mode) {
       this.playMode = mode
@@ -79,6 +83,9 @@ export default {
     previousMusic () {
       this.currentMusic = this.currentMusic === this.musics[0].id ? this.musics[this.musics.length - 1].id : this.currentMusic - 1
       this.play(this.currentMusic)
+    },
+    updateVolume (volume) {
+      this.audio.volume = volume
     }
   },
   mounted () {
@@ -106,7 +113,7 @@ export default {
 
 <style>
 #home {
-  background-color: darkslategray;
+  background-color: #212529;
 }
 
 #hr {
