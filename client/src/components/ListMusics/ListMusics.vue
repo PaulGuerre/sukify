@@ -39,7 +39,7 @@
     <div v-else class="row row-cols-md-3 row-cols-lg-5">
       <div class="col" v-for="index in 5" :key="index">
         <div class="card placeholder-wave">
-          <img src="../assets/placeholder.png" class="card-img-top placeholder">
+          <img src="../../assets/placeholder.png" class="card-img-top placeholder">
           <div class="card-body placeholder-wave">
             <span class="placeholder col-6 placeholder-lg"></span>
           </div>
@@ -59,18 +59,18 @@
 </template>
 
 <script>
-import RemoveMusic from '@/components/RemoveMusic.vue'
-import PlayMusic from '@/components/PlayMusic.vue'
+import RemoveMusic from '@/components/ListMusics/RemoveMusic.vue'
+import PlayMusic from '@/components/Utils/PlayMusic.vue'
 import ErrorManager from '@/services/ErrorManager.js'
 
 export default {
   name: 'ListMusic',
+  props: ['audio', 'musics', 'connect', 'playStatus'],
   components: {
     RemoveMusic,
     PlayMusic,
     ErrorManager
   },
-  props: ['audio', 'musics', 'connect', 'playStatus'],
   data () {
     return {
       musicInput: '',

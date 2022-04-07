@@ -16,6 +16,7 @@
 
 <script>
 export default {
+  name: 'MusicLevel',
   props: ['connect', 'audio'],
   data () {
     return {
@@ -42,22 +43,22 @@ export default {
 }
 
 input[type=range]::-webkit-slider-thumb {
-    background: #00b74a;
+  background: #00b74a;
 }
 input[type=range]::-moz-range-thumb {
-    background: #00b74a;
+  background: #00b74a;
 }
 input[type=range]::-ms-thumb {
-    background: #00b74a;
+  background: #00b74a;
 }
 
 input[type=range]::-webkit-slider-thumb:hover {
-    background: #00b74a;
+  background: #00b74a;
 }
 input[type=range]::-moz-range-thumb:hover {
-    background: #00b74a;
+  background: #00b74a;
 }
 input[type=range]::-ms-thumb:hover {
-    background: #00b74a;
+  background: #00b74a;
 }
 </style>

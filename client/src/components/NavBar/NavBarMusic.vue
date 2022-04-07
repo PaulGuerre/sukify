@@ -7,13 +7,10 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <router-link to="/playlists" class="navbar-nav me-auto nav-link text-light">Playlists</router-link>
-        <div v-if="connect" class="progress">
-          <div class="progress-bar bg-success" role="progressbar" :aria-valuenow="currentTime" aria-valuemin="0" aria-valuemax="100" :style="'width: ' + currentTime + '%'" ></div>
-        </div>&nbsp;
-        <span v-else class="placeholder placeholder-wave placeholder-sm" style="width: 100%;"></span>&nbsp;
+        <MusicStatus :connect="connect" :audio="audio" />
         <div v-if="connect" class="d-flex btn-group btn-group-sm" role="group">
           <PreviousMusicButton v-on:previous="previousMusic" />&nbsp;
-          <PlayMusic class="bg-light text-success" :id="currentMusic" :audio="audio" v-on:play="play($event)" v-on:pause="pause()" :playStatus="playStatus" />&nbsp;
+          <PlayMusic class="bg-light text-success" :id="currentMusic" :playStatus="playStatus" :audio="audio" v-on:play="play($event)" v-on:pause="pause()" />&nbsp;
           <NextMusicButton v-on:next="nextMusic" />&nbsp;
           <RepeatMusic :playMode="playMode" v-on:repeat="repeatMode($event)" />&nbsp;
           <RandomMusic :playMode="playMode" v-on:random="randomMode($event)" />
@@ -31,26 +28,23 @@
 </template>
 
 <script>
-import PlayMusic from './PlayMusic.vue'
-import RepeatMusic from './RepeatMusic.vue'
-import RandomMusic from './RandomMusic.vue'
-import NextMusicButton from './NextMusicButton.vue'
-import PreviousMusicButton from './PreviousMusicButton.vue'
+import PlayMusic from '@/components/Utils/PlayMusic.vue'
+import RepeatMusic from '@/components/NavBar/RepeatMusic.vue'
+import RandomMusic from '@/components/NavBar/RandomMusic.vue'
+import NextMusicButton from '@/components/NavBar/NextMusicButton.vue'
+import PreviousMusicButton from '@/components/NavBar/PreviousMusicButton.vue'
+import MusicStatus from '@/components/NavBar/MusicStatus.vue'
 
 export default {
-  props: ['connect', 'currentMusic', 'audio', 'playStatus', 'playMode'],
   name: 'NavBarMusic',
+  props: ['connect', 'currentMusic', 'audio', 'playStatus', 'playMode'],
   components: {
     PlayMusic,
     RepeatMusic,
     RandomMusic,
     NextMusicButton,
-    PreviousMusicButton
-  },
-  data () {
-    return {
-      currentTime: 0
-    }
+    PreviousMusicButton,
+    MusicStatus
   },
   methods: {
     play (id) {
@@ -71,19 +65,6 @@ export default {
     previousMusic () {
       this.$emit('previous')
     }
-  },
-  mounted () {
-    this.audio.addEventListener('timeupdate', () => {
-      this.currentTime = (this.audio.currentTime * 100) / this.audio.duration
-    })
   }
 }
 </script>
-
-<style>
-.progress {
-  width: 100%;
-  margin-right: 2%;
-  margin-left: 2%;
-}
-</style>

@@ -1,6 +1,6 @@
 <template>
   <div class="home" id="home">
-    <NavBarMusic :connect="connect" :currentMusic="currentMusic" :audio="audio" v-on:play="play($event)" v-on:pause="pause" :playStatus="playStatus" :playMode="playMode" v-on:repeat="enableRepeat($event)" v-on:random="enableRandom($event)" v-on:next="nextMusic"  v-on:previous="previousMusic" />
+    <NavBarMusic :connect="connect" :currentMusic="currentMusic" :playStatus="playStatus" :audio="audio" v-on:play="play($event)" v-on:pause="pause" :playMode="playMode" v-on:repeat="enableRepeat($event)" v-on:random="enableRandom($event)" v-on:next="nextMusic"  v-on:previous="previousMusic" />
     <AddMusicApi :musics="musics" v-on:add="loadMusic" :connect="connect" v-on:keyup.enter="download" />
     <hr id="hr">
     <ListMusicApi :audio="audio" v-on:play="play($event)" v-on:pause="pause" :musics="musics" v-on:remove="removeMusic($event)" v-on:edit="editMusic($event)" :connect="connect" :playStatus="playStatus" />
@@ -11,11 +11,11 @@
 
 <script>
 import AddMusicApi from '@/components/AddMusic.vue'
-import ListMusicApi from '@/components/ListMusics.vue'
+import ListMusicApi from '@/components/ListMusics/ListMusics.vue'
 import ApiManager from '@/services/ApiManager'
-import ErrorDisplayer from '@/components/ErrorDisplayer.vue'
-import NavBarMusic from '@/components/NavBarMusic.vue'
-import MusicLevel from '../components/MusicLevel.vue'
+import ErrorDisplayer from '@/components/Utils/ErrorDisplayer.vue'
+import NavBarMusic from '@/components/NavBar/NavBarMusic.vue'
+import MusicLevel from '@/components/MusicLevel.vue'
 
 export default {
   name: 'HomeView',
