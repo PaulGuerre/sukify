@@ -110,6 +110,12 @@ export default {
           break
       }
     })
+    this.audio.addEventListener('pause', () => {
+      this.pause()
+    })
+    this.addEventListener('play', () => {
+      this.play(this.currentMusic)
+    })
   }
 }
 </script>
