@@ -4,7 +4,7 @@
     <AddMusicApi :musics="musics" v-on:add="loadMusic" :connect="connect" v-on:keyup.enter="download" />
     <hr id="hr">
     <ListMusicApi :audio="audio" v-on:play="play($event)" v-on:pause="pause" :musics="musics" v-on:remove="removeMusic($event)" v-on:edit="editMusic($event)" :connect="connect" :playStatus="playStatus" />
-    <MusicLevel :audio="audio" v-on:volume="updateVolume($event)" />
+    <MusicLevel :connect="connect" :audio="audio" v-on:volume="updateVolume($event)" />
     <ErrorDisplayer />
   </div>
 </template>
@@ -113,7 +113,7 @@ export default {
     this.audio.addEventListener('pause', () => {
       this.pause()
     })
-    this.addEventListener('play', () => {
+    this.audio.addEventListener('play', () => {
       this.play(this.currentMusic)
     })
   }

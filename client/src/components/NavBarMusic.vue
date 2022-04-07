@@ -7,9 +7,10 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <router-link to="/playlists" class="navbar-nav me-auto nav-link text-light">Playlists</router-link>
-        <div class="progress">
+        <div v-if="connect" class="progress">
           <div class="progress-bar bg-success" role="progressbar" :aria-valuenow="currentTime" aria-valuemin="0" aria-valuemax="100" :style="'width: ' + currentTime + '%'" ></div>
         </div>&nbsp;
+        <span v-else class="placeholder placeholder-wave placeholder-sm" style="width: 100%;"></span>&nbsp;
         <div v-if="connect" class="d-flex btn-group btn-group-sm" role="group">
           <PreviousMusicButton v-on:previous="previousMusic" />&nbsp;
           <PlayMusic class="bg-light text-success" :id="currentMusic" :audio="audio" v-on:play="play($event)" v-on:pause="pause()" :playStatus="playStatus" />&nbsp;

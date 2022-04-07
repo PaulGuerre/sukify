@@ -1,6 +1,7 @@
 <template>
   <div>
-    <button class="btn btn-success rounded-pill" type="button" id="musicLevelButton" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar"><i class="fas fa-music"></i></button>
+    <button v-if="connect" class="btn btn-success rounded-pill" type="button" id="musicLevelButton" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar"><i class="fas fa-music"></i></button>
+    <button v-else class="btn btn-success rounded-pill placeholder placeholder-wave" type="button" id="musicLevelButton"><i class="fas fa-music"></i></button>
     <div class="offcanvas offcanvas-bottom bg-dark text-success" tabindex="-1" id="offcanvasNavbar">
       <div class="offcanvas-header">
         <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Music level</h5>
@@ -15,7 +16,7 @@
 
 <script>
 export default {
-  props: ['audio'],
+  props: ['connect', 'audio'],
   data () {
     return {
       musicLevel: 0.5
