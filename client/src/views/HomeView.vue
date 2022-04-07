@@ -1,7 +1,7 @@
 <template>
   <div class="home" id="home">
     <NavBarMusic :connect="connect" :currentMusic="currentMusic" :audio="audio" v-on:play="play($event)" v-on:pause="pause" :playStatus="playStatus" :playMode="playMode" v-on:repeat="enableRepeat($event)" v-on:random="enableRandom($event)" v-on:next="nextMusic"  v-on:previous="previousMusic" />
-    <AddMusicApi :musics="musics" v-on:add="loadMusic" :connect="connect" />
+    <AddMusicApi :musics="musics" v-on:add="loadMusic" :connect="connect" v-on:keyup.enter="download" />
     <hr id="hr">
     <ListMusicApi :audio="audio" v-on:play="play($event)" v-on:pause="pause" :musics="musics" v-on:remove="removeMusic($event)" v-on:edit="editMusic($event)" :connect="connect" :playStatus="playStatus" />
     <MusicLevel :audio="audio" v-on:volume="updateVolume($event)" />
@@ -86,6 +86,9 @@ export default {
     },
     updateVolume (volume) {
       this.audio.volume = volume
+    },
+    download () {
+      document.getElementById('addMusicButton').click()
     }
   },
   mounted () {

@@ -7,7 +7,7 @@
           <div class="modal-body text-center">
             <button class="btn btn-success" type="button" disabled>
               <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-              Downloading : <bold>{{ musicInput }}</bold>
+              Downloading : {{ musicInput }}
             </button>
           </div>
         </div>
@@ -15,7 +15,7 @@
     </div>
     <div v-if="connect" class="input-group mb-3">
       <input type="text" class="form-control border-success text-success" placeholder="Title or URL" v-model="musicInput">
-      <button class="btn btn-success" type="button" data-bs-toggle="modal" :data-bs-target="musicInput === '' ? null : '#staticBackdrop'" @click="addMusic(musicInput)"><i  class="fas fa-plus"></i></button>
+      <button class="btn btn-success" type="button" id="addMusicButton" data-bs-toggle="modal" :data-bs-target="musicInput === '' ? null : '#staticBackdrop'" @click="addMusic(musicInput)"><i  class="fas fa-plus"></i></button>
     </div>
     <div v-else class="input-group mb-3 placeholder-wave">
       <input type="text" class="form-control bg-dark placeholder" placeholder="Not connected" disabled>
