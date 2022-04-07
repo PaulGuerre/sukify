@@ -1,9 +1,10 @@
 <template>
   <div class="home" id="home">
     <NavBarMusic :connect="connect" :currentMusic="currentMusic" :audio="audio" v-on:play="play($event)" v-on:pause="pause" :playStatus="playStatus" :playMode="playMode" v-on:repeat="enableRepeat($event)" v-on:random="enableRandom($event)" v-on:next="nextMusic"  v-on:previous="previousMusic" />
-    <AddMusicApi :musics="musics" v-on:add="loadMusic" :connect="connect" />
+    <AddMusicApi :musics="musics" v-on:add="loadMusic" :connect="connect" v-on:keyup.enter="download" />
     <hr id="hr">
     <ListMusicApi :audio="audio" v-on:play="play($event)" v-on:pause="pause" :musics="musics" v-on:remove="removeMusic($event)" v-on:edit="editMusic($event)" :connect="connect" :playStatus="playStatus" />
+    <MusicLevel :audio="audio" v-on:volume="updateVolume($event)" />
     <ErrorDisplayer />
   </div>
 </template>
@@ -14,6 +15,7 @@ import ListMusicApi from '@/components/ListMusics.vue'
 import ApiManager from '@/services/ApiManager'
 import ErrorDisplayer from '@/components/ErrorDisplayer.vue'
 import NavBarMusic from '@/components/NavBarMusic.vue'
+import MusicLevel from '../components/MusicLevel.vue'
 
 export default {
   name: 'HomeView',
@@ -21,7 +23,8 @@ export default {
     AddMusicApi,
     ListMusicApi,
     ErrorDisplayer,
-    NavBarMusic
+    NavBarMusic,
+    MusicLevel
   },
   data () {
     return {
@@ -65,6 +68,7 @@ export default {
         this.musics = response.data
         this.connect = true
       })
+      this.audio.volume = 0.5
     },
     enableRepeat (mode) {
       this.playMode = mode
@@ -73,12 +77,18 @@ export default {
       this.playMode = mode
     },
     nextMusic () {
-      this.currentMusic = this.currentMusic === this.musics[this.musics.length - 1].id ? this.musics[0].id : this.currentMusic + 1
+      this.currentMusic = this.currentMusic === this.musics[this.musics.length - 1].id ? this.musics[0].id : this.musics[this.musics.findIndex(music => music.id === this.currentMusic) + 1].id
       this.play(this.currentMusic)
     },
     previousMusic () {
-      this.currentMusic = this.currentMusic === this.musics[0].id ? this.musics[this.musics.length - 1].id : this.currentMusic - 1
+      this.currentMusic = this.currentMusic === this.musics[0].id ? this.musics[this.musics.length - 1].id : this.musics[this.musics.findIndex(music => music.id === this.currentMusic) - 1].id
       this.play(this.currentMusic)
+    },
+    updateVolume (volume) {
+      this.audio.volume = volume
+    },
+    download () {
+      document.getElementById('addMusicButton').click()
     }
   },
   mounted () {
@@ -86,7 +96,7 @@ export default {
     this.audio.addEventListener('ended', () => {
       switch (this.playMode) {
         case 'list':
-          this.currentMusic = this.currentMusic === this.musics[this.musics.length - 1].id ? this.musics[0].id : this.currentMusic + 1
+          this.currentMusic = this.currentMusic === this.musics[this.musics.length - 1].id ? this.musics[0].id : this.musics[this.musics.findIndex(music => music.id === this.currentMusic) + 1].id
           this.play(this.currentMusic)
           break
         case 'random':
@@ -100,13 +110,19 @@ export default {
           break
       }
     })
+    this.audio.addEventListener('pause', () => {
+      this.pause()
+    })
+    this.addEventListener('play', () => {
+      this.play(this.currentMusic)
+    })
   }
 }
 </script>
 
 <style>
 #home {
-  background-color: darkslategray;
+  background-color: #212529;
 }
 
 #hr {

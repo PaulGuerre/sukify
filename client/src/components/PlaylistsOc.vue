@@ -28,6 +28,6 @@ export default {
 }
 
 #offCanvasPlaylists {
-  background-color: darkslategray;
+  background-color: #212529;
 }
 </style>

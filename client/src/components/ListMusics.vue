@@ -104,7 +104,7 @@ export default {
 
 <style>
 #musicList {
-  background-color: darkslategray;
+  background-color: #212529;
 }
 
 .card {
