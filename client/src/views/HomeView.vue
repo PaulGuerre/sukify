@@ -33,13 +33,14 @@ export default {
       connect: false,
       playStatus: null,
       currentMusic: '',
-      playMode: 'list'
+      playMode: 'list',
+      baseURL: 'http://localhost:3000/'
     }
   },
   methods: {
     play (id) {
-      if (this.audio.src !== 'http://localhost:3000/musics/' + id) {
-        this.audio.src = id === '' ? 'http://localhost:3000/musics/' + this.musics[0].id : 'http://localhost:3000/musics/' + id
+      if (this.audio.src !== this.baseURL + 'musics/' + id) {
+        this.audio.src = id === '' ? this.baseURL + 'musics/' + this.musics[0].id : this.baseURL + 'musics/' + id
         this.audio.load()
         this.currentMusic = id === '' ? this.musics[0].id : id
       }
@@ -52,7 +53,7 @@ export default {
     },
     removeMusic (id) {
       this.musics = this.musics.filter(music => music.id !== id)
-      if (this.audio.src === 'http://localhost:3000/musics/' + id) {
+      if (this.audio.src === this.baseURL + 'musics/' + id) {
         this.pause()
       }
     },
