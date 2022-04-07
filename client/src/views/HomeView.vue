@@ -77,11 +77,11 @@ export default {
       this.playMode = mode
     },
     nextMusic () {
-      this.currentMusic = this.currentMusic === this.musics[this.musics.length - 1].id ? this.musics[0].id : this.currentMusic + 1
+      this.currentMusic = this.currentMusic === this.musics[this.musics.length - 1].id ? this.musics[0].id : this.musics[this.musics.findIndex(music => music.id === this.currentMusic) + 1].id
       this.play(this.currentMusic)
     },
     previousMusic () {
-      this.currentMusic = this.currentMusic === this.musics[0].id ? this.musics[this.musics.length - 1].id : this.currentMusic - 1
+      this.currentMusic = this.currentMusic === this.musics[0].id ? this.musics[this.musics.length - 1].id : this.musics[this.musics.findIndex(music => music.id === this.currentMusic) - 1].id
       this.play(this.currentMusic)
     },
     updateVolume (volume) {
@@ -93,7 +93,7 @@ export default {
     this.audio.addEventListener('ended', () => {
       switch (this.playMode) {
         case 'list':
-          this.currentMusic = this.currentMusic === this.musics[this.musics.length - 1].id ? this.musics[0].id : this.currentMusic + 1
+          this.currentMusic = this.currentMusic === this.musics[this.musics.length - 1].id ? this.musics[0].id : this.musics[this.musics.findIndex(music => music.id === this.currentMusic) + 1].id
           this.play(this.currentMusic)
           break
         case 'random':
