@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 class ApiManager {
-  baseURL = 'http://localhost:3000/'
+  baseURL = 'https://api.sukify.sukine.fr/'
 
   getMusics () {
     return axios.get(this.baseURL + 'musics')
