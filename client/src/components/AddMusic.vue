@@ -13,13 +13,9 @@
         </div>
       </div>
     </div>
-    <div v-if="connect" class="input-group mb-3">
+    <div class="input-group mb-3">
       <input type="text" class="form-control border-success text-success" placeholder="Title or URL" v-model="musicInput">
       <button class="btn btn-success" type="button" id="addMusicButton" data-bs-toggle="modal" :data-bs-target="musicInput === '' ? null : '#staticBackdrop'" @click="addMusic(musicInput)"><i  class="fas fa-plus"></i></button>
-    </div>
-    <div v-else class="input-group mb-3 placeholder-wave">
-      <input type="text" class="form-control bg-dark placeholder" placeholder="Not connected" disabled>
-      <button class="btn bg-light disabled placeholder" type="button"><i  class="fas fa-plus"></i></button>
     </div>
   </div>
 </template>
@@ -31,7 +27,7 @@ import ErrorManager from '@/services/ErrorManager.js'
 
 export default {
   name: 'AddMusic',
-  props: ['connect'],
+  props: ['musics'],
   data () {
     return {
       musicInput: ''
@@ -45,12 +41,9 @@ export default {
           ApiManager.addMusic(newMusic).then(response => {
             if (response.data.message === 'success') {
               this.$emit('add')
-              document.getElementById('closeModal').click()
-              this.musicInput = ''
-            } else {
-              document.getElementById('closeModal').click()
-              this.musicInput = ''
             }
+            document.getElementById('closeModal').click()
+            this.musicInput = ''
           })
         })
       } else {
