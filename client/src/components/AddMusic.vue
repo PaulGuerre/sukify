@@ -41,6 +41,8 @@ export default {
           ApiManager.addMusic(newMusic).then(response => {
             if (response.data.message === 'success') {
               this.$emit('add')
+            } else {
+              ErrorManager.showErrorMessage('Error while adding music')
             }
             document.getElementById('closeModal').click()
             this.musicInput = ''

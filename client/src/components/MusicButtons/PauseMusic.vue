@@ -1,5 +1,5 @@
 <template>
-  <button class="btn" type="button" @click="pause()"><i  class="fas fa-pause"></i></button>
+  <button class="btn" type="button" @click="pauseMusic"><i  class="fas fa-pause"></i></button>
 </template>
 
 <script>
@@ -7,7 +7,7 @@ export default {
   name: 'PlayMusic',
   props: ['audio'],
   methods: {
-    pause () {
+    pauseMusic () {
       this.$emit('pause')
     }
   }

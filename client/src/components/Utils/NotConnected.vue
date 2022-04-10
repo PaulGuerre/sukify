@@ -9,15 +9,15 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <router-link to="/playlists" class="navbar-nav me-auto nav-link text-light">Playlists</router-link>
             <div class="progress">
-            <div class="progress-bar bg-success placeholder placeholder-wave" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;" ></div>
-            </div>
+              <div class="progress-bar bg-success placeholder placeholder-wave" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;" ></div>
+            </div>&nbsp;
             <div class="d-flex btn-group btn-group-sm placeholder-wave">
             <button class="btn btn-light disabled placeholder"><i class="fas fa-angle-double-left"></i></button>&nbsp;
             <button class="btn btn-light disabled placeholder"><i class="fas fa-play"></i></button>&nbsp;
             <button class="btn btn-light disabled placeholder"><i class="fas fa-angle-double-right"></i></button>&nbsp;
             <button class="btn btn-light disabled placeholder"><i class="fas fa-redo"></i></button>&nbsp;
-            <button class="btn btn-light disabled placeholder"><i class="fas fa-random"></i></button>&nbsp;
-            </div>
+            <button class="btn btn-light disabled placeholder"><i class="fas fa-random"></i></button>
+          </div>
         </div>
       </div>
     </nav>

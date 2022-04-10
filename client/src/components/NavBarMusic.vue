@@ -13,11 +13,11 @@
         <div class="d-flex btn-group btn-group-sm" role="group">
           <button class="btn btn-light text-success" type="button" @click="previousMusic"><i class="fas fa-angle-double-left"></i></button>&nbsp;
           <pause-music v-if="playStatus" class="btn-light text-success"
-            :audio="audio" v-on:pause="pause"
+            :audio="audio" v-on:pause="pauseMusic"
           />&nbsp;
           <play-music v-else class="btn-light text-success"
             :id="loadedMusic"
-            :audio="audio" v-on:play="play(loadedMusic)"
+            :audio="audio" v-on:play="playMusic(loadedMusic)"
           />&nbsp;
           <button class="btn btn-light text-success" type="button" @click="nextMusic"><i class="fas fa-angle-double-right"></i></button>&nbsp;
           <button v-if="playMode !== 'repeat'" class="btn btn-light text-success" type="button" @click="repeatMode"><i class="fas fa-redo"></i></button>&nbsp;
@@ -31,8 +31,8 @@
 </template>
 
 <script>
-import PlayMusic from '@/components/PlayMusic.vue'
-import PauseMusic from './PauseMusic.vue'
+import PlayMusic from '@/components/MusicButtons/PlayMusic.vue'
+import PauseMusic from '@/components/MusicButtons/PauseMusic.vue'
 
 export default {
   name: 'NavBarMusic',
@@ -47,10 +47,10 @@ export default {
     }
   },
   methods: {
-    play (id) {
+    playMusic (id) {
       this.$emit('play', id)
     },
-    pause () {
+    pauseMusic () {
       this.$emit('pause')
     },
     repeatMode () {
