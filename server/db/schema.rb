@@ -10,12 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_03_21_190005) do
+ActiveRecord::Schema[7.0].define(version: 2022_04_12_212648) do
   create_table "musics", charset: "utf8mb4", force: :cascade do |t|
     t.string "title"
     t.string "videoID"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "playlist_musics", charset: "utf8mb4", force: :cascade do |t|
+    t.bigint "playlist_id"
+    t.bigint "music_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["music_id"], name: "fk_rails_32129e1124"
+    t.index ["playlist_id"], name: "fk_rails_db21a8d974"
   end
 
   create_table "playlists", charset: "utf8mb4", force: :cascade do |t|
@@ -24,4 +33,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_21_190005) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "playlist_musics", "musics"
+  add_foreign_key "playlist_musics", "playlists"
 end
