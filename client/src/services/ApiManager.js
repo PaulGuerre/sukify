@@ -26,6 +26,14 @@ class ApiManager {
   getMusicSrc (id) {
     return this.baseURL + 'musics/' + id
   }
+
+  getPlaylists () {
+    return axios.get(this.baseURL + 'playlists')
+  }
+
+  addPlaylist (playlists) {
+    return axios.post(this.baseURL + 'playlists', playlists)
+  }
 }
 
 export default new ApiManager()

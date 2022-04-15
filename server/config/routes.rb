@@ -7,4 +7,7 @@ Rails.application.routes.draw do
   post "/musics", to: "musics#add"
   delete "/musics/:id", to: "musics#delete"
   put "/musics/:id", to: "musics#update"
+
+  get "/playlists", to: "playlists#index"
+  post "/playlists", to: "playlists#add"
 end

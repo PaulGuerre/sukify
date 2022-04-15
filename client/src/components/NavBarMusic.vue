@@ -7,9 +7,9 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <router-link to="/playlists" class="navbar-nav me-auto nav-link text-light">Playlists</router-link>
-        <div class="progress">
+        <!--<div class="progress">
           <div class="progress-bar bg-success" role="progressbar" :aria-valuenow="currentTime" aria-valuemin="0" aria-valuemax="100" :style="'width: ' + currentTime + '%'" ></div>
-        </div>&nbsp;
+        </div>&nbsp;-->
         <div class="d-flex btn-group btn-group-sm" role="group">
           <button class="btn btn-light text-success" type="button" @click="previousMusic"><i class="fas fa-angle-double-left"></i></button>&nbsp;
           <pause-music v-if="playStatus" class="btn-light text-success"
@@ -43,7 +43,7 @@ export default {
   },
   data () {
     return {
-      currentTime: 0
+      // currentTime: 0
     }
   },
   methods: {
@@ -67,9 +67,9 @@ export default {
     }
   },
   mounted () {
-    this.audio.addEventListener('timeupdate', () => {
+    /* this.audio.addEventListener('timeupdate', () => {
       this.currentTime = (this.audio.currentTime * 100) / this.audio.duration
-    })
+    }) */
   }
 }
 </script>

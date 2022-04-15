@@ -1,5 +1,5 @@
 <template>
-  <div v-if="connect" class="home" id="home">
+  <div>
     <nav-bar-music
       :loadedMusic="loadedMusic"
       :playStatus="playStatus"
@@ -8,48 +8,40 @@
     />
 
     <add-music
-      v-on:add="addMusic($event)" v-on:keyup.enter="download"
+      :musics="musics" v-on:add="addPlaylist($event)" v-on:keyup.enter="download"
     />
 
     <hr id="hr">
 
-    <music-list
-      :playStatus="playStatus"
-      :loadedMusic="loadedMusic"
-      :audio="audio" v-on:play="playMusic($event)" v-on:pause="pauseMusic"
-      :musics="musics" v-on:remove="removeMusic($event)"
-    />
+    {{ playlists }}
 
+    <add-playlist v-on:create="createPlaylist($event)" />
     <error-displayer />
   </div>
-
-  <not-connected v-else />
 </template>
 
 <script>
-import ApiManager from '@/services/ApiManager'
-import ErrorDisplayer from '@/components/Utils/ErrorDisplayer.vue'
-import NavBarMusic from '@/components/NavBarMusic.vue'
-import NotConnected from '@/components/Utils/NotConnected.vue'
-import ErrorManager from '@/services/ErrorManager'
-import AddMusic from '@/components/AddMusic.vue'
-import MusicList from '../components/MusicList.vue'
 import MusicsManager from '@/services/MusicsManager'
 import AudioManager from '@/services/AudioManager'
-import YoutubeApiManager from '@/services/YoutubeApiManager'
+import NavBarMusic from '@/components/NavBarMusic.vue'
+import ApiManager from '@/services/ApiManager'
+import AddMusic from '@/components/AddMusic.vue'
+import ErrorDisplayer from '@/components/Utils/ErrorDisplayer.vue'
+import AddPlaylist from '@/components/AddPlaylist.vue'
+import ErrorManager from '@/services/ErrorManager'
 
 export default {
-  name: 'HomeView',
   components: {
     NavBarMusic,
-    ErrorDisplayer,
-    NotConnected,
     AddMusic,
-    MusicList
+    ErrorDisplayer,
+    AddPlaylist
   },
+  name: 'PlaylistsView',
   data () {
     return {
-      audio: new Audio(),
+      audio: Audio,
+      playlists: [],
       musics: [],
       loadedMusic: null,
       playStatus: false,
@@ -58,12 +50,12 @@ export default {
     }
   },
   methods: {
-    loadMusic () {
-      ApiManager.getMusics().then(response => {
-        this.musics = response.data
+    loadPlaylist () {
+      ApiManager.getPlaylists().then(response => {
+        this.playlists = response.data
         this.connect = true
       }).catch(() => {
-        ErrorManager.showErrorMessage('Error while loading musics')
+        ErrorManager.showErrorMessage('Error while loading playlists')
       })
     },
     playMusic (id) {
@@ -82,8 +74,6 @@ export default {
       if (playPromise !== undefined) {
         playPromise.then(() => {
           this.playStatus = true
-        }).catch(() => {
-          ErrorManager.showErrorMessage('Erro while playing music')
         })
       }
     },
@@ -91,30 +81,17 @@ export default {
       this.playStatus = false
       this.audio.pause()
     },
-    addMusic (musicInput) {
-      YoutubeApiManager.getVideo(musicInput).then(response => {
-        const newMusic = { title: response.data.items[0].snippet.title, videoID: response.data.items[0].id.videoId }
-        ApiManager.addMusic(newMusic).then(response => {
-          if (response.data.message === 'success') {
-            this.loadMusic()
-          } else {
-            ErrorManager.showErrorMessage('Error while adding music')
-          }
-          document.getElementById('closeModal').click()
-        })
-      })
-    },
-    removeMusic (id) {
-      ApiManager.removeMusic(id).then(response => {
+    createPlaylist (playlist) {
+      ApiManager.addPlaylist(playlist).then(response => {
         if (response.data.message === 'success') {
-          this.musics = this.musics.filter(music => music.id !== id)
-          if (id === this.loadedMusic) {
-            this.nextMusic()
-          }
+          this.loadPlaylist()
         } else {
-          ErrorManager.showErrorMessage('Error while removing music')
+          ErrorManager.showErrorMessage('Error while creating playlist')
         }
       })
+    },
+    addPlaylist (name) {
+      console.log(name)
     },
     enableRepeat () {
       this.playMode = this.playMode === 'repeat' ? 'list' : 'repeat'
@@ -174,26 +151,12 @@ export default {
     }
   },
   mounted () {
-    this.loadMusic()
+    this.loadPlaylist()
+    this.musics = MusicsManager.getMusics()
     this.audio = AudioManager.getAudio()
-    this.loadedMusic = AudioManager.getLoadedMusic()
     this.playStatus = AudioManager.getPlayStatus()
+    this.loadedMusic = AudioManager.getLoadedMusic()
     this.playMode = AudioManager.getPlayMode()
   }
 }
 </script>
-
-<style>
-#home {
-  background-color: #212529;
-}
-
-#hr {
-  color: white;
-  margin: auto;
-  margin-bottom: 4%;
-  width: 80%;
-  height: 5px;
-  border-radius: 5px;
-}
-</style>
