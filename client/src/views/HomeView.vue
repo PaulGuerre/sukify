@@ -152,7 +152,7 @@ export default {
     removeMusic (id) {
       this.musics = this.musics.filter(music => music.id !== id)
       if (id === this.loadedMusic) {
-        this.nextMusic()
+        this.musicAction('next')
       }
     },
     removePlaylist (id) {
@@ -195,7 +195,7 @@ export default {
     this.audio.addEventListener('ended', () => {
       switch (this.playMode) {
         case 'list':
-          this.nextMusic()
+          this.musicAction('next')
           break
         case 'random':
           this.playMusic(this.musics[Math.floor(Math.random() * this.musics.length)].id)
