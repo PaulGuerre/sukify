@@ -30,15 +30,17 @@
           <div class="card-footer text-center">
             <div class="btn-group btn-group-sm" role="group">
               <pause-music v-if="loadedMusic === music.id && playStatus" class="btn-success"
-                :audio="audio" v-on:pause="pauseMusic"
+                :audio="audio" @pause="pauseMusic()"
               />
               <play-music v-else class="btn-success"
                 :id="music.id"
-                :audio="audio"
-                v-on:play="playMusic($event)"
+                :audio="audio" @play="playMusic($event)"
               />
               <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#addMusicPlaylistModal" @click="modalMusic = music"><i class="fas fa-plus"></i></button>
-              <remove-button :id="music.id" :openedPlaylist="openedPlaylist" :showMusic="showMusic" v-on:removeMusic="removeMusic($event)" v-on:removePlaylistMusic="removePlaylistMusic($event)" />
+              <remove-button :id="music.id"
+                :openedPlaylist="openedPlaylist"
+                :showMusic="showMusic" @removeMusic="removeMusic($event)" @removePlaylistMusic="removePlaylistMusic($event)"
+              />
             </div>
           </div>
         </div>
@@ -56,7 +58,7 @@ import RemoveButton from '@/components/RemoveButton.vue'
 
 export default {
   name: 'MusicList',
-  props: ['musics', 'loadedMusic', 'playStatus', 'audio', 'playlists', 'showMusic', 'openedPlaylist'],
+  props: ['audio', 'playlists', 'musics', 'loadedMusic', 'playStatus', 'openedPlaylist', 'showMusic'],
   components: {
     PlayMusic,
     PauseMusic,
@@ -64,7 +66,6 @@ export default {
   },
   data () {
     return {
-      musicInput: '',
       modalMusic: [],
       playlistInput: ''
     }
@@ -84,7 +85,6 @@ export default {
         ApiManager.getPlaylistByName(this.playlistInput).then(response => {
           ApiManager.addMusicToPlaylist(modalMusic.id, response.data[0].id).then(response => {
             if (response.data.message === 'success') {
-              this.$emit('addMusicPlaylist')
               document.getElementById('modalCloseButton').click()
               this.playlistInput = ''
             } else {
@@ -95,9 +95,6 @@ export default {
       } else {
         InfoManager.showInfo('Playlist can\'t be empty', 'danger')
       }
-    },
-    removePlaylistMusic (ids) {
-      this.$emit('removePlaylistMusic', ids)
     }
   }
 }

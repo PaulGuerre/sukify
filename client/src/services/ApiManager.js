@@ -60,7 +60,7 @@ class ApiManager {
   }
 
   removePlaylistMusic (musicId, playlistId) {
-    return axios.delete(this.baseURL + 'playlists/' + playlistId + '/' + musicId)
+    return axios.delete(this.baseURL + 'playlists/' + playlistId + '/musics/' + musicId)
   }
 }
 

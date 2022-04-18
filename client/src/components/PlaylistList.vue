@@ -8,7 +8,7 @@
             <button type="button" class="btn-close" id="modalCloseButton" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            <input type="text" class="form-control" placeholder="" v-model="playlistInput">
+            <input type="text" class="form-control" v-model="playlistInput">
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -31,15 +31,18 @@
           <div class="card-footer text-center">
             <div class="btn-group btn-group-sm" role="group">
               <pause-music v-if="loadedPlaylist === playlist.id && playStatus" class="btn-success"
-                :audio="audio" v-on:pause="pauseMusic"
+                :audio="audio" @pause="pauseMusic()"
               />
               <play-music v-else class="btn-success"
-                :id="playlist.musicId"
+                :id="playlist.id"
                 :audio="audio"
-                v-on:play="playMusic($event, playlist.id)"
+                @play="playMusic($event)"
               />
-              <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editPlaylistModal" @click="modalPlaylist = playlist" ><i class="fas fa-edit"></i></button>
-              <remove-button :id="playlist.id" :type="'playlist'" :showMusic="showMusic" v-on:removePlaylist="removePlaylist($event)" />
+              <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editPlaylistModal" @click="modalPlaylist = playlist, playlistInput = playlist.name" ><i class="fas fa-edit"></i></button>
+              <remove-button :id="playlist.id"
+                :openedPlaylist="openedPlaylist"
+                :showMusic="showMusic" @removePlaylist="removePlaylist($event)"
+              />
             </div>
           </div>
         </div>
@@ -53,10 +56,11 @@ import playMusic from '@/components/MusicButtons/PlayMusic.vue'
 import pauseMusic from '@/components/MusicButtons/PauseMusic.vue'
 import RemoveButton from '@/components/RemoveButton.vue'
 import InfoManager from '@/services/InfoManager.js'
+import ApiManager from '@/services/ApiManager.js'
 
 export default {
   name: 'PlaylistList',
-  props: ['playlists', 'loadedMusic', 'playStatus', 'audio', 'musics', 'loadedPlaylist', 'showMusic'],
+  props: ['audio', 'playlists', 'loadedPlaylist', 'playStatus', 'showMusic', 'openedPlaylist'],
   components: {
     playMusic,
     pauseMusic,
@@ -64,30 +68,35 @@ export default {
   },
   data () {
     return {
-      playlistMusics: [],
       modalPlaylist: [],
       playlistInput: ''
     }
   },
   methods: {
-    playMusic (id, playlistId) {
+    playMusic (playlistId) {
       this.$emit('playPlaylist', playlistId)
     },
     pauseMusic () {
       this.$emit('pause')
     },
-    loadPlaylistMusic (id) {
-      this.$emit('loadPlaylistMusic', id)
-    },
     removePlaylist (id) {
       this.$emit('removePlaylist', id)
+    },
+    loadPlaylistMusic (id) {
+      this.$emit('loadPlaylistMusic', id)
     },
     editPlaylist () {
       if (this.playlistInput !== '') {
         this.modalPlaylist.name = this.playlistInput
-        this.$emit('editPlaylist', this.modalPlaylist)
-        document.getElementById('modalCloseButton').click()
-        this.playlistInput = ''
+        ApiManager.editPlaylist(this.modalPlaylist).then(response => {
+          if (response.data.message === 'success') {
+            this.$emit('editPlaylist', this.modalPlaylist)
+            document.getElementById('modalCloseButton').click()
+            this.playlistInput = ''
+          } else {
+            InfoManager.showInfo('Error while updating music', 'danger')
+          }
+        })
       } else {
         InfoManager.showInfo('Name can\'t be empty', 'danger')
       }

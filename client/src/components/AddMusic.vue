@@ -22,6 +22,8 @@
 
 <script>
 import InfoManager from '@/services/InfoManager.js'
+import YoutubeApiManager from '@/services/YoutubeApiManager.js'
+import ApiManager from '@/services/ApiManager.js'
 
 export default {
   name: 'AddMusic',
@@ -33,8 +35,18 @@ export default {
   methods: {
     addMusic (musicInput) {
       if (musicInput !== '') {
-        this.$emit('add', musicInput)
-        this.musicInput = ''
+        YoutubeApiManager.getVideo(musicInput).then(response => {
+          const newMusic = { title: response.data.items[0].snippet.title, videoID: response.data.items[0].id.videoId }
+          ApiManager.addMusic(newMusic).then(response => {
+            if (response.data.message === 'success') {
+              this.$emit('loadMusic')
+              this.musicInput = ''
+            } else {
+              InfoManager.showInfo('Error while adding music', 'danger')
+            }
+            document.getElementById('closeModal').click()
+          })
+        })
       } else {
         InfoManager.showInfo('Input name can\'t empty', 'danger')
       }

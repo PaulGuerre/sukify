@@ -15,6 +15,6 @@ Rails.application.routes.draw do
   post "/playlists", to: "playlists#add"
   post "/playlists/:id", to: "playlists#addMusic"
   delete "/playlists/:id", to: "playlists#delete"
-  delete "/playlists/:id/:music_id", to: "playlists#deleteMusic"
+  delete "/playlists/:id/musics/:music_id", to: "playlists#deleteMusic"
   put "/playlists/:id", to: "playlists#update"
 end

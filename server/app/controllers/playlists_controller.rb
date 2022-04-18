@@ -43,7 +43,7 @@ class PlaylistsController < ApplicationController
     end
 
     def deleteMusic
-        playlistMusic = PlaylistMusic.where(playlist_id: params[:id], music_id: params[:musicId])
+        playlistMusic = PlaylistMusic.where(playlist_id: params[:id], music_id: params[:music_id])
         if playlistMusic.delete_all
             render json: { message: 'success' }
         else

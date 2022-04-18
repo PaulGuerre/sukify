@@ -1,40 +1,38 @@
 <template>
   <div v-if="connect" class="home" id="home">
-    <nav-bar-music v-on:updateShow="updateShow($event)"
-      :showMusic="showMusic"
+    <nav-bar-music
+      :audio="audio" @play="playMusic($event)" @playPlaylist="playPlaylist($event)" @pause="pauseMusic()"
       :loadedMusic="loadedMusic"
       :loadedPlaylist="loadedPlaylist"
       :playStatus="playStatus"
-      :audio="audio" v-on:play="playMusic($event)" v-on:pause="pauseMusic" v-on:playPlaylist="playPlaylist($event)"
-      :playMode="playMode" v-on:repeat="enableRepeat" v-on:random="enableRandom" v-on:next="nextMusic" v-on:previous="previousMusic"
+      :playMode="playMode" @updateMode="updateMode($event)" @musicAction="musicAction($event)" @updateShow="updateShow($event)"
+      :showMusic="showMusic"
     />
 
     <add-music
-      v-on:add="addMusic($event)" v-on:keyup.enter="download"
+      @loadMusic="loadMusic" @keyup.enter="download"
     />
 
     <hr id="hr">
 
     <music-list v-if="showMusic"
-      :openedPlaylist="openedPlaylist"
-      :playStatus="playStatus"
+      :audio="audio" @play="playMusic($event)" @pause="pauseMusic()"
+      :playlists="playlists"
+      :musics="musics" @removeMusic="removeMusic($event)"
       :loadedMusic="loadedMusic"
-      :audio="audio" v-on:play="playMusic($event)" v-on:pause="pauseMusic"
-      :musics="musics" v-on:removeMusic="removeMusic($event)"
-      :playlists="playlists" v-on:addMusicPlaylist="addMusicPlaylist"
-      :showMusic="showMusic" v-on:removePlaylistMusic="removePlaylistMusic($event)"
+      :playStatus="playStatus"
+      :openedPlaylist="openedPlaylist"
+      :showMusic="showMusic"
     />
 
-    <div v-else>
-      <playlist-list :playlists="playlists" v-on:loadPlaylistMusic="openPlaylist($event)" v-on:editPlaylist="editPlaylist($event)" v-on:removePlaylist="removePlaylist($event)"
-        :playStatus="playStatus"
-        :loadedMusic="loadedMusic"
-        :musics="musics"
-        :audio="audio" v-on:play="playMusic($event)" v-on:playPlaylist="playPlaylist($event)" v-on:pause="pauseMusic"
-        :loadedPlaylist="loadedPlaylist"
-        :showMusic="showMusic"
-      />
-    </div>
+    <playlist-list v-else
+      :audio="audio" @playPlaylist="playPlaylist($event)" @pause="pauseMusic()"
+      :playlists="playlists" @loadPlaylistMusic="openPlaylist($event)" @editPlaylist="editPlaylist($event)" @removePlaylist="removePlaylist($event)"
+      :loadedPlaylist="loadedPlaylist"
+      :playStatus="playStatus"
+      :showMusic="showMusic"
+      :openedPlaylist="openedPlaylist"
+    />
 
     <info-displayer />
   </div>
@@ -50,7 +48,6 @@ import NotConnected from '@/components/Utils/NotConnected.vue'
 import InfoManager from '@/services/InfoManager'
 import AddMusic from '@/components/AddMusic.vue'
 import MusicList from '@/components/MusicList.vue'
-import YoutubeApiManager from '@/services/YoutubeApiManager'
 import PlaylistList from '@/components/PlaylistList.vue'
 
 export default {
@@ -149,77 +146,39 @@ export default {
       this.playStatus = false
       this.audio.pause()
     },
-    addMusic (musicInput) {
-      YoutubeApiManager.getVideo(musicInput).then(response => {
-        const newMusic = { title: response.data.items[0].snippet.title, videoID: response.data.items[0].id.videoId }
-        ApiManager.addMusic(newMusic).then(response => {
-          if (response.data.message === 'success') {
-            this.loadMusic()
-          } else {
-            InfoManager.showInfo('Error while adding music', 'danger')
-          }
-          document.getElementById('closeModal').click()
-        })
+    editPlaylist (playlistUpdate) {
+      this.playlists = this.playlists.map(playlist => {
+        playlist.name = playlist.id === playlistUpdate.id ? playlistUpdate.name : playlist.name
+        return playlist
       })
     },
     removeMusic (id) {
-      ApiManager.removeMusic(id).then(response => {
-        if (response.data.message === 'success') {
-          this.musics = this.musics.filter(music => music.id !== id)
-          if (id === this.loadedMusic) {
-            this.nextMusic()
-          }
-        } else {
-          InfoManager.showInfo('Error while removing music', 'danger')
-        }
-      })
-    },
-    removePlaylistMusic (ids) {
-      ApiManager.removePlaylistMusic(ids.musicId, ids.playlistId).then(response => {
-        if (response.data.message === 'success') {
-          this.musics = this.musics.filter(music => music.id !== ids.musicId)
-          if (ids.musicId === this.loadMusic) {
-            this.nextMusic()
-          }
-        } else {
-          InfoManager.showInfo('Error while removing playlist music', 'danger')
-        }
-      })
-    },
-    editPlaylist (playlistUpdate) {
-      ApiManager.editPlaylist(playlistUpdate).then(response => {
-        if (response.data.message === 'success') {
-          this.playlists = this.playlists.map(playlist => {
-            playlist.name = playlist.id === playlistUpdate.id ? playlistUpdate.name : playlist.name
-            return playlist
-          })
-        } else {
-          InfoManager.showInfo('Error while updating music', 'danger')
-        }
-      })
+      this.musics = this.musics.filter(music => music.id !== id)
+      if (id === this.loadedMusic) {
+        this.nextMusic()
+      }
     },
     removePlaylist (id) {
-      ApiManager.removePlaylist(id).then(response => {
-        if (response.data.message === 'success') {
-          this.playlists = this.playlists.filter(playlist => playlist.id !== id)
-        } else {
-          InfoManager.showInfo('Error while removing playlist', 'danger')
-        }
-      })
+      this.playlists = this.playlists.filter(playlist => playlist.id !== id)
+      if (id === this.loadedPlaylist) {
+        this.musics = []
+        this.pauseMusic()
+        this.loadedMusic = null
+        this.loadedPlaylist = null
+      }
     },
-    enableRepeat () {
-      this.playMode = this.playMode === 'repeat' ? 'list' : 'repeat'
-    },
-    enableRandom () {
-      this.playMode = this.playMode === 'random' ? 'list' : 'random'
-    },
-    nextMusic () {
-      this.loadedMusic = this.loadedMusic === this.musics[this.musics.length - 1].id ? this.musics[0].id : this.musics[this.musics.findIndex(music => music.id === this.loadedMusic) + 1].id
+    musicAction (action) {
+      if (action === 'next') {
+        this.loadedMusic = this.loadedMusic === this.musics[this.musics.length - 1].id ? this.musics[0].id : this.musics[this.musics.findIndex(music => music.id === this.loadedMusic) + 1].id
+      } else if (action === 'previous') {
+        this.loadedMusic = this.loadedMusic === this.musics[0].id ? this.musics[this.musics.length - 1].id : this.musics[this.musics.findIndex(music => music.id === this.loadedMusic) - 1].id
+      } else {
+        InfoManager.showInfo('Invalid action', 'danger')
+      }
       this.playMusic(this.loadedMusic)
     },
-    previousMusic () {
-      this.loadedMusic = this.loadedMusic === this.musics[0].id ? this.musics[this.musics.length - 1].id : this.musics[this.musics.findIndex(music => music.id === this.loadedMusic) - 1].id
-      this.playMusic(this.loadedMusic)
+    updateMode (newMode) {
+      this.playMode = newMode
     },
     updateShow (show) {
       this.openedPlaylist = null

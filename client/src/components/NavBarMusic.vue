@@ -14,19 +14,19 @@
           <div class="progress-bar bg-success" role="progressbar" :aria-valuenow="currentTime" aria-valuemin="0" aria-valuemax="100" :style="'width: ' + currentTime + '%'" ></div>
         </div>&nbsp;
         <div class="d-flex btn-group btn-group-sm" role="group">
-          <button class="btn btn-light text-success" type="button" @click="previousMusic"><i class="fas fa-angle-double-left"></i></button>&nbsp;
+          <button class="btn btn-light text-success" type="button" @click="musicAction('previous')"><i class="fas fa-angle-double-left"></i></button>&nbsp;
           <pause-music v-if="playStatus" class="btn-light text-success"
-            :audio="audio" v-on:pause="pauseMusic"
+            :audio="audio" @pause="pauseMusic()"
           />&nbsp;
           <play-music v-else class="btn-light text-success"
             :id="loadedMusic"
-            :audio="audio" v-on:play="playMusic(loadedMusic)"
+            :audio="audio" @play="playMusic(loadedMusic)"
           />&nbsp;
-          <button class="btn btn-light text-success" type="button" @click="nextMusic"><i class="fas fa-angle-double-right"></i></button>&nbsp;
-          <button v-if="playMode !== 'repeat'" class="btn btn-light text-success" type="button" @click="repeatMode"><i class="fas fa-redo"></i></button>&nbsp;
-          <button v-else class="btn btn-success text-light border border-light" type="button" @click="repeatMode"><i class="fas fa-redo"></i></button>&nbsp;
-          <button v-if="playMode !== 'random'" class="btn btn-light text-success" type="button" @click="randomMode"><i class="fas fa-random"></i></button>
-          <button v-else class="btn btn-success text-light border border-light" type="button" @click="randomMode"><i class="fas fa-random"></i></button>
+          <button class="btn btn-light text-success" type="button" @click="musicAction('next')"><i class="fas fa-angle-double-right"></i></button>&nbsp;
+          <button v-if="playMode !== 'repeat'" class="btn btn-light text-success" type="button" @click="updateMode('repeat')"><i class="fas fa-redo"></i></button>&nbsp;
+          <button v-else class="btn btn-success text-light border border-light" type="button" @click="updateMode('list')"><i class="fas fa-redo"></i></button>&nbsp;
+          <button v-if="playMode !== 'random'" class="btn btn-light text-success" type="button" @click="updateMode('random')"><i class="fas fa-random"></i></button>
+          <button v-else class="btn btn-success text-light border border-light" type="button" @click="updateMode('list')"><i class="fas fa-random"></i></button>
         </div>
       </div>
     </div>
@@ -39,7 +39,7 @@ import PauseMusic from '@/components/MusicButtons/PauseMusic.vue'
 
 export default {
   name: 'NavBarMusic',
-  props: ['loadedMusic', 'playStatus', 'audio', 'playMode', 'loadedPlaylist', 'showMusic'],
+  props: ['audio', 'loadedMusic', 'loadedPlaylist', 'playStatus', 'playMode', 'showMusic'],
   components: {
     PlayMusic,
     PauseMusic
@@ -60,17 +60,11 @@ export default {
     pauseMusic () {
       this.$emit('pause')
     },
-    repeatMode () {
-      this.$emit('repeat')
+    updateMode (mode) {
+      this.$emit('updateMode', mode)
     },
-    randomMode () {
-      this.$emit('random')
-    },
-    nextMusic () {
-      this.$emit('next')
-    },
-    previousMusic () {
-      this.$emit('previous')
+    musicAction (action) {
+      this.$emit('musicAction', action)
     },
     updateShow (show) {
       this.$emit('updateShow', show)

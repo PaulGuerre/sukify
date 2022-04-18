@@ -1,6 +1,6 @@
 <template>
   <div>
-    <nav-bar-music
+    <!--<nav-bar-music
       :loadedMusic="loadedMusic"
       :playStatus="playStatus"
       :audio="audio" v-on:play="playMusic($event)" v-on:pause="pauseMusic"
@@ -16,12 +16,12 @@
     {{ playlists }}
 
     <add-playlist v-on:create="createPlaylist($event)" />
-    <info-displayer />
+    <info-displayer />-->
   </div>
 </template>
 
 <script>
-import MusicsManager from '@/services/MusicsManager'
+/* import MusicsManager from '@/services/MusicsManager'
 import AudioManager from '@/services/AudioManager'
 import NavBarMusic from '@/components/NavBarMusic.vue'
 import ApiManager from '@/services/ApiManager'
@@ -158,5 +158,5 @@ export default {
     this.loadedMusic = AudioManager.getLoadedMusic()
     this.playMode = AudioManager.getPlayMode()
   }
-}
+} */
 </script>
