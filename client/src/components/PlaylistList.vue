@@ -93,6 +93,7 @@ export default {
             this.$emit('editPlaylist', this.modalPlaylist)
             document.getElementById('modalCloseButton').click()
             this.playlistInput = ''
+            InfoManager.showInfo('Playlist edited', 'success')
           } else {
             InfoManager.showInfo('Error while updating music', 'danger')
           }

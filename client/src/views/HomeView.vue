@@ -10,7 +10,7 @@
     />
 
     <add-music
-      @loadMusic="loadMusic" @keyup.enter="download"
+      @loadMusic="loadMusic()" @keyup.enter="download()"
     />
 
     <hr id="hr">
@@ -92,8 +92,6 @@ export default {
     loadMusic () {
       ApiManager.getMusics().then(response => {
         this.musics = response.data
-      }).catch(() => {
-        InfoManager.showInfo('Error while loading musics', 'danger')
       })
     },
     loadPlaylistMusic (id) {
@@ -103,7 +101,6 @@ export default {
           this.loadedPlaylist = id
         } else {
           this.musics = []
-          InfoManager.showInfo('This playlist is empty', 'danger')
         }
       })
     },

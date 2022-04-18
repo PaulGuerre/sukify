@@ -87,6 +87,7 @@ export default {
             if (response.data.message === 'success') {
               document.getElementById('modalCloseButton').click()
               this.playlistInput = ''
+              InfoManager.showInfo('Music added to playlist', 'success')
             } else {
               InfoManager.showInfo('Error while adding music to playlit', 'danger')
             }

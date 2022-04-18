@@ -10,9 +10,6 @@
           <button class="btn bg-success btn-link text-light border-0" @click="updateShow(false)">Playlists</button>
           <button class="btn bg-success btn-link text-light border-0" @click="updateShow(true)">Musics</button>
         </div>
-        <div class="progress">
-          <div class="progress-bar bg-success" role="progressbar" :aria-valuenow="currentTime" aria-valuemin="0" aria-valuemax="100" :style="'width: ' + currentTime + '%'" ></div>
-        </div>&nbsp;
         <div class="d-flex btn-group btn-group-sm" role="group">
           <button class="btn btn-light text-success" type="button" @click="musicAction('previous')"><i class="fas fa-angle-double-left"></i></button>&nbsp;
           <pause-music v-if="playStatus" class="btn-light text-success"
@@ -44,11 +41,6 @@ export default {
     PlayMusic,
     PauseMusic
   },
-  data () {
-    return {
-      currentTime: 0
-    }
-  },
   methods: {
     playMusic (id) {
       if (!this.showMusic && this.loadedPlaylist === null && this.loadedMusic === null) {
@@ -69,11 +61,6 @@ export default {
     updateShow (show) {
       this.$emit('updateShow', show)
     }
-  },
-  mounted () {
-    this.audio.addEventListener('timeupdate', () => {
-      this.currentTime = (this.audio.currentTime * 100) / this.audio.duration
-    })
   }
 }
 </script>

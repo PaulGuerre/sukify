@@ -15,6 +15,7 @@ export default {
         ApiManager.removeMusic(this.id).then(response => {
           if (response.data.message === 'success') {
             this.$emit('removeMusic', this.id)
+            InfoManager.showInfo('Music removed', 'success')
           } else {
             InfoManager.showInfo('Error while removing music', 'danger')
           }
@@ -23,6 +24,7 @@ export default {
         ApiManager.removePlaylistMusic(this.id, this.openedPlaylist).then(response => {
           if (response.data.message === 'success') {
             this.$emit('removeMusic', this.id)
+            InfoManager.showInfo('Playlist\'s music removed', 'success')
           } else {
             InfoManager.showInfo('Error while removing playlist music', 'danger')
           }
@@ -31,6 +33,7 @@ export default {
         ApiManager.removePlaylist(this.id).then(response => {
           if (response.data.message === 'success') {
             this.$emit('removePlaylist', this.id)
+            InfoManager.showInfo('Playlist removed', 'success')
           } else {
             InfoManager.showInfo('Error while removing playlist', 'danger')
           }

@@ -41,6 +41,7 @@ export default {
             if (response.data.message === 'success') {
               this.$emit('loadMusic')
               this.musicInput = ''
+              InfoManager.showInfo('Music added', 'success')
             } else {
               InfoManager.showInfo('Error while adding music', 'danger')
             }
