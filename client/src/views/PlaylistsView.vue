@@ -16,7 +16,7 @@
     {{ playlists }}
 
     <add-playlist v-on:create="createPlaylist($event)" />
-    <error-displayer />
+    <info-displayer />
   </div>
 </template>
 
@@ -26,15 +26,15 @@ import AudioManager from '@/services/AudioManager'
 import NavBarMusic from '@/components/NavBarMusic.vue'
 import ApiManager from '@/services/ApiManager'
 import AddMusic from '@/components/AddMusic.vue'
-import ErrorDisplayer from '@/components/Utils/ErrorDisplayer.vue'
+import InfoDisplayer from '@/components/Utils/InfoDisplayer.vue'
 import AddPlaylist from '@/components/AddPlaylist.vue'
-import ErrorManager from '@/services/ErrorManager'
+import InfoManager from '@/services/InfoManager'
 
 export default {
   components: {
     NavBarMusic,
     AddMusic,
-    ErrorDisplayer,
+    InfoDisplayer,
     AddPlaylist
   },
   name: 'PlaylistsView',
@@ -55,7 +55,7 @@ export default {
         this.playlists = response.data
         this.connect = true
       }).catch(() => {
-        ErrorManager.showErrorMessage('Error while loading playlists')
+        InfoManager.showInfo('Error while loading playlists', 'danger')
       })
     },
     playMusic (id) {
@@ -86,7 +86,7 @@ export default {
         if (response.data.message === 'success') {
           this.loadPlaylist()
         } else {
-          ErrorManager.showErrorMessage('Error while creating playlist')
+          InfoManager.showInfo('Error while creating playlist', 'danger')
         }
       })
     },

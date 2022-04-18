@@ -7,6 +7,10 @@ class ApiManager {
     return axios.get(this.baseURL + 'musics')
   }
 
+  getMusic (id) {
+    return axios.get(this.baseURL + 'musics/' + id)
+  }
+
   getVideoID (id) {
     return axios.get(this.baseURL + 'musics/' + id + '/videoID')
   }
@@ -24,15 +28,39 @@ class ApiManager {
   }
 
   getMusicSrc (id) {
-    return this.baseURL + 'musics/' + id
+    return this.baseURL + 'musics/' + id + '/src'
   }
 
   getPlaylists () {
     return axios.get(this.baseURL + 'playlists')
   }
 
-  addPlaylist (playlists) {
-    return axios.post(this.baseURL + 'playlists', playlists)
+  addPlaylist (playlist) {
+    return axios.post(this.baseURL + 'playlists', playlist)
+  }
+
+  getPlaylistMusics (id) {
+    return axios.get(this.baseURL + 'playlists/' + id + '/musics')
+  }
+
+  getPlaylistByName (name) {
+    return axios.get(this.baseURL + 'playlists/' + name)
+  }
+
+  addMusicToPlaylist (musicId, playlistId) {
+    return axios.post(this.baseURL + 'playlists/' + playlistId, { musicId: musicId })
+  }
+
+  removePlaylist (id) {
+    return axios.delete(this.baseURL + 'playlists/' + id)
+  }
+
+  editPlaylist (playlist) {
+    return axios.put(this.baseURL + 'playlists/' + playlist.id, { name: playlist.name })
+  }
+
+  removePlaylistMusic (musicId, playlistId) {
+    return axios.delete(this.baseURL + 'playlists/' + playlistId + '/' + musicId)
   }
 }
 

@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <div class="modal fade" id="editModal" tabindex="-1" aria-hidden="true">
+  <div id="musicList">
+    <div class="modal fade" id="addMusicPlaylistModal" tabindex="-1" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
@@ -8,11 +8,13 @@
             <button type="button" class="btn-close" id="modalCloseButton" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            <input type="text" class="form-control" placeholder="" v-model="musicInput">
+            <select class="form-control" v-model="playlistInput">
+              <option v-for="playlist in playlists" :key="playlist.id">{{ playlist.name }}</option>
+            </select>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-success" @click="editMusic(modalMusic)" >Save changes</button>
+            <button type="button" class="btn btn-success" @click="addMusicPlaylist(modalMusic)" >Save changes</button>
           </div>
         </div>
       </div>
@@ -35,8 +37,8 @@
                 :audio="audio"
                 v-on:play="playMusic($event)"
               />
-              <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editModal" @click="modalMusic = music" ><i class="fas fa-edit"></i></button>
-              <button class="btn btn-danger" type="button" @click="removeMusic(music.id)"><i  class="fas fa-trash"></i></button>
+              <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#addMusicPlaylistModal" @click="modalMusic = music"><i class="fas fa-plus"></i></button>
+              <remove-button :id="music.id" :openedPlaylist="openedPlaylist" :showMusic="showMusic" v-on:removeMusic="removeMusic($event)" v-on:removePlaylistMusic="removePlaylistMusic($event)" />
             </div>
           </div>
         </div>
@@ -46,21 +48,25 @@
 </template>
 
 <script>
-import ErrorManager from '@/services/ErrorManager.js'
+import InfoManager from '@/services/InfoManager.js'
 import PlayMusic from '@/components/MusicButtons/PlayMusic.vue'
 import PauseMusic from '@/components/MusicButtons/PauseMusic.vue'
+import ApiManager from '@/services/ApiManager.js'
+import RemoveButton from '@/components/RemoveButton.vue'
 
 export default {
   name: 'MusicList',
-  props: ['musics', 'loadedMusic', 'playStatus', 'audio'],
+  props: ['musics', 'loadedMusic', 'playStatus', 'audio', 'playlists', 'showMusic', 'openedPlaylist'],
   components: {
     PlayMusic,
-    PauseMusic
+    PauseMusic,
+    RemoveButton
   },
   data () {
     return {
       musicInput: '',
-      modalMusic: []
+      modalMusic: [],
+      playlistInput: ''
     }
   },
   methods: {
@@ -71,17 +77,27 @@ export default {
       this.$emit('pause')
     },
     removeMusic (id) {
-      this.$emit('remove', id)
+      this.$emit('removeMusic', id)
     },
-    editMusic (modalMusic) {
-      if (this.musicInput !== '') {
-        modalMusic.title = this.musicInput
-        this.$emit('edit', modalMusic)
-        document.getElementById('modalCloseButton').click()
-        this.musicInput = ''
+    addMusicPlaylist (modalMusic) {
+      if (this.playlistInput !== '') {
+        ApiManager.getPlaylistByName(this.playlistInput).then(response => {
+          ApiManager.addMusicToPlaylist(modalMusic.id, response.data[0].id).then(response => {
+            if (response.data.message === 'success') {
+              this.$emit('addMusicPlaylist')
+              document.getElementById('modalCloseButton').click()
+              this.playlistInput = ''
+            } else {
+              InfoManager.showInfo('Error while adding music to playlit', 'danger')
+            }
+          })
+        })
       } else {
-        ErrorManager.showErrorMessage('Title can\'t be empty')
+        InfoManager.showInfo('Playlist can\'t be empty', 'danger')
       }
+    },
+    removePlaylistMusic (ids) {
+      this.$emit('removePlaylistMusic', ids)
     }
   }
 }

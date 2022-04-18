@@ -1,15 +1,18 @@
 <template>
   <nav class="navbar navbar-expand-sm fixed-top bg-success">
     <div class="container-fluid">
-      <router-link to="/" class="navbar-brand text-light">Home</router-link>
+      <router-link to="/" class="navbar-brand text-light">Sukify</router-link>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="text-light"><i class="fas fa-sliders-h"></i></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <router-link to="/playlists" class="navbar-nav me-auto nav-link text-light">Playlists</router-link>
-        <!--<div class="progress">
+        <div class="container-fluid justify-content-start">
+          <button class="btn bg-success btn-link text-light border-0" @click="updateShow(false)">Playlists</button>
+          <button class="btn bg-success btn-link text-light border-0" @click="updateShow(true)">Musics</button>
+        </div>
+        <div class="progress">
           <div class="progress-bar bg-success" role="progressbar" :aria-valuenow="currentTime" aria-valuemin="0" aria-valuemax="100" :style="'width: ' + currentTime + '%'" ></div>
-        </div>&nbsp;-->
+        </div>&nbsp;
         <div class="d-flex btn-group btn-group-sm" role="group">
           <button class="btn btn-light text-success" type="button" @click="previousMusic"><i class="fas fa-angle-double-left"></i></button>&nbsp;
           <pause-music v-if="playStatus" class="btn-light text-success"
@@ -36,19 +39,23 @@ import PauseMusic from '@/components/MusicButtons/PauseMusic.vue'
 
 export default {
   name: 'NavBarMusic',
-  props: ['loadedMusic', 'playStatus', 'audio', 'playMode'],
+  props: ['loadedMusic', 'playStatus', 'audio', 'playMode', 'loadedPlaylist', 'showMusic'],
   components: {
     PlayMusic,
     PauseMusic
   },
   data () {
     return {
-      // currentTime: 0
+      currentTime: 0
     }
   },
   methods: {
     playMusic (id) {
-      this.$emit('play', id)
+      if (!this.showMusic && this.loadedPlaylist === null && this.loadedMusic === null) {
+        this.$emit('playPlaylist', id)
+      } else {
+        this.$emit('play', id)
+      }
     },
     pauseMusic () {
       this.$emit('pause')
@@ -64,12 +71,15 @@ export default {
     },
     previousMusic () {
       this.$emit('previous')
+    },
+    updateShow (show) {
+      this.$emit('updateShow', show)
     }
   },
   mounted () {
-    /* this.audio.addEventListener('timeupdate', () => {
+    this.audio.addEventListener('timeupdate', () => {
       this.currentTime = (this.audio.currentTime * 100) / this.audio.duration
-    }) */
+    })
   }
 }
 </script>

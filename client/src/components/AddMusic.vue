@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import ErrorManager from '@/services/ErrorManager.js'
+import InfoManager from '@/services/InfoManager.js'
 
 export default {
   name: 'AddMusic',
@@ -36,7 +36,7 @@ export default {
         this.$emit('add', musicInput)
         this.musicInput = ''
       } else {
-        ErrorManager.showErrorMessage('Input name can\'t empty')
+        InfoManager.showInfo('Input name can\'t empty', 'danger')
       }
     }
   }

@@ -4,6 +4,11 @@ class MusicsController < ApplicationController
         render json: musics
     end
 
+    def show
+        music = Music.find(params[:id])
+        render json: music
+    end
+
     def play
         music = Music.find(params[:id])
         render file: "#{ Rails.root }/src/#{ music.id }.mp3"
@@ -30,12 +35,13 @@ class MusicsController < ApplicationController
     end
 
     def delete
+        playlistMusics = PlaylistMusic.where(music_id: params[:id])
         music = Music.find(params[:id])
         if File.exist?("#{ Rails.root }/src/#{ music.id }.mp3")
             File.delete("#{ Rails.root }/src/#{ music.id }.mp3")
         end
 
-        if music.delete && !File.exist?("#{ Rails.root }/src/#{ music.id }.mp3")
+        if playlistMusics.delete_all && music.delete && !File.exist?("#{ Rails.root }/src/#{ music.id }.mp3")
             render json: { message: 'success' }
         else
             render json: { message: 'error' }

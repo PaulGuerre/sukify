@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import ErrorManager from '@/services/ErrorManager.js'
+import InfoManager from '@/services/InfoManager.js'
 
 export default {
   name: 'AddMusic',
@@ -40,7 +40,7 @@ export default {
         this.musicInput = ''
         document.getElementById('buttonCloseModal').click()
       } else {
-        ErrorManager.showErrorMessage('Playlist name can\'t empty')
+        InfoManager.showInfo('Playlist name can\'t empty', 'danger')
       }
     }
   }
