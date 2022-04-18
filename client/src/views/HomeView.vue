@@ -36,15 +36,6 @@
       />
     </div>
 
-    {{ 'Musics : ' + musics }} <br />
-    {{ 'Playlists : ' + playlists }} <br />
-    {{ 'Loaded music : ' + loadedMusic }} <br />
-    {{ 'Loaded playlist : ' + loadedPlaylist }} <br />
-    {{ 'Play status : ' + playStatus }} <br />
-    {{ 'Play mode : ' + playMode }} <br />
-    {{ 'Connect : ' + connect }} <br />
-    {{ 'Show music : ' + showMusic }}
-
     <info-displayer />
   </div>
 
@@ -95,7 +86,7 @@ export default {
             playlist.videoID = response.data[0].videoID
           })
         })
-        if (this.loadedMusic === null) {
+        if (this.loadedMusic === null && this.playlists.length > 0) {
           this.loadPlaylistMusic(this.playlists[0].id)
         }
         this.connect = true
