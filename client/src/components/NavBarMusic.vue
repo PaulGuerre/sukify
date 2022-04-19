@@ -64,11 +64,3 @@ export default {
   }
 }
 </script>
-
-<style>
-.progress {
-  width: 100%;
-  margin-right: 2%;
-  margin-left: 2%;
-}
-</style>

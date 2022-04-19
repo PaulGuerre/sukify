@@ -20,28 +20,28 @@
       </div>
     </div>
 
-    <div class="row row-cols-md-3 row-cols-lg-5">
-      <div class="col" v-for="music in musics" :key="music.id">
-        <div class="card border border-light">
-          <img :src="'https://i.ytimg.com/vi/' + music.videoID + '/mqdefault.jpg'" class="card-img-top">
-          <div class="card-body">
-            <p class="card-text text-truncate">{{ music.title }}</p>
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3" style="margin: 2%;">
+      <div class="border border-4 border-dark bg-dark" v-for="music in musics" :key="music.id">
+        <div class="row rounded border borer-4 border-success">
+          <div class="col-5 col-md-4 col-lg-3 text-start p-0">
+            <img :src="'https://i.ytimg.com/vi/' + music.videoID + '/mqdefault.jpg'" class="img-thumbnail bg-dark border-0" alt="Responsive image">
           </div>
-          <div class="card-footer text-center">
-            <div class="btn-group btn-group-sm" role="group">
-              <pause-music v-if="loadedMusic === music.id && playStatus" class="btn-success"
-                :audio="audio" @pause="pauseMusic()"
-              />
-              <play-music v-else class="btn-success"
-                :id="music.id"
-                :audio="audio" @play="playMusic($event)"
-              />
-              <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#addMusicPlaylistModal" @click="modalMusic = music"><i class="fas fa-plus"></i></button>
-              <remove-button :id="music.id"
-                :openedPlaylist="openedPlaylist"
-                :showMusic="showMusic" @removeMusic="removeMusic($event)" @removePlaylistMusic="removePlaylistMusic($event)"
-              />
-            </div>
+          <div class="col-7 col-md-8 col-lg-9 fs-5 text-success text-truncate text-start row">
+            <span class="text-truncate col-12">{{ music.title }}</span>
+            <div class="col-1 col-md-1 col-lg-1 btn-group btn-group-sm shadow-none" role="group" style="max-height: 30px;">
+            <pause-music v-if="loadedMusic === music.id && playStatus" class="btn-success"
+              :audio="audio" @pause="pauseMusic()"
+            />
+            <play-music v-else class="btn-success"
+              :id="music.id"
+              :audio="audio" @play="playMusic($event)"
+            />
+            <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#addMusicPlaylistModal" @click="modalMusic = music"><i class="fas fa-plus"></i></button>
+            <remove-button :id="music.id"
+              :openedPlaylist="openedPlaylist"
+              :showMusic="showMusic" @removeMusic="removeMusic($event)" @removePlaylistMusic="removePlaylistMusic($event)"
+            />
+          </div>
           </div>
         </div>
       </div>
@@ -100,10 +100,3 @@ export default {
   }
 }
 </script>
-
-<style>
-.card {
-  margin: 5%;
-  box-shadow: 5px 5px 5px #000000;
-}
-</style>
