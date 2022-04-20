@@ -92,6 +92,7 @@ export default {
     loadMusic () {
       ApiManager.getMusics().then(response => {
         this.musics = response.data
+        this.showMusic = true
       })
     },
     loadPlaylistMusic (id) {

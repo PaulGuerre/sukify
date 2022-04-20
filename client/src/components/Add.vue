@@ -22,12 +22,12 @@
           </div>
           <div class="modal-body">
             <div class="input-group mb-3">
-              <input type="text" class="form-control border-success text-success" placeholder="Title or URL" v-model="musicInput">
+              <input type="text" class="form-control border-success text-success" placeholder="Title or URL" v-model="musicInput" @keyup.enter="download()">
               <button class="btn btn-success" type="button" id="addMusicButton" data-bs-toggle="modal" :data-bs-target="musicInput === '' ? null : '#addMusicModal'" @click="addMusic(musicInput)"><i  class="fas fa-plus"></i></button>
             </div>
             <div class="input-group mb-3">
               <button class="btn btn-success" type="button" @click="addPlaylist(playlistInput)"><i  class="fas fa-plus"></i></button>
-              <input type="text" class="form-control border-success text-success" placeholder="Playlist name" v-model="playlistInput">
+              <input type="text" class="form-control border-success text-success" placeholder="Playlist name" v-model="playlistInput" @keyup.enter="addPlaylist(playlistInput)">
             </div>
           </div>
         </div>
@@ -86,6 +86,9 @@ export default {
       } else {
         InfoManager.showInfo('Playlist name can\'t empty', 'danger')
       }
+    },
+    download () {
+      document.getElementById('addMusicButton').click()
     }
   }
 }
