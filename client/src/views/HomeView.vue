@@ -9,11 +9,10 @@
       :showMusic="showMusic"
     />
 
-    <add-music
-      @loadMusic="loadMusic()" @keyup.enter="download()"
+    <add
+      @loadMusic="loadMusic()"
+      @loadPlaylist="loadPlaylist()"
     />
-
-    <hr id="hr">
 
     <music-list v-if="showMusic"
       :audio="audio" @play="playMusic($event)" @pause="pauseMusic()"
@@ -46,9 +45,9 @@ import InfoDisplayer from '@/components/Utils/InfoDisplayer.vue'
 import NavBarMusic from '@/components/NavBarMusic.vue'
 import NotConnected from '@/components/Utils/NotConnected.vue'
 import InfoManager from '@/services/InfoManager'
-import AddMusic from '@/components/AddMusic.vue'
 import MusicList from '@/components/MusicList.vue'
 import PlaylistList from '@/components/PlaylistList.vue'
+import Add from '../components/Add.vue'
 
 export default {
   name: 'HomeView',
@@ -56,9 +55,9 @@ export default {
     NavBarMusic,
     InfoDisplayer,
     NotConnected,
-    AddMusic,
     MusicList,
-    PlaylistList
+    PlaylistList,
+    Add
   },
   data () {
     return {
@@ -86,6 +85,7 @@ export default {
         if (this.loadedMusic === null && this.playlists.length > 0) {
           this.loadPlaylistMusic(this.playlists[0].id)
         }
+        this.showMusic = false
         this.connect = true
       })
     },
@@ -185,9 +185,6 @@ export default {
         this.loadPlaylist()
       }
       this.showMusic = show
-    },
-    download () {
-      document.getElementById('addMusicButton').click()
     }
   },
   mounted () {

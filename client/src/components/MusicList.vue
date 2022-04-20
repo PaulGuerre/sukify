@@ -20,7 +20,7 @@
       </div>
     </div>
 
-    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3" style="margin: 2%;">
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3" style="margin-right: 2%; margin-left: 2%; margin-top: 10vh;">
       <div class="border border-4 border-dark bg-dark" v-for="music in musics" :key="music.id">
         <div class="row rounded border borer-4 border-success">
           <div class="col-5 col-md-4 col-lg-3 text-start p-0">
