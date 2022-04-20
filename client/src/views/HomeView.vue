@@ -85,14 +85,12 @@ export default {
         if (this.loadedMusic === null && this.playlists.length > 0) {
           this.loadPlaylistMusic(this.playlists[0].id)
         }
-        this.showMusic = false
         this.connect = true
       })
     },
     loadMusic () {
       ApiManager.getMusics().then(response => {
         this.musics = response.data
-        this.showMusic = true
       })
     },
     loadPlaylistMusic (id) {
