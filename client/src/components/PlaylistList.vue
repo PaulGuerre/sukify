@@ -18,18 +18,14 @@
       </div>
     </div>
 
-    <div class="row row-cols-md-3 row-cols-lg-5">
+    <div class="row row-cols-1 row-cols-md-3 row-cols-lg-6" style="margin-top: 12vh;">
       <div class="col" v-for="playlist in playlists" :key="playlist.id">
-        <div class="card border border-light">
-          <div v-if="playlist.videoID === undefined"  class="placeholder-wave">
-            <img src="https://i.ytimg.com/vi/xN6LFM4CkWI/mqdefault.jpg" class="card-img-top placeholder placeholder-wave">
-          </div>
-          <img v-else :src="'https://i.ytimg.com/vi/' + playlist.videoID + '/mqdefault.jpg'" class="card-img-top playlistCardImg">
-          <div class="card-body card-img-overlay" @click="loadPlaylistMusic(playlist.id)">
-            <p class="card-text text-light fs-3 text-truncate">{{ playlist.name }}</p>
-          </div>
-          <div class="card-footer text-center">
-            <div class="btn-group btn-group-sm" role="group">
+        <div class="card border border-success text-white" @click="loadPlaylistMusic(playlist.id)">
+          <img v-if="playlist.videoID === undefined" src="https://i.ytimg.com/vi/xN6LFM4CkWI/mqdefault.jpg" class="card-img placeholder placeholder-wave">
+          <img v-else :src="'https://i.ytimg.com/vi/' + playlist.videoID + '/mqdefault.jpg'" class="card-img">
+          <div class="card-img-overlay">
+            <h5 class="card-title fs-3 text-truncate">{{ playlist.name }}</h5>
+            <div class="card-text text-center">
               <pause-music v-if="loadedPlaylist === playlist.id && playStatus" class="btn-success"
                 :audio="audio" @pause="pauseMusic()"
               />
@@ -38,6 +34,8 @@
                 :audio="audio"
                 @play="playMusic($event)"
               />
+            </div>
+            <div class="card-text text-center">
               <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editPlaylistModal" @click="modalPlaylist = playlist, playlistInput = playlist.name" ><i class="fas fa-edit"></i></button>
               <remove-button :id="playlist.id"
                 :openedPlaylist="openedPlaylist"
@@ -107,7 +105,10 @@ export default {
 </script>
 
 <style>
-.playlistCardImg {
+.card-img {
+  object-fit: cover;
+  width:230px;
+  height:230px;
   filter: blur(3px);
 }
 </style>
