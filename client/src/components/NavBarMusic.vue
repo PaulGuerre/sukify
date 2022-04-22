@@ -6,9 +6,11 @@
         <span class="text-light"><i class="fas fa-sliders-h"></i></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <div class="container-fluid justify-content-start">
-          <button class="btn bg-success btn-link text-light border-0" @click="updateShow(false)">Playlists</button>
-          <button class="btn bg-success btn-link text-light border-0" @click="updateShow(true)">Musics</button>
+        <div class="container-fluid">
+          <div class="row">
+            <button class="btn bg-success btn-link text-light border-0 col-6 col-md-2 col-lg-1" @click="updateShow(false)">Playlists</button>
+            <button class="btn bg-success btn-link text-light border-0 col-6 col-md-2 col-lg-1" @click="updateShow(true)">Musics</button>
+          </div>
         </div>
         <div class="d-flex btn-group btn-group-sm" role="group">
           <button class="btn btn-light text-success" type="button" @click="musicAction('previous')"><i class="fas fa-angle-double-left"></i></button>&nbsp;
