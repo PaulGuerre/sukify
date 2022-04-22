@@ -17,7 +17,7 @@
       <div class="modal-dialog">
         <div class="modal-content bg-dark border border-success">
           <div class="modal-header border-dark">
-            <h5 class="modal-title text-light" id="exampleModalLabel">Add music & playlist</h5>
+            <h5 class="modal-title text-success" id="exampleModalLabel">Add music & playlist</h5>
             <button type="button" id="closeModalButton" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">

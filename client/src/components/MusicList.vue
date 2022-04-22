@@ -2,18 +2,19 @@
   <div id="musicList">
     <div class="modal fade" id="addMusicPlaylistModal" tabindex="-1" aria-hidden="true">
       <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Update music</h5>
-            <button type="button" class="btn-close" id="modalCloseButton" data-bs-dismiss="modal" aria-label="Close"></button>
+        <div class="modal-content bg-dark border border-success">
+          <div class="modal-header border border-dark">
+            <h5 class="modal-title text-success">Update music</h5>
+            <button type="button" class="btn-close btn-close-white" id="modalCloseButton" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            <select class="form-control" v-model="playlistInput">
+            <select class="form-select" v-model="playlistInput">
+              <option value="" disabled selected>Choose playlist</option>
               <option v-for="playlist in playlists" :key="playlist.id">{{ playlist.name }}</option>
             </select>
           </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <div class="modal-footer border border-dark justify-content-around">
+            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
             <button type="button" class="btn btn-success" @click="addMusicPlaylist(modalMusic)" >Save changes</button>
           </div>
         </div>
