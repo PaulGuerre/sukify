@@ -20,23 +20,23 @@
 
     <div class="row row-cols-1 row-cols-md-3 row-cols-lg-6" style="margin-top: 12vh;">
       <div class="col" v-for="playlist in playlists" :key="playlist.id">
-        <div class="card border border-success text-white" @click="loadPlaylistMusic(playlist.id)">
-          <img v-if="playlist.videoID === undefined" src="https://i.ytimg.com/vi/xN6LFM4CkWI/mqdefault.jpg" class="card-img placeholder placeholder-wave">
-          <img v-else :src="'https://i.ytimg.com/vi/' + playlist.videoID + '/mqdefault.jpg'" class="card-img">
-          <div class="card-img-overlay">
+        <div class="card bg-dark bg-inverse text-success border border-success">
+          <img v-if="playlist.videoID === undefined" src="https://i.ytimg.com/vi/xN6LFM4CkWI/mqdefault.jpg" class="card-img-top placeholder placeholder-wave">
+          <img v-else :src="'https://i.ytimg.com/vi/' + playlist.videoID + '/mqdefault.jpg'" class="card-img-top">
+          <div class="card-img-overlay" @click="loadPlaylistMusic(playlist.id)">
             <h5 class="card-title fs-3 text-truncate">{{ playlist.name }}</h5>
-            <div class="card-text text-center">
+            <h6 class="card-subtitle text-white">{{ playlist.created_at.substring(0, 10) }}</h6>
+          </div>
+          <div class="card-footer border-0 text-center">
+            <div class="btn-group btn-group-sm" role="group">
               <pause-music v-if="loadedPlaylist === playlist.id && playStatus" class="btn-success"
                 :audio="audio" @pause="pauseMusic()"
               />
               <play-music v-else class="btn-success"
                 :id="playlist.id"
-                :audio="audio"
-                @play="playMusic($event)"
+                :audio="audio" @play="playMusic($event)"
               />
-            </div>
-            <div class="card-text text-center">
-              <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editPlaylistModal" @click="modalPlaylist = playlist, playlistInput = playlist.name" ><i class="fas fa-edit"></i></button>
+              <button type="button" class="btn btn-warning col-4" data-bs-toggle="modal" data-bs-target="#editPlaylistModal" @click="modalPlaylist = playlist, playlistInput = playlist.name" ><i class="fas fa-edit"></i></button>
               <remove-button :id="playlist.id"
                 :openedPlaylist="openedPlaylist"
                 :showMusic="showMusic" @removePlaylist="removePlaylist($event)"
@@ -105,10 +105,11 @@ export default {
 </script>
 
 <style>
-.card-img {
+.card-img-top {
   object-fit: cover;
-  width:230px;
   height:230px;
   filter: blur(3px);
+  background-color: black;
+  opacity: 0.3;
 }
 </style>

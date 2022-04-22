@@ -29,18 +29,18 @@
           <div class="col-7 col-md-8 col-lg-9 fs-5 text-success text-truncate text-start row">
             <span class="text-truncate col-12">{{ music.title }}</span>
             <div class="col-1 col-md-1 col-lg-1 btn-group btn-group-sm shadow-none" role="group" style="max-height: 30px;">
-            <pause-music v-if="loadedMusic === music.id && playStatus" class="btn-success"
-              :audio="audio" @pause="pauseMusic()"
-            />
-            <play-music v-else class="btn-success"
-              :id="music.id"
-              :audio="audio" @play="playMusic($event)"
-            />
-            <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#addMusicPlaylistModal" @click="modalMusic = music"><i class="fas fa-plus"></i></button>
-            <remove-button :id="music.id"
-              :openedPlaylist="openedPlaylist"
-              :showMusic="showMusic" @removeMusic="removeMusic($event)" @removePlaylistMusic="removePlaylistMusic($event)"
-            />
+              <pause-music v-if="loadedMusic === music.id && playStatus" class="btn-success"
+                :audio="audio" @pause="pauseMusic()"
+              />
+              <play-music v-else class="btn-success"
+                :id="music.id"
+                :audio="audio" @play="playMusic($event)"
+              />
+              <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#addMusicPlaylistModal" @click="modalMusic = music"><i class="fas fa-plus"></i></button>
+              <remove-button :id="music.id"
+                :openedPlaylist="openedPlaylist"
+                :showMusic="showMusic" @removeMusic="removeMusic($event)" @removePlaylistMusic="removePlaylistMusic($event)"
+              />
           </div>
           </div>
         </div>
