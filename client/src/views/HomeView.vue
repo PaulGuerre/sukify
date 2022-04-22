@@ -82,8 +82,8 @@ export default {
             playlist.videoID = response.data[0].videoID
           })
         })
-        if (this.loadedMusic === null && this.playlists.length > 0) {
-          this.loadPlaylistMusic(this.playlists[0].id)
+        if (this.loadedPlaylist !== null) {
+          this.loadPlaylistMusic(this.loadedPlaylist)
         }
         this.connect = true
       })
