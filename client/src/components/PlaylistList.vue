@@ -18,9 +18,9 @@
       </div>
     </div>
 
-    <div class="row row-cols-1 row-cols-md-3 row-cols-lg-6" style="margin-top: 12vh;">
+    <div class="row row-cols-1 row-cols-md-3 row-cols-lg-6" style="margin-top: 10vh; margin-right: 2%; margin-left: 2%;">
       <div class="col" v-for="playlist in playlists" :key="playlist.id">
-        <div class="card bg-dark bg-inverse text-success border border-success">
+        <div class="card bg-dark bg-inverse text-success border border-success mb-4">
           <img v-if="playlist.videoID === undefined" src="https://i.ytimg.com/vi/xN6LFM4CkWI/mqdefault.jpg" class="card-img-top placeholder placeholder-wave">
           <img v-else :src="'https://i.ytimg.com/vi/' + playlist.videoID + '/mqdefault.jpg'" class="card-img-top">
           <div class="card-img-overlay" @click="loadPlaylistMusic(playlist.id)">
