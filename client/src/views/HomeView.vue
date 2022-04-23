@@ -33,6 +33,8 @@
       :openedPlaylist="openedPlaylist"
     />
 
+    <back-to-top />
+
     <info-displayer />
   </div>
 
@@ -47,7 +49,8 @@ import NotConnected from '@/components/Utils/NotConnected.vue'
 import InfoManager from '@/services/InfoManager'
 import MusicList from '@/components/MusicList.vue'
 import PlaylistList from '@/components/PlaylistList.vue'
-import Add from '../components/Add.vue'
+import Add from '@/components/Add.vue'
+import BackToTop from '@/components/Utils/BackToTop.vue'
 
 export default {
   name: 'HomeView',
@@ -57,7 +60,8 @@ export default {
     NotConnected,
     MusicList,
     PlaylistList,
-    Add
+    Add,
+    BackToTop
   },
   data () {
     return {
