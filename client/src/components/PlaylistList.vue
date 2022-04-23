@@ -18,7 +18,7 @@
       </div>
     </div>
 
-    <div class="row row-cols-1 row-cols-md-3 row-cols-lg-6" style="margin-top: 10vh; margin-right: 2%; margin-left: 2%;">
+    <div v-if="playlists.length > 0" class="row row-cols-1 row-cols-md-3 row-cols-lg-6" style="margin-top: 10vh; margin-right: 2%; margin-left: 2%;">
       <div class="col" v-for="playlist in playlists" :key="playlist.id">
         <div class="card bg-dark bg-inverse text-success border border-success mb-4">
           <img v-if="playlist.videoID === undefined" src="https://i.ytimg.com/vi/xN6LFM4CkWI/mqdefault.jpg" class="card-img-top placeholder placeholder-wave">
@@ -45,6 +45,10 @@
           </div>
         </div>
       </div>
+    </div>
+
+    <div v-else id="noPlaylistLabel">
+      <p class="fs-5 text-success text-center">No playlists found, try adding one by hitting the floating "+" button</p>
     </div>
   </div>
 </template>
@@ -105,6 +109,12 @@ export default {
 </script>
 
 <style>
+#noPlaylistLabel {
+  width: 100%;
+  position: fixed;
+  top: 40%;
+}
+
 .card-img-top {
   object-fit: cover;
   height:230px;

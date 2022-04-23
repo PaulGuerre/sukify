@@ -21,7 +21,7 @@
       </div>
     </div>
 
-    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3" style="margin-right: 2%; margin-left: 2%; margin-top: 10vh;">
+    <div v-if="musics.length > 0" class="row row-cols-1 row-cols-md-2 row-cols-lg-3" style="margin-right: 2%; margin-left: 2%; margin-top: 10vh;">
       <div class="border border-4 border-dark bg-dark" v-for="music in musics" :key="music.id">
         <div class="row rounded border borer-4 border-success">
           <div class="col-5 col-md-4 col-lg-3 text-start p-0">
@@ -46,6 +46,10 @@
           </div>
         </div>
       </div>
+    </div>
+
+    <div v-else id="noMusicLabel">
+      <p class="fs-5 text-success text-center">No musics found, try adding one by hitting the floating "+" button</p>
     </div>
   </div>
 </template>
@@ -101,3 +105,11 @@ export default {
   }
 }
 </script>
+
+<style>
+#noMusicLabel {
+  width: 100%;
+  position: fixed;
+  top: 40%;
+}
+</style>
