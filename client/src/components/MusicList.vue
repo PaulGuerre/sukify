@@ -23,7 +23,7 @@
 
     <div v-if="musics.length > 0" class="row row-cols-1 row-cols-md-2 row-cols-lg-3" style="margin-right: 2%; margin-left: 2%; margin-top: 10vh;">
       <div class="col" v-for="music in musics" :key="music.id">
-        <div class="row mb-4">
+        <div class="row mb-3">
           <div class="col-5 col-md-4 col-lg-3 text-start p-0">
             <img :src="'https://i.ytimg.com/vi/' + music.videoID + '/mqdefault.jpg'" class="img-fluid" style="border: 10px solid #424242; border-radius: 5px;" alt="Responsive image">
           </div>
