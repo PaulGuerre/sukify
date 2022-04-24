@@ -8,8 +8,8 @@
     <meta name="description" content="Music web player">
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
     <link rel="manifest" href="<%= BASE_URL %>manifest.json">
-    <title>Sukify</title>
     <script src="https://kit.fontawesome.com/ac4c9e797f.js" crossorigin="anonymous"></script>
+    <title>Sukify</title>
   </head>
   <body>
     <noscript>
@@ -17,5 +17,16 @@
     </noscript>
     <div id="app"></div>
     <!-- built files will be auto injected -->
+    <script>
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/service-worker.js')
+          .then(function(registration) {
+            console.log('ServiceWorker registration successful with scope: ', registration.scope);
+          })
+          .catch(function(err) {
+            console.log('ServiceWorker registration failed: ', err);
+          });
+      }
+    </script>
   </body>
 </html>

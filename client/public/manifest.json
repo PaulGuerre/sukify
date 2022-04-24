@@ -2,6 +2,10 @@
   "name": "Sukify",
   "short_name": "Sukify",
   "description": "Music web player",
+  "start_url": "/",
+  "scope": "/",
+  "display": "fullscreen",
+  "orientation": "portrait",
   "icons": [
     {
       "src": "icons/manifest-icon-192.maskable.png",
@@ -28,9 +32,6 @@
       "purpose": "maskable"
     }
   ],
-  "start_url": "/",
   "theme_color": "#212121",
-  "background_color": "#303030",
-  "display": "fullscreen",
-  "orientation": "portrait"
+  "background_color": "#303030"
 }
