@@ -1,31 +1,31 @@
 <template>
-  <nav class="navbar navbar-expand-sm fixed-top bg-success">
+  <nav class="navbar navbar-expand-sm fixed-top" style="background-color: #212121">
     <div class="container-fluid">
-      <router-link to="/" class="navbar-brand text-light">Sukify</router-link>
+      <router-link to="/" class="navbar-brand text-success">Sukify</router-link>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="text-light"><i class="fas fa-sliders-h"></i></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <div class="container-fluid">
           <div class="row">
-            <button class="btn bg-success btn-link text-light border-0 col-6 col-md-2 col-lg-1" @click="updateShow(false)">Playlists</button>
-            <button class="btn bg-success btn-link text-light border-0 col-6 col-md-2 col-lg-1" @click="updateShow(true)">Musics</button>
+            <button class="btn btn-link text-success border-0 col-6 col-md-2 col-lg-1" style="background-color: #212121" @click="updateShow(false)">Playlists</button>
+            <button class="btn btn-link text-success border-0 col-6 col-md-2 col-lg-1" style="background-color: #212121" @click="updateShow(true)">Musics</button>
           </div>
         </div>
-        <div class="d-flex btn-group btn-group-sm" role="group">
-          <button class="btn btn-light text-success" type="button" @click="musicAction('previous')"><i class="fas fa-angle-double-left"></i></button>&nbsp;
-          <pause-music v-if="playStatus" class="btn-light text-success"
+        <div class="d-flex btn-group btn-group-sm border border-success" role="group">
+          <button class="btn btn-light text-success" type="button" style="background-color: #212121" @click="musicAction('previous')"><i class="fas fa-angle-double-left"></i></button>&nbsp;
+          <pause-music v-if="playStatus" class="btn-light text-success" style="background-color: #212121"
             :audio="audio" @pause="pauseMusic()"
           />&nbsp;
-          <play-music v-else class="btn-light text-success"
+          <play-music v-else class="btn-light text-success" style="background-color: #212121"
             :id="loadedMusic"
             :audio="audio" @play="playMusic(loadedMusic)"
           />&nbsp;
-          <button class="btn btn-light text-success" type="button" @click="musicAction('next')"><i class="fas fa-angle-double-right"></i></button>&nbsp;
-          <button v-if="playMode !== 'repeat'" class="btn btn-light text-success" type="button" @click="updateMode('repeat')"><i class="fas fa-redo"></i></button>&nbsp;
-          <button v-else class="btn btn-success text-light border border-light" type="button" @click="updateMode('list')"><i class="fas fa-redo"></i></button>&nbsp;
-          <button v-if="playMode !== 'random'" class="btn btn-light text-success" type="button" @click="updateMode('random')"><i class="fas fa-random"></i></button>
-          <button v-else class="btn btn-success text-light border border-light" type="button" @click="updateMode('list')"><i class="fas fa-random"></i></button>
+          <button class="btn btn-light text-success" type="button" style="background-color: #212121" @click="musicAction('next')"><i class="fas fa-angle-double-right"></i></button>&nbsp;
+          <button v-if="playMode !== 'repeat'" class="btn btn-light text-success" type="button" style="background-color: #212121" @click="updateMode('repeat')"><i class="fas fa-redo"></i></button>&nbsp;
+          <button v-else class="btn btn-success text-dark border border-success" type="button" @click="updateMode('list')"><i class="fas fa-redo"></i></button>&nbsp;
+          <button v-if="playMode !== 'random'" class="btn btn-light text-success" type="button" style="background-color: #212121"  @click="updateMode('random')"><i class="fas fa-random"></i></button>
+          <button v-else class="btn btn-success text-dark border border-success" type="button" @click="updateMode('list')"><i class="fas fa-random"></i></button>
         </div>
       </div>
     </div>

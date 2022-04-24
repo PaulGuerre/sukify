@@ -2,13 +2,13 @@
   <div id="musicList">
     <div class="modal fade" id="addMusicPlaylistModal" tabindex="-1" aria-hidden="true">
       <div class="modal-dialog">
-        <div class="modal-content bg-dark border border-success">
+        <div class="modal-content bg-dark">
           <div class="modal-header border border-dark">
             <h5 class="modal-title text-success">Update music</h5>
             <button type="button" class="btn-close btn-close-white" id="modalCloseButton" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            <select class="form-select" v-model="playlistInput">
+            <select class="form-select text-dark" v-model="playlistInput">
               <option value="" disabled selected>Choose playlist</option>
               <option v-for="playlist in playlists" :key="playlist.id">{{ playlist.name }}</option>
             </select>
@@ -22,12 +22,12 @@
     </div>
 
     <div v-if="musics.length > 0" class="row row-cols-1 row-cols-md-2 row-cols-lg-3" style="margin-right: 2%; margin-left: 2%; margin-top: 10vh;">
-      <div class="border border-4 border-dark bg-dark" v-for="music in musics" :key="music.id">
-        <div class="row rounded border borer-4 border-success">
+      <div class="col" v-for="music in musics" :key="music.id">
+        <div class="row mb-4">
           <div class="col-5 col-md-4 col-lg-3 text-start p-0">
-            <img :src="'https://i.ytimg.com/vi/' + music.videoID + '/mqdefault.jpg'" class="img-thumbnail bg-dark border-0" alt="Responsive image">
+            <img :src="'https://i.ytimg.com/vi/' + music.videoID + '/mqdefault.jpg'" class="img-fluid" style="border: 10px solid #424242; border-radius: 5px;" alt="Responsive image">
           </div>
-          <div class="col-7 col-md-8 col-lg-9 fs-5 text-success text-truncate text-start row">
+          <div class="col-7 col-md-8 col-lg-9 fs-5 text-success text-truncate text-start row" style="background-color: #424242; border: 10px solid #424242; border-radius: 5px;">
             <span class="text-truncate col-12">{{ music.title }}</span>
             <div class="col-1 col-md-1 col-lg-1 btn-group btn-group-sm shadow-none" role="group" style="max-height: 30px;">
               <pause-music v-if="loadedMusic === music.id && playStatus" class="btn-success"

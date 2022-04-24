@@ -220,7 +220,7 @@ export default {
 
 <style>
 #home {
-  background-color: #212529;
+  background-color: #303030;
 }
 
 #hr {

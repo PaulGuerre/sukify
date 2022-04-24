@@ -15,19 +15,19 @@
 
     <div class="modal fade" id="addModal" tabindex="-1" aria-hidden="true">
       <div class="modal-dialog">
-        <div class="modal-content bg-dark border border-success">
+        <div class="modal-content bg-dark">
           <div class="modal-header border-dark">
             <h5 class="modal-title text-success" id="exampleModalLabel">Add music & playlist</h5>
             <button type="button" id="closeModalButton" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
             <div class="input-group mb-3">
-              <input type="text" class="form-control border-success text-success" placeholder="Title or URL" v-model="musicInput" @keyup.enter="download()">
+              <input type="text" class="form-control border-success text-light" placeholder="Title or URL" v-model="musicInput" @keyup.enter="download()">
               <button class="btn btn-success" type="button" id="addMusicButton" data-bs-toggle="modal" :data-bs-target="musicInput === '' ? null : '#addMusicModal'" @click="addMusic(musicInput)"><i  class="fas fa-plus"></i></button>
             </div>
             <div class="input-group mb-3">
               <button class="btn btn-success" type="button" @click="addPlaylist(playlistInput)"><i  class="fas fa-plus"></i></button>
-              <input type="text" class="form-control border-success text-success" placeholder="Playlist name" v-model="playlistInput" @keyup.enter="addPlaylist(playlistInput)">
+              <input type="text" class="form-control border-success text-light" placeholder="Playlist name" v-model="playlistInput" @keyup.enter="addPlaylist(playlistInput)">
             </div>
           </div>
         </div>

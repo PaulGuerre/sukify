@@ -2,7 +2,7 @@
   <div id="playlistList">
     <div class="modal fade" id="editPlaylistModal" tabindex="-1" aria-hidden="true">
       <div class="modal-dialog">
-        <div class="modal-content bg-dark border border-success">
+        <div class="modal-content bg-dark">
           <div class="modal-header border-dark">
             <h5 class="modal-title text-success">Edit playlist</h5>
             <button type="button" class="btn-close btn-close-white" id="modalCloseButton" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -20,7 +20,7 @@
 
     <div v-if="playlists.length > 0" class="row row-cols-1 row-cols-md-3 row-cols-lg-6" style="margin-top: 10vh; margin-right: 2%; margin-left: 2%;">
       <div class="col" v-for="playlist in playlists" :key="playlist.id">
-        <div class="card bg-dark bg-inverse text-success border border-success mb-4">
+        <div class="card text-success mb-4 shadow-lg" style="background-color: #424242">
           <img v-if="playlist.videoID === undefined" src="https://i.ytimg.com/vi/xN6LFM4CkWI/mqdefault.jpg" class="card-img-top placeholder placeholder-wave">
           <img v-else :src="'https://i.ytimg.com/vi/' + playlist.videoID + '/mqdefault.jpg'" class="card-img-top">
           <div class="card-img-overlay" @click="loadPlaylistMusic(playlist.id)">

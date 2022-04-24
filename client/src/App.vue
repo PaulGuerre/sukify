@@ -4,11 +4,11 @@
 
 <style>
 body, html {
-  background-color: #212529;
+  background-color: #303030;
 }
 
 #app {
-  background-color: #212529;
+  background-color: #303030;
   overflow-x: hidden;
 }
 </style>
