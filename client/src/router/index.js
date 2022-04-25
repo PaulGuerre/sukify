@@ -9,7 +9,7 @@ const routes = [
   },
   {
     path: '/:pathMatch(.*)*',
-    name: 'notFound',
+    name: 'not-found',
     component: HomeView
   }
 ]
