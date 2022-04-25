@@ -5,7 +5,6 @@
 <style>
 body, html {
   background-color: #303030;
-  overscroll-behavior: contain;
 }
 
 #app {
