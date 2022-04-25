@@ -49,7 +49,7 @@
     </div>
 
     <div v-else id="noMusicLabel">
-      <p class="fs-5 text-success text-center">No musics found, try adding one by hitting the floating "+" button</p>
+      <p class="fs-5 text-success text-center m-2">No musics found, try adding one by hitting the floating "+" button</p>
     </div>
   </div>
 </template>

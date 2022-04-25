@@ -48,7 +48,7 @@
     </div>
 
     <div v-else id="noPlaylistLabel">
-      <p class="fs-5 text-success text-center">No playlists found, try adding one by hitting the floating "+" button</p>
+      <p class="fs-5 text-success text-center m-2">No playlists found, try adding one by hitting the floating "+" button</p>
     </div>
   </div>
 </template>
