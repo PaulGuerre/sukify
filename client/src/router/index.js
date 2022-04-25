@@ -6,6 +6,11 @@ const routes = [
     path: '/',
     name: 'home',
     component: HomeView
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    name: 'notFound',
+    component: HomeView
   }
 ]
 
