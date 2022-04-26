@@ -13,7 +13,7 @@
           </div>
         </div>
         <div class="d-flex btn-group btn-group-sm border border-success" role="group">
-          <button class="btn btn-light text-success" type="button" style="background-color: #212121" @click="musicAction('previous')"><i class="fas fa-angle-double-left"></i></button>&nbsp;
+          <button class="btn btn-light text-success" type="button" style="background-color: #212121" @click="previousMusic()"><i class="fas fa-angle-double-left"></i></button>&nbsp;
           <pause-music v-if="playStatus" class="btn-light text-success" style="background-color: #212121"
             :audio="audio" @pause="pauseMusic()"
           />&nbsp;
@@ -21,7 +21,7 @@
             :id="loadedMusic"
             :audio="audio" @play="playMusic(loadedMusic)"
           />&nbsp;
-          <button class="btn btn-light text-success" type="button" style="background-color: #212121" @click="musicAction('next')"><i class="fas fa-angle-double-right"></i></button>&nbsp;
+          <button class="btn btn-light text-success" type="button" style="background-color: #212121" @click="nextMusic()"><i class="fas fa-angle-double-right"></i></button>&nbsp;
           <button v-if="playMode !== 'repeat'" class="btn btn-light text-success" type="button" style="background-color: #212121" @click="updateMode('repeat')"><i class="fas fa-redo"></i></button>&nbsp;
           <button v-else class="btn btn-success text-dark border border-success" type="button" @click="updateMode('list')"><i class="fas fa-redo"></i></button>&nbsp;
           <button v-if="playMode !== 'random'" class="btn btn-light text-success" type="button" style="background-color: #212121"  @click="updateMode('random')"><i class="fas fa-random"></i></button>
@@ -57,8 +57,11 @@ export default {
     updateMode (mode) {
       this.$emit('updateMode', mode)
     },
-    musicAction (action) {
-      this.$emit('musicAction', action)
+    nextMusic () {
+      this.$emit('nextMusic')
+    },
+    previousMusic () {
+      this.$emit('previousMusic')
     },
     updateShow (show) {
       this.$emit('updateShow', show)

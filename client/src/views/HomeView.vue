@@ -5,7 +5,7 @@
       :loadedMusic="loadedMusic"
       :loadedPlaylist="loadedPlaylist"
       :playStatus="playStatus"
-      :playMode="playMode" @updateMode="updateMode($event)" @musicAction="musicAction($event)" @updateShow="updateShow($event)"
+      :playMode="playMode" @updateMode="updateMode($event)" @nextMusic="nextMusic()" @previousMusic="previousMusic()" @updateShow="updateShow($event)"
       :showMusic="showMusic"
     />
 
@@ -122,34 +122,12 @@ export default {
     },
     playMusic (id) {
       if (this.audio.src !== ApiManager.getMusicSrc(id)) {
-        this.audio.src = id === null ? ApiManager.getMusicSrc(this.musics[0].id) : ApiManager.getMusicSrc(id)
+        id = id === null ? this.musics[0].id : id
+        this.audio.src = ApiManager.getMusicSrc(id)
         this.audio.load()
-        this.loadedMusic = id === null ? this.musics[0].id : id
+        this.loadedMusic = id
         this.loadedPlaylist = this.showMusic && this.openedPlaylist === null ? null : this.loadedPlaylist
-        ApiManager.getMusic(id === null ? this.musics[0].id : id).then(response => {
-          if ('mediaSession' in navigator) {
-            const video0 = 'https://i.ytimg.com/vi/' + response.data.videoID + '/0.jpg'
-            const video1 = 'https://i.ytimg.com/vi/' + response.data.videoID + '/1.jpg'
-            const video2 = 'https://i.ytimg.com/vi/' + response.data.videoID + '/2.jpg'
-            const video3 = 'https://i.ytimg.com/vi/' + response.data.videoID + '/3.jpg'
-            const videoDefault = 'https://i.ytimg.com/vi/' + response.data.videoID + '/default.jpg'
-            const mqdefault = 'https://i.ytimg.com/vi/' + response.data.videoID + '/mqdefault.jpg'
-            const hqdefault = 'https://i.ytimg.com/vi/' + response.data.videoID + '/hqdefault.jpg'
-            navigator.mediaSession.metadata = new MediaMetadata({
-              title: response.data.title,
-              artist: 'Sukify',
-              artwork: [
-                { src: video0, sizes: '480x360', type: 'image/jpg' },
-                { src: video1, sizes: '120x90', type: 'image/jpg' },
-                { src: video2, sizes: '120x90', type: 'image/jpg' },
-                { src: video3, sizes: '120x90', type: 'image/jpg' },
-                { src: videoDefault, sizes: '120x90', type: 'image/jpg' },
-                { src: mqdefault, sizes: '320x180', type: 'image/jpg' },
-                { src: hqdefault, sizes: '480x360', type: 'image/jpg' }
-              ]
-            })
-          }
-        })
+        this.setNavigatorMusic(id)
       }
       this.audio.play()
       this.playStatus = true
@@ -179,7 +157,7 @@ export default {
     removeMusic (id) {
       this.musics = this.musics.filter(music => music.id !== id)
       if (id === this.loadedMusic) {
-        this.musicAction('next')
+        this.nextMusic()
       }
     },
     removePlaylist (id) {
@@ -191,14 +169,12 @@ export default {
         this.loadedPlaylist = null
       }
     },
-    musicAction (action) {
-      if (action === 'next') {
-        this.loadedMusic = this.loadedMusic === this.musics[this.musics.length - 1].id ? this.musics[0].id : this.musics[this.musics.findIndex(music => music.id === this.loadedMusic) + 1].id
-      } else if (action === 'previous') {
-        this.loadedMusic = this.loadedMusic === this.musics[0].id ? this.musics[this.musics.length - 1].id : this.musics[this.musics.findIndex(music => music.id === this.loadedMusic) - 1].id
-      } else {
-        InfoManager.showInfo('Invalid action', 'danger')
-      }
+    nextMusic () {
+      this.loadedMusic = this.loadedMusic === this.musics[this.musics.length - 1].id ? this.musics[0].id : this.musics[this.musics.findIndex(music => music.id === this.loadedMusic) + 1].id
+      this.playMusic(this.loadedMusic)
+    },
+    previousMusic () {
+      this.loadedMusic = this.loadedMusic === this.musics[0].id ? this.musics[this.musics.length - 1].id : this.musics[this.musics.findIndex(music => music.id === this.loadedMusic) - 1].id
       this.playMusic(this.loadedMusic)
     },
     updateMode (newMode) {
@@ -212,22 +188,46 @@ export default {
         this.loadPlaylist()
       }
       this.showMusic = show
+    },
+    setNavigatorMusic (id) {
+      ApiManager.getMusic(id).then(response => {
+        if ('mediaSession' in navigator) {
+          const video0 = 'https://i.ytimg.com/vi/' + response.data.videoID + '/0.jpg'
+          const video1 = 'https://i.ytimg.com/vi/' + response.data.videoID + '/1.jpg'
+          const video2 = 'https://i.ytimg.com/vi/' + response.data.videoID + '/2.jpg'
+          const video3 = 'https://i.ytimg.com/vi/' + response.data.videoID + '/3.jpg'
+          const videoDefault = 'https://i.ytimg.com/vi/' + response.data.videoID + '/default.jpg'
+          const mqdefault = 'https://i.ytimg.com/vi/' + response.data.videoID + '/mqdefault.jpg'
+          const hqdefault = 'https://i.ytimg.com/vi/' + response.data.videoID + '/hqdefault.jpg'
+          navigator.mediaSession.metadata = new MediaMetadata({
+            title: response.data.title,
+            artist: 'Sukify',
+            artwork: [
+              { src: video0, sizes: '480x360', type: 'image/jpg' },
+              { src: video1, sizes: '120x90', type: 'image/jpg' },
+              { src: video2, sizes: '120x90', type: 'image/jpg' },
+              { src: video3, sizes: '120x90', type: 'image/jpg' },
+              { src: videoDefault, sizes: '120x90', type: 'image/jpg' },
+              { src: mqdefault, sizes: '320x180', type: 'image/jpg' },
+              { src: hqdefault, sizes: '480x360', type: 'image/jpg' }
+            ]
+          })
+        }
+      })
     }
   },
   mounted () {
     this.loadPlaylist()
     navigator.mediaSession.setActionHandler('nexttrack', () => {
-      this.loadedMusic = this.loadedMusic === this.musics[this.musics.length - 1].id ? this.musics[0].id : this.musics[this.musics.findIndex(music => music.id === this.loadedMusic) + 1].id
-      this.playMusic(this.loadedMusic)
+      this.nextMusic()
     })
     navigator.mediaSession.setActionHandler('previoustrack', () => {
-      this.loadedMusic = this.loadedMusic === this.musics[0].id ? this.musics[this.musics.length - 1].id : this.musics[this.musics.findIndex(music => music.id === this.loadedMusic) - 1].id
-      this.playMusic(this.loadedMusic)
+      this.previousMusic()
     })
     this.audio.addEventListener('ended', () => {
       switch (this.playMode) {
         case 'list':
-          this.musicAction('next')
+          this.nextMusic()
           break
         case 'random':
           this.playMusic(this.musics[Math.floor(Math.random() * this.musics.length)].id)
