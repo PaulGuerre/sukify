@@ -35,6 +35,10 @@ class ApiManager {
     return axios.get(this.baseURL + 'playlists')
   }
 
+  getPlaylist (id) {
+    return axios.get(this.baseURL + 'playlists/' + id)
+  }
+
   addPlaylist (playlist) {
     return axios.post(this.baseURL + 'playlists', playlist)
   }

@@ -21,7 +21,7 @@
       </div>
     </div>
 
-    <div v-if="musics.length > 0" class="row row-cols-1 row-cols-md-2 row-cols-lg-3" style="margin-right: 2%; margin-left: 2%; margin-top: 10vh;">
+    <div v-if="musics.length > 0" class="row row-cols-1 row-cols-md-2 row-cols-lg-3" style="margin-top: 10vh; margin-right: 2%; margin-left: 2%;">
       <div class="col" v-for="music in musics" :key="music.id">
         <div class="row mb-3">
           <div class="col-5 col-md-4 col-lg-3 text-start p-0">
@@ -51,6 +51,11 @@
     <div v-else id="noMusicLabel">
       <p class="fs-5 text-success text-center m-2">No musics found, try adding one by hitting the floating "+" button</p>
     </div>
+
+    <ol v-if="OpenedplaylistName !== ''" class="breadcrumb justify-content-center">
+      <li class="breadcrumb-item"><a href="#" @click="showPlaylists()">Playlists</a></li>
+      <li class="breadcrumb-item active"><a class="text-success disabled">{{ OpenedplaylistName }}</a></li>
+    </ol>
   </div>
 </template>
 
@@ -72,7 +77,8 @@ export default {
   data () {
     return {
       modalMusic: [],
-      playlistInput: ''
+      playlistInput: '',
+      OpenedplaylistName: ''
     }
   },
   methods: {
@@ -84,6 +90,9 @@ export default {
     },
     removeMusic (id) {
       this.$emit('removeMusic', id)
+    },
+    showPlaylists () {
+      this.$emit('showPlaylists')
     },
     addMusicPlaylist (modalMusic) {
       if (this.playlistInput !== '') {
@@ -99,6 +108,13 @@ export default {
       } else {
         InfoManager.showInfo('Playlist can\'t be empty', 'danger')
       }
+    }
+  },
+  mounted () {
+    if (this.openedPlaylist !== null) {
+      ApiManager.getPlaylist(this.openedPlaylist).then(response => {
+        this.OpenedplaylistName = response.data.name
+      })
     }
   }
 }

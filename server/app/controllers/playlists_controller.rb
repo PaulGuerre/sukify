@@ -4,6 +4,11 @@ class PlaylistsController < ApplicationController
         render json: playlists
     end
 
+    def show
+        playlist = Playlist.find(params[:id])
+        render json: playlist
+    end
+
     def add
         playlist = Playlist.new(name: params[:name])
         if playlist.save

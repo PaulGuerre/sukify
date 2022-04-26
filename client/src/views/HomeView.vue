@@ -15,7 +15,7 @@
     />
 
     <music-list v-if="showMusic"
-      :audio="audio" @play="playMusic($event)" @pause="pauseMusic()"
+      :audio="audio" @play="playMusic($event)" @pause="pauseMusic()" @showPlaylists="updateShow(false)"
       :playlists="playlists"
       :musics="musics" @removeMusic="removeMusic($event)"
       :loadedMusic="loadedMusic"

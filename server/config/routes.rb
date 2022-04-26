@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   put "/musics/:id", to: "musics#update"
 
   get "/playlists", to: "playlists#index"
+  get "/playlists/:id", to: "playlists#show"
   get "/playlists/:id/musics", to: "playlists#musics"
   post "/playlists", to: "playlists#add"
   post "/playlists/:id", to: "playlists#addMusic"
