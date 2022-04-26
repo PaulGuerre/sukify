@@ -21,7 +21,7 @@
       </div>
     </div>
 
-    <div v-if="musics.length > 0" class="row row-cols-1 row-cols-md-2 row-cols-lg-3" style="margin-top: 10vh; margin-right: 2%; margin-left: 2%;">
+    <div v-if="musics.length > 0" class="row row-cols-1 row-cols-md-2 row-cols-lg-3" style="margin-right: 2%; margin-left: 2%;">
       <div class="col" v-for="music in musics" :key="music.id">
         <div class="row mb-3">
           <div class="col-5 col-md-4 col-lg-3 text-start p-0">

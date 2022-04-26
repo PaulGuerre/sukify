@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar navbar-expand-sm fixed-top" style="background-color: #212121">
+  <nav class="navbar navbar-expand-sm mb-4" style="background-color: #212121;">
     <div class="container-fluid">
       <router-link to="/" class="navbar-brand text-success">Sukify</router-link>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
