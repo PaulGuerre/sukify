@@ -11,7 +11,6 @@ Rails.application.routes.draw do
 
   get "/playlists", to: "playlists#index"
   get "/playlists/:id/musics", to: "playlists#musics"
-  get "playlists/:name", to: "playlists#name"
   post "/playlists", to: "playlists#add"
   post "/playlists/:id", to: "playlists#addMusic"
   delete "/playlists/:id", to: "playlists#delete"

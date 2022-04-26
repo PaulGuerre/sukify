@@ -13,11 +13,6 @@ class PlaylistsController < ApplicationController
         end
     end
 
-    def name
-        playlist = Playlist.where(name: params[:name])
-        render json: playlist
-    end
-
     def musics
         musics = Music.where(id: PlaylistMusic.where(playlist_id: params[:id]).pluck(:music_id))
         render json: musics
