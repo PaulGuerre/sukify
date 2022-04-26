@@ -10,7 +10,7 @@
           <div class="modal-body">
             <select class="form-select text-dark" v-model="playlistInput">
               <option value="" disabled selected>Choose playlist</option>
-              <option v-for="playlist in playlists" :key="playlist.id">{{ playlist.name }}</option>
+              <option v-for="playlist in playlists" :key="playlist.id" :value="playlist.id">{{ playlist.name }}</option>
             </select>
           </div>
           <div class="modal-footer border border-dark justify-content-around">
@@ -87,16 +87,14 @@ export default {
     },
     addMusicPlaylist (modalMusic) {
       if (this.playlistInput !== '') {
-        ApiManager.getPlaylistByName(this.playlistInput).then(response => {
-          ApiManager.addMusicToPlaylist(modalMusic.id, response.data[0].id).then(response => {
-            if (response.data.message === 'success') {
-              document.getElementById('modalCloseButton').click()
-              this.playlistInput = ''
-              InfoManager.showInfo('Music added to playlist', 'success')
-            } else {
-              InfoManager.showInfo('Error while adding music to playlit', 'danger')
-            }
-          })
+        ApiManager.addMusicToPlaylist(modalMusic.id, this.playlistInput).then(response => {
+          if (response.data.message === 'success') {
+            document.getElementById('modalCloseButton').click()
+            this.playlistInput = ''
+            InfoManager.showInfo('Music added to playlist', 'success')
+          } else {
+            InfoManager.showInfo('Error while adding music to playlit', 'danger')
+          }
         })
       } else {
         InfoManager.showInfo('Playlist can\'t be empty', 'danger')
