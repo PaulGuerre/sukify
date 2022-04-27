@@ -28,17 +28,16 @@
 
     <div class="row row-cols-1 row-cols-md-3 row-cols-lg-6" style="margin-top: 10vh; margin-right: 2%; margin-left: 2%;">
       <div class="col" v-for="index in 5" :key="index">
-        <div class="card text-success mb-4 shadow-lg" style="background-color: #424242">
+        <div class="card mb-4 shadow-lg" style="background-color: #424242">
           <img src="https://i.ytimg.com/vi/xN6LFM4CkWI/mqdefault.jpg" class="card-img-top placeholder placeholder-wave">
           <div class="card-img-overlay placeholder-wave">
-            <h5 class="card-title fs-3 text-truncate placeholder col-7"></h5><br />
-            <h6 class="card-subtitle text-white placeholder col-5"></h6>
+            <h5 class="card-title fs-3 text-light placeholder col-7"></h5>
           </div>
           <div class="card-footer border-0 text-center">
             <div class="btn-group btn-group-sm placeholder-wave" role="group">
-              <button class="btn btn-success disabled placeholder" type="button"><i class="fas fa-play"></i></button>
-              <button class="btn btn-warning disabled placeholder" type="button" ><i class="fas fa-edit"></i></button>
-              <button class="btn btn-danger disabled placeholder" type="button"><i class="fas fa-trash-alt"></i></button>
+              <button class="btn btn-success bg-transparent text-success disabled placeholder" type="button"><i class="fas fa-play"></i></button>
+              <button class="btn btn-warning bg-transparent text-success disabled placeholder" type="button" ><i class="fas fa-edit"></i></button>
+              <button class="btn btn-danger bg-transparent text-success disabled placeholder" type="button"><i class="fas fa-trash-alt"></i></button>
             </div>
           </div>
         </div>
