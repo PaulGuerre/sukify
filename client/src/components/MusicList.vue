@@ -27,18 +27,19 @@
           <div class="col-5 col-md-4 col-lg-3 text-start p-0">
             <img :src="'https://i.ytimg.com/vi/' + music.videoID + '/mqdefault.jpg'" class="img-fluid" style="border: 10px solid #424242; border-radius: 5px;" alt="Responsive image">
           </div>
-          <div class="col-7 col-md-8 col-lg-9 fs-5 text-success text-truncate text-start row" style="background-color: #424242; border: 10px solid #424242; border-radius: 5px;">
+          <div class="col-7 col-md-8 col-lg-9 fs-5 text-light text-truncate text-start row" style="background-color: #424242; border: 10px solid #424242; border-radius: 5px;">
             <span class="text-truncate col-12">{{ music.title }}</span>
             <div class="col-1 col-md-1 col-lg-1 btn-group btn-group-sm shadow-none" role="group" style="max-height: 30px;">
-              <pause-music v-if="loadedMusic === music.id && playStatus" class="btn-success"
+              <pause-music v-if="loadedMusic === music.id && playStatus" class="text-success bg-transparent"
                 :audio="audio" @pause="pauseMusic()"
               />
-              <play-music v-else class="btn-success"
+              <play-music v-else class="text-success bg-transparent"
                 :id="music.id"
                 :audio="audio" @play="playMusic($event)"
               />
-              <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#addMusicPlaylistModal" @click="modalMusic = music"><i class="fas fa-plus"></i></button>
-              <remove-button :id="music.id"
+              <button type="button" class="btn text-success bg-transparent" data-bs-toggle="modal" data-bs-target="#addMusicPlaylistModal" @click="modalMusic = music"><i class="fas fa-plus"></i></button>
+              <remove-button class="text-success bg-transparent"
+                :id="music.id"
                 :openedPlaylist="openedPlaylist"
                 :showMusic="showMusic" @removeMusic="removeMusic($event)" @removePlaylistMusic="removePlaylistMusic($event)"
               />
@@ -53,7 +54,7 @@
     </div>
 
     <ol v-if="OpenedplaylistName !== ''" class="breadcrumb justify-content-center">
-      <li class="breadcrumb-item"><a href="#" @click="showPlaylists()">Playlists</a></li>
+      <li class="breadcrumb-item"><a href="#" class="text-light" @click="showPlaylists()">Playlists</a></li>
       <li class="breadcrumb-item active"><a class="text-success disabled">{{ OpenedplaylistName }}</a></li>
     </ol>
   </div>
