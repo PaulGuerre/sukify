@@ -119,6 +119,6 @@ export default {
   height:230px;
   filter: blur(3px);
   background-color: black;
-  opacity: 0.1;
+  opacity: 0.2;
 }
 </style>
