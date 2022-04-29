@@ -62,6 +62,11 @@ class ApiManager {
   removePlaylistMusic (musicId, playlistId) {
     return axios.delete(this.baseURL + 'playlists/' + playlistId + '/musics/' + musicId)
   }
+
+  compareCredentials (username, password) {
+    console.log(username, password)
+    return axios.post(this.baseURL + 'login', { username: username, password: password })
+  }
 }
 
 export default new ApiManager()
