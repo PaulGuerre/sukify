@@ -6,6 +6,12 @@ RUN pip3 install yt-dlp
 
 WORKDIR /sukify
 
+ARG USER
+ENV USER=$USER
+
+ARG PASSWORD
+ENV PASSWORD=$PASSWORD
+
 COPY Gemfile /sukify/Gemfile
 COPY Gemfile.lock /sukify/Gemfile.lock
 
