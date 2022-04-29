@@ -25,7 +25,6 @@
           <img v-else :src="'https://i.ytimg.com/vi/' + playlist.videoID + '/mqdefault.jpg'" class="card-img-top">
           <div class="card-img-overlay text-center d-flex flex-column justify-content-between" @click="loadPlaylistMusic(playlist.id)">
             <h5 class="card-title fs-3 fw-bold text-truncate text-center">{{ playlist.name }}</h5>
-            <h6 class="card-subtitle text-white" hidden>{{ playlist.created_at.substring(0, 10) }}</h6>
             <div class="btn-group btn-group-sm shadow-none" role="group">
               <pause-music v-if="loadedPlaylist === playlist.id && playStatus" class="text-success bg-transparent"
                 :audio="audio" @pause="pauseMusic()"
