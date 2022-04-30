@@ -248,12 +248,16 @@ export default {
     })
   },
   created () {
-    ApiManager.compareToken(localStorage.getItem('token')).then(response => {
-      if (response.data.message === 'error') {
-        this.audio.src = ''
-        this.$router.push('/login')
-      }
-    })
+    if (localStorage.getItem('token') === null) {
+      this.$router.push('/login')
+    } else {
+      ApiManager.compareToken(localStorage.getItem('token')).then(response => {
+        if (response.data.message === 'error') {
+          this.audio.src = ''
+          this.$router.push('/login')
+        }
+      })
+    }
   },
   updated () {
     ApiManager.compareToken(localStorage.getItem('token')).then(response => {
