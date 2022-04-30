@@ -83,6 +83,7 @@ export default {
       this.$emit('removePlaylist', id)
     },
     loadPlaylistMusic (id) {
+      if (event.target !== event.currentTarget) return
       this.$emit('loadPlaylistMusic', id)
     },
     editPlaylist () {
