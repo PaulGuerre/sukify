@@ -246,6 +246,22 @@ export default {
     this.audio.addEventListener('play', () => {
       this.playMusic(this.loadedMusic)
     })
+  },
+  created () {
+    ApiManager.compareToken(localStorage.getItem('token')).then(response => {
+      if (response.data.message === 'error') {
+        this.audio.src = ''
+        this.$router.push('/login')
+      }
+    })
+  },
+  updated () {
+    ApiManager.compareToken(localStorage.getItem('token')).then(response => {
+      if (response.data.message === 'error') {
+        this.audio.src = ''
+        this.$router.push('/login')
+      }
+    })
   }
 }
 </script>

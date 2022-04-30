@@ -12,6 +12,10 @@ gem 'rdoc'
 # Cors
 gem 'rack-cors'
 
+# JWT
+gem 'bcrypt'
+gem 'jwt_sessions'
+
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails"
 

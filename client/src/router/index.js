@@ -15,8 +15,7 @@ const routes = [
   },
   {
     path: '/:pathMatch(.*)*',
-    name: 'not-found',
-    component: HomeView
+    redirect: '/'
   }
 ]
 

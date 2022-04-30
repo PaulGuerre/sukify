@@ -41,12 +41,20 @@ export default {
     login () {
       ApiManager.compareCredentials(this.username, this.password).then(response => {
         if (response.data.message === 'success') {
+          localStorage.setItem('token', response.data.token)
           this.$router.push('/')
         } else {
           InfoManager.showInfo('Login failed', 'danger')
         }
       })
     }
+  },
+  created () {
+    ApiManager.compareToken(localStorage.getItem('token')).then(response => {
+      if (response.data.message === 'success') {
+        this.$router.push('/')
+      }
+    })
   }
 }
 </script>

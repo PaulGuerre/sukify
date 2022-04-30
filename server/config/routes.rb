@@ -18,5 +18,6 @@ Rails.application.routes.draw do
   delete "/playlists/:id/musics/:music_id", to: "playlists#deleteMusic"
   put "/playlists/:id", to: "playlists#update"
   
+  post "/token", to: "application#token"
   post "/login", to: "application#login"
 end

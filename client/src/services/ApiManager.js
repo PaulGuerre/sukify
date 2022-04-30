@@ -64,8 +64,11 @@ class ApiManager {
   }
 
   compareCredentials (username, password) {
-    console.log(username, password)
     return axios.post(this.baseURL + 'login', { username: username, password: password })
+  }
+
+  compareToken (token) {
+    return axios.post(this.baseURL + 'token', { token: token })
   }
 }
 
