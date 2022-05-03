@@ -9,7 +9,7 @@
           <label for="floatingInput">Username</label>
         </div>
         <div class="form-floating mb-3">
-          <input v-model="password" type="password" class="form-control" id="floatingPassword" placeholder="Password">
+          <input v-model="password" type="password" class="form-control" id="floatingPassword" placeholder="Password" @keyup.enter="login()">
           <label for="floatingPassword">Password</label>
         </div>
 
@@ -41,7 +41,7 @@ export default {
     login () {
       ApiManager.compareCredentials(this.username, this.password).then(response => {
         if (response.data.message === 'success') {
-          localStorage.setItem('token', response.data.token)
+          sessionStorage.setItem('token', response.data.token)
           this.$router.push('/')
         } else {
           InfoManager.showInfo('Login failed', 'danger')
@@ -50,7 +50,7 @@ export default {
     }
   },
   created () {
-    ApiManager.compareToken(localStorage.getItem('token')).then(response => {
+    ApiManager.compareToken(sessionStorage.getItem('token')).then(response => {
       if (response.data.message === 'success') {
         this.$router.push('/')
       }

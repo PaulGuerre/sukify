@@ -248,10 +248,10 @@ export default {
     })
   },
   created () {
-    if (localStorage.getItem('token') === null) {
+    if (sessionStorage.getItem('token') === null) {
       this.$router.push('/login')
     } else {
-      ApiManager.compareToken(localStorage.getItem('token')).then(response => {
+      ApiManager.compareToken(sessionStorage.getItem('token')).then(response => {
         if (response.data.message === 'error') {
           this.audio.src = ''
           this.$router.push('/login')
@@ -260,7 +260,7 @@ export default {
     }
   },
   updated () {
-    ApiManager.compareToken(localStorage.getItem('token')).then(response => {
+    ApiManager.compareToken(sessionStorage.getItem('token')).then(response => {
       if (response.data.message === 'error') {
         this.audio.src = ''
         this.$router.push('/login')
