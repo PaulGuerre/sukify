@@ -2,7 +2,7 @@
   <div class="text-center align-items-center h-100" style="margin-top: 25vh;">
     <div class="form-signin" style="width:100%; max-width: 330px; padding: 15px; margin:auto;">
       <form>
-        <img class="mb-4" src="../assets/logo.png" alt="" width="72" height="57">
+        <img class="mb-4" src="../assets/logo.png" alt="" width="64" height="64">
 
         <div class="form-floating mb-1">
           <input v-model="username" type="email" class="form-control" id="floatingInput" placeholder="Username">
