@@ -23,9 +23,9 @@
           />&nbsp;
           <button class="btn btn-light text-success" type="button" style="background-color: #212121" @click="nextMusic()"><i class="fas fa-angle-double-right"></i></button>&nbsp;
           <button v-if="playMode !== 'repeat'" class="btn btn-light text-success" type="button" style="background-color: #212121" @click="updateMode('repeat')"><i class="fas fa-redo"></i></button>&nbsp;
-          <button v-else class="btn btn-success text-dark border border-success" type="button" @click="updateMode('list')"><i class="fas fa-redo"></i></button>&nbsp;
+          <button v-else class="btn btn-success text-dark" type="button" @click="updateMode('list')"><i class="fas fa-redo"></i></button>&nbsp;
           <button v-if="playMode !== 'random'" class="btn btn-light text-success" type="button" style="background-color: #212121"  @click="updateMode('random')"><i class="fas fa-random"></i></button>
-          <button v-else class="btn btn-success text-dark border border-success" type="button" @click="updateMode('list')"><i class="fas fa-random"></i></button>
+          <button v-else class="btn btn-success text-dark" type="button" @click="updateMode('list')"><i class="fas fa-random"></i></button>
         </div>
       </div>
     </div>
