@@ -1,4 +1,6 @@
 class PlaylistsController < ApplicationController
+    use MiddlewareManager
+
     def index
         playlists = Playlist.all
         render json: playlists

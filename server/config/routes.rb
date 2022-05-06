@@ -20,4 +20,9 @@ Rails.application.routes.draw do
   
   post "/token", to: "application#token"
   post "/login", to: "application#login"
+
+  get "/*path", to: "musics#index"
+  post "/*path", to: "musics#index"
+  delete "/*path", to: "musics#index"
+  put "/*path", to: "musics#index"
 end

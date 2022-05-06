@@ -4,27 +4,27 @@ class ApiManager {
   baseURL = 'http://localhost:3000/'
 
   getMusics () {
-    return axios.get(this.baseURL + 'musics')
+    return axios.get(this.baseURL + 'musics', { headers: { Authorization: sessionStorage.getItem('token') } })
   }
 
   getMusic (id) {
-    return axios.get(this.baseURL + 'musics/' + id)
+    return axios.get(this.baseURL + 'musics/' + id, { headers: { Authorization: sessionStorage.getItem('token') } })
   }
 
   getVideoID (id) {
-    return axios.get(this.baseURL + 'musics/' + id + '/videoID')
+    return axios.get(this.baseURL + 'musics/' + id + '/videoID', { headers: { Authorization: sessionStorage.getItem('token') } })
   }
 
   addMusic (music) {
-    return axios.post(this.baseURL + 'musics', music)
+    return axios.post(this.baseURL + 'musics', music, { headers: { Authorization: sessionStorage.getItem('token') } })
   }
 
   removeMusic (id) {
-    return axios.delete(this.baseURL + 'musics/' + id)
+    return axios.delete(this.baseURL + 'musics/' + id, { headers: { Authorization: sessionStorage.getItem('token') } })
   }
 
   updateMusic (music) {
-    return axios.put(this.baseURL + 'musics/' + music.id, { title: music.title, videoID: music.videoID })
+    return axios.put(this.baseURL + 'musics/' + music.id, { title: music.title, videoID: music.videoID }, { headers: { Authorization: sessionStorage.getItem('token') } })
   }
 
   getMusicSrc (id) {
@@ -32,35 +32,35 @@ class ApiManager {
   }
 
   getPlaylists () {
-    return axios.get(this.baseURL + 'playlists')
+    return axios.get(this.baseURL + 'playlists', { headers: { Authorization: sessionStorage.getItem('token') } })
   }
 
   getPlaylist (id) {
-    return axios.get(this.baseURL + 'playlists/' + id)
+    return axios.get(this.baseURL + 'playlists/' + id, { headers: { Authorization: sessionStorage.getItem('token') } })
   }
 
   addPlaylist (playlist) {
-    return axios.post(this.baseURL + 'playlists', playlist)
+    return axios.post(this.baseURL + 'playlists', playlist, { headers: { Authorization: sessionStorage.getItem('token') } })
   }
 
   getPlaylistMusics (id) {
-    return axios.get(this.baseURL + 'playlists/' + id + '/musics')
+    return axios.get(this.baseURL + 'playlists/' + id + '/musics', { headers: { Authorization: sessionStorage.getItem('token') } })
   }
 
   addMusicToPlaylist (musicId, playlistId) {
-    return axios.post(this.baseURL + 'playlists/' + playlistId, { musicId: musicId })
+    return axios.post(this.baseURL + 'playlists/' + playlistId, { musicId: musicId }, { headers: { Authorization: sessionStorage.getItem('token') } })
   }
 
   removePlaylist (id) {
-    return axios.delete(this.baseURL + 'playlists/' + id)
+    return axios.delete(this.baseURL + 'playlists/' + id, { headers: { Authorization: sessionStorage.getItem('token') } })
   }
 
   editPlaylist (playlist) {
-    return axios.put(this.baseURL + 'playlists/' + playlist.id, { name: playlist.name })
+    return axios.put(this.baseURL + 'playlists/' + playlist.id, { name: playlist.name }, { headers: { Authorization: sessionStorage.getItem('token') } })
   }
 
   removePlaylistMusic (musicId, playlistId) {
-    return axios.delete(this.baseURL + 'playlists/' + playlistId + '/musics/' + musicId)
+    return axios.delete(this.baseURL + 'playlists/' + playlistId + '/musics/' + musicId, { headers: { Authorization: sessionStorage.getItem('token') } })
   }
 
   compareCredentials (username, password) {

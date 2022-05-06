@@ -1,4 +1,6 @@
 class MusicsController < ApplicationController
+    use MiddlewareManager
+
     def index
         musics = Music.all
         render json: musics
