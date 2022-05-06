@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
     include JWTSessions::RailsAuthorization
 
-    @@token = JWT.encode({ username: "root" }, 'secret', 'HS256')
+    @@token = JWT.encode({ username: ENV["USER"] }, 'secret', 'HS256')
 
     def token
         if params[:token] == @@token
@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
     end
 
     def login
-        if (params[:username] == "root") && (params[:password] == "root")
+        if (params[:username] == ENV["USER"]) && (params[:password] == ENV["PASSWORD"])
             render json: { message: 'success', token: @@token }
         else
             render json: { message: 'error' }

@@ -17,7 +17,7 @@ default: &default
   password: root
   
   # Docker only
-  # host: sukify_db
+  host: sukify_db
 
 development:
   <<: *default
