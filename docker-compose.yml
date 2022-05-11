@@ -1,0 +1,51 @@
+version: '3'
+
+services:
+  sukify_db: 
+    image: mysql:latest
+    restart: unless-stopped
+    container_name: sukify_db
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+
+  sukify_frontend:
+    build:
+      dockerfile: Dockerfile
+      context: ./client
+    container_name: sukify_frontend
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    #labels:
+      #- "traefik.http.routers.sukify_frontend.rule=Host(`sukify.yourdomainename.example`)"
+      #- "traefik.http.routers.sukify_frontend.tls=true"
+      #- "traefik.http.routers.sukify_frontend.entrypoints=https,http"
+      #- "traefik.http.routers.sukify_frontend.tls.certresolver=example"
+      #- "traefik.http.services.sukify_frontend.loadbalancer.server.port=8080"
+      #- "traefik.enable=true"
+
+  sukify_backend:
+    build: 
+      dockerfile: Dockerfile
+      context: ./server
+      args:
+        USER: "user"
+        PASSWORD: "password"
+    container_name: sukify_backend
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    #labels:
+      #- "traefik.http.routers.sukify_backend.rule=Host(`api.sukify.yourdomainname.example`)"
+      #- "traefik.http.routers.sukify_backend.tls=true"
+      #- "traefik.http.routers.sukify_backend.entrypoints=https,http"
+      #- "traefik.http.routers.sukify_backend.tls.certresolver=example"
+      #- "traefik.http.services.sukify_backend.loadbalancer.server.port=3000"
+      #- "traefik.enable=true"
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+    volumes:
+      - ./server:/sukify
+    links:
+      - sukify_db
