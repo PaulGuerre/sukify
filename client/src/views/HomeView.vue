@@ -73,7 +73,7 @@ export default {
       playStatus: false,
       playMode: 'list',
       showMusic: false,
-      openedPlaylist: null,
+      openedPlaylist: '',
       connect: false
     }
   },
@@ -126,7 +126,7 @@ export default {
         this.audio.src = ApiManager.getMusicSrc(id)
         this.audio.load()
         this.loadedMusic = id
-        this.loadedPlaylist = this.showMusic && this.openedPlaylist === null ? null : this.loadedPlaylist
+        this.loadedPlaylist = this.showMusic && this.openedPlaylist === '' ? null : this.loadedPlaylist
         this.setNavigatorMusic(id)
       }
       this.audio.play()
@@ -181,7 +181,7 @@ export default {
       this.playMode = newMode
     },
     updateShow (show) {
-      this.openedPlaylist = null
+      this.openedPlaylist = ''
       if (show) {
         this.loadMusic()
       } else {
