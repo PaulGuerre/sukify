@@ -53,7 +53,7 @@
       <p class="fs-5 text-success text-center m-2">No musics found, try adding one by hitting the floating "+" button</p>
     </div>
 
-    <ol v-if="openedPlaylist !== null" class="breadcrumb justify-content-center">
+    <ol v-if="openedPlaylist !== ''" class="breadcrumb justify-content-center">
       <li class="breadcrumb-item"><a href="#" class="text-light" @click="showPlaylists()">Playlists</a></li>
       <li class="breadcrumb-item active"><a class="text-success disabled">{{ OpenedplaylistName }}</a></li>
     </ol>
@@ -112,7 +112,7 @@ export default {
     }
   },
   mounted () {
-    if (this.openedPlaylist !== null) {
+    if (this.openedPlaylist !== '') {
       ApiManager.getPlaylist(this.openedPlaylist).then(response => {
         this.OpenedplaylistName = response.data.name
       })

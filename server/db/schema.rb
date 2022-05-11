@@ -11,14 +11,14 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.0].define(version: 2022_04_12_212648) do
-  create_table "musics", charset: "utf8mb4", force: :cascade do |t|
+  create_table "musics", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "title"
     t.string "videoID"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "playlist_musics", charset: "utf8mb4", force: :cascade do |t|
+  create_table "playlist_musics", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "playlist_id"
     t.bigint "music_id"
     t.datetime "created_at", null: false
@@ -27,7 +27,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_12_212648) do
     t.index ["playlist_id"], name: "fk_rails_db21a8d974"
   end
 
-  create_table "playlists", charset: "utf8mb4", force: :cascade do |t|
+  create_table "playlists", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

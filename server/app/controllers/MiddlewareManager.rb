@@ -4,7 +4,7 @@ class MiddlewareManager < ApplicationController
     end
 
     def call(env)
-        if env["HTTP_AUTHORIZATION"] == @@token || (env["PATH_INFO"].include? "/src")
+        if env["HTTP_AUTHORIZATION"] == @@token || ( (env["PATH_INFO"].include? "/src") && (Music.exists?(env["PATH_INFO"].gsub(/^\D+|\D+$/, ""))) )
             @app.call(env)
         else
             [401, {}, ["unauthorized"]]

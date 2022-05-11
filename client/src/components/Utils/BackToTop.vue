@@ -18,9 +18,10 @@ export default {
     }
   },
   mounted () {
-    window.addEventListener('scroll', () => {
-      this.onScroll()
-    })
+    window.addEventListener('scroll', this.onScroll)
+  },
+  beforeUnmount () {
+    window.removeEventListener('scroll', this.onScroll)
   }
 }
 </script>
