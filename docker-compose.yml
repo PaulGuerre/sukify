@@ -33,6 +33,7 @@ services:
       args:
         USER: "user"
         PASSWORD: "password"
+        YOUTUBE_API_KEY: "YOUR API KEY"
     container_name: sukify_backend
     restart: unless-stopped
     ports:

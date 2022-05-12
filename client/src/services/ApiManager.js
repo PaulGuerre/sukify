@@ -70,6 +70,10 @@ class ApiManager {
   compareToken (token) {
     return axios.post(this.baseURL + 'token', { token: token })
   }
+
+  getYoutubeApiKey () {
+    return axios.get(this.baseURL + 'youtubeApiKey', { headers: { Authorization: sessionStorage.getItem('token') } })
+  }
 }
 
 export default new ApiManager()

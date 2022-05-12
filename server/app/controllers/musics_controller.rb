@@ -1,6 +1,10 @@
 class MusicsController < ApplicationController
     use MiddlewareManager
 
+    def youtubeApiKey
+        render json: { message: 'success', youtubeApiKey: ENV["YOUTUBE_API_KEY"] }
+    end
+
     def index
         musics = Music.all
         render json: musics
