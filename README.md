@@ -16,6 +16,8 @@ Docker is the best way to install Sukify.
 4. Update needed data into : [``docker-compose.yml``](https://github.com/Paulobergine/sukify/blob/d23ebe141112b8d7be23da38fa55f457a6d4d4e4/docker-compose.yml#L34-L36)
 5. Run : ``docker-compose up -d --build``
 
+Traefik fields are also included
+
 ## Rendering
 Login page :
 ![Screenshot 2022-05-13 at 17-04-37 Sukify](https://user-images.githubusercontent.com/56794631/168390186-7940e179-d54a-48ec-b745-e9be50fb4e32.png)
