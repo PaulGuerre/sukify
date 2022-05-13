@@ -12,7 +12,7 @@ Docker is the best way to install Sukify.
 
 1. Install Docker : https://docs.docker.com/engine/install/
 2. Install docker-compose : https://docs.docker.com/compose/install/
-3. Clone this repo : https://github.com/Paulobergine/sukify
+3. Clone this repo : ``git clone https://github.com/Paulobergine/sukify``
 4. Update needed data into : [``docker-compose.yml``](https://github.com/Paulobergine/sukify/blob/d23ebe141112b8d7be23da38fa55f457a6d4d4e4/docker-compose.yml#L34-L36)
 5. Run : ``docker-compose up -d --build``
 
