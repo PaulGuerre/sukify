@@ -16,7 +16,10 @@ Docker is the best way to install Sukify.
 4. Update needed data into : [``docker-compose.yml``](https://github.com/Paulobergine/sukify/blob/d23ebe141112b8d7be23da38fa55f457a6d4d4e4/docker-compose.yml#L34-L36)
 5. Run : ``docker-compose up -d --build``
 
+### WAN config
 Traefik fields are also included
+Update Api base URL : [``client/src/services/ApiManager.js``](https://github.com/Paulobergine/sukify/blob/d37c21e3a3016a16801e7961817631eceff6c214/client/src/services/ApiManager.js#L4)
+
 
 ## Rendering
 Login page :
