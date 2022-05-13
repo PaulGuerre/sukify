@@ -19,6 +19,7 @@ Docker is the best way to install Sukify.
 ### WAN config
 Traefik fields are also included
 Update Api base URL : [``client/src/services/ApiManager.js``](https://github.com/Paulobergine/sukify/blob/d37c21e3a3016a16801e7961817631eceff6c214/client/src/services/ApiManager.js#L4)
+(https://api.sukify.example.com)
 
 
 ## Rendering
