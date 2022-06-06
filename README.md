@@ -1,5 +1,5 @@
 # Sukify
-Sukify is a private music web server. Using Vue.js and Ruby On Rails, it allows you to add and listen to music from Youtube. Using Docker or not, you can install it via LAN or WAN.
+Sukify is a private music web server. Using Vue.js and Ruby On Rails, it allows you to add and listen to music from Youtube. Using Docker or not, you can install it via LAN or WAN !
 
 ## Features
 Sukify lets you download music and create playlists. About the music player, you have the option to enable shuffle music mode or music repeat mode.
