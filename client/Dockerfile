@@ -1,15 +1,10 @@
-FROM node:lts-alpine
-
-RUN npm install -g http-server
-
+FROM node:lts-alpine as build
 WORKDIR /sukify
-
 COPY package*.json ./
-
 RUN npm install
-
 COPY . .
-
 RUN npm run build
 
-CMD [ "http-server", "dist" ]
+FROM nginx
+COPY ./nginx/nginx.conf /etc/nginx/conf.d/default.conf
+COPY --from=build /sukify/dist /usr/share/nginx/html

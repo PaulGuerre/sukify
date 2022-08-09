@@ -1,4 +1,4 @@
-FROM ruby:3.1.2 AS sukify_backend
+FROM ruby:3.1.2
 
 RUN apt-get update -qq && apt-get install -y build-essential libpq-dev nodejs python3-pip ffmpeg
 
@@ -6,10 +6,13 @@ RUN pip3 install yt-dlp
 
 WORKDIR /sukify
 
+ARG USER
 ENV USER=$USER
 
+ARG PASSWORD
 ENV PASSWORD=$PASSWORD
 
+ARG YOUTUBE_API_KEY
 ENV YOUTUBE_API_KEY=$YOUTUBE_API_KEY
 
 COPY Gemfile /sukify/Gemfile
