@@ -28,7 +28,7 @@ class ApiManager {
   }
 
   getMusicSrc (id) {
-    return this.baseURL + 'musics/' + id + '/src'
+    return window.location.origin + this.baseURL + 'musics/' + id + '/src'
   }
 
   getPlaylists () {
