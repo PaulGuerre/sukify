@@ -20,7 +20,7 @@
 
     <div v-if="playlists.length > 0" class="row row-cols-1 row-cols-md-3 row-cols-lg-6" style="margin-right: 2%; margin-left: 2%;">
       <div class="col" v-for="playlist in playlists" :key="playlist.id">
-        <div class="card text-light mb-4 shadow-lg" style="background-color: #424242">
+        <div class="card text-light mb-4 shadow-lg" style="background-color: #505050">
           <img v-if="playlist.videoID === undefined" src="https://i.ytimg.com/vi/xN6LFM4CkWI/mqdefault.jpg" class="card-img-top placeholder placeholder-wave">
           <img v-else :src="'https://i.ytimg.com/vi/' + playlist.videoID + '/mqdefault.jpg'" class="card-img-top">
           <div class="card-img-overlay text-center d-flex flex-column justify-content-between" @click="loadPlaylistMusic(playlist.id)">

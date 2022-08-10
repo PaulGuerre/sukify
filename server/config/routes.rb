@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   root "musics#index"
 
+  get "/api", to: "musics#index"
   get "/api/musics", to: "musics#index"
   get "/api/musics/:id", to: "musics#show"
   get "/api/musics/:id/src", to: "musics#play"

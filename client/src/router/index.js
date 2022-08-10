@@ -5,8 +5,7 @@ import LoginView from '@/views/LoginView.vue'
 const routes = [
   {
     path: '/',
-    name: 'home',
-    component: HomeView
+    redirect: '/home'
   },
   {
     path: '/login',
@@ -14,8 +13,13 @@ const routes = [
     component: LoginView
   },
   {
+    path: '/home',
+    name: 'home',
+    component: HomeView
+  },
+  {
     path: '/:pathMatch(.*)*',
-    redirect: '/'
+    redirect: '/home'
   }
 ]
 
