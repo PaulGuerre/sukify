@@ -1,7 +1,7 @@
 version: '3'
 
 services:
-  sukify_db: 
+  sukify_db:
     image: mysql:latest
     restart: unless-stopped
     container_name: sukify_db
@@ -20,18 +20,18 @@ services:
     restart: unless-stopped
     ports:
       - "80:80"
-    networks: 
+    networks:
       - sukify
     #labels:
-      #- "traefik.http.routers.sukify_frontend.rule=Host(`sukify.yourdomainename.example`)"
-      #- "traefik.http.routers.sukify_frontend.tls=true"
-      #- "traefik.http.routers.sukify_frontend.entrypoints=https,http"
-      #- "traefik.http.routers.sukify_frontend.tls.certresolver=example"
-      #- "traefik.http.services.sukify_frontend.loadbalancer.server.port=8080"
+      #- "traefik.http.routers.sukify.rule=Host(`sukify.yourdomainename.example`)"
+      #- "traefik.http.routers.sukify.tls=true"
+      #- "traefik.http.routers.sukify.entrypoints=https,http"
+      #- "traefik.http.routers.sukify.tls.certresolver=example"
+      #- "traefik.http.services.sukify.loadbalancer.server.port=80"
       #- "traefik.enable=true"
 
   sukify_backend:
-    build: 
+    build:
       dockerfile: Dockerfile
       context: ./server
       args:
@@ -40,19 +40,12 @@ services:
         YOUTUBE_API_KEY: "YOUR API KEY"
     container_name: sukify_backend
     restart: unless-stopped
-    #labels:
-      #- "traefik.http.routers.sukify_backend.rule=Host(`api.sukify.yourdomainname.example`)"
-      #- "traefik.http.routers.sukify_backend.tls=true"
-      #- "traefik.http.routers.sukify_backend.entrypoints=https,http"
-      #- "traefik.http.routers.sukify_backend.tls.certresolver=example"
-      #- "traefik.http.services.sukify_backend.loadbalancer.server.port=3000"
-      #- "traefik.enable=true"
     command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
     volumes:
       - ./server:/sukify
     links:
       - sukify_db
-    networks: 
+    networks:
       - sukify
 
 networks:
