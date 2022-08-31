@@ -14,8 +14,8 @@
     </div>
 
     <div class="offcanvas offcanvas-start bg-dark" tabindex="-1" id="offcanvas">
-      <div class="offcanvas-header text-white">
-        <h5 class="offcanvas-title">Sukify</h5>
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title text-white">Sukify</h5>
         <button type="button" class="btn-close btn-close-white text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
       <div class="offcanvas-body">
@@ -24,10 +24,16 @@
           <input type="text" class="form-control border-success text-dark" placeholder="Title or URL" v-model="musicInput" @keyup.enter="download()">
           <button class="btn btn-success" type="button" id="addMusicButton" data-bs-toggle="modal" :data-bs-target="musicInput === '' ? null : '#addMusicModal'" @click="addMusic(musicInput)"><i  class="fas fa-plus"></i></button>
         </div>
-        <div class="input-group mb-3">
+        <div class="input-group mb-5">
           <button class="btn btn-success" type="button" @click="addPlaylist(playlistInput)"><i  class="fas fa-plus"></i></button>
           <input type="text" class="form-control border-success text-dark" placeholder="Playlist name" v-model="playlistInput" @keyup.enter="addPlaylist(playlistInput)">
         </div>
+
+        <h5 class="text-success">Audio volume : {{ audioRange * 100 }}%</h5>
+        <input type="range" class="form-range custom-range mb-5" min="0" max="1" step="0.1" id="audioRange" v-model="audioRange" @change="updateAudioVolume">
+
+        <h5 class="text-success">Audio timecode : {{ timecodeRange }}%</h5>
+        <input type="range" class="form-range custom-range" min="0" max="100" step="1" id="timecodeRange" v-model="timecodeRange" @change="updateAudioTimecode">
       </div>
     </div>
 
@@ -45,7 +51,9 @@ export default {
   data () {
     return {
       musicInput: '',
-      playlistInput: ''
+      playlistInput: '',
+      audioRange: 1,
+      timecodeRange: 0
     }
   },
   methods: {
@@ -86,6 +94,12 @@ export default {
         InfoManager.showInfo('Playlist name can\'t empty', 'danger')
       }
     },
+    updateAudioVolume () {
+      this.$emit('updateAudioVolume', this.audioRange)
+    },
+    updateAudioTimecode () {
+      this.$emit('updateAudioTimecode', this.timecodeRange)
+    },
     download () {
       document.getElementById('addMusicButton').click()
     }
@@ -104,5 +118,29 @@ export default {
 
 #plusButton:hover {
   opacity: 1;
+}
+
+.custom-range::-webkit-slider-thumb {
+  background: #00913b;
+}
+
+.custom-range::-moz-range-thumb {
+  background: #00913b;
+}
+
+.custom-range::-ms-thumb {
+  background: #00913b;
+}
+
+.custom-range::-webkit-slider-thumb:active {
+  background: #00913b;
+}
+
+.custom-range::-moz-range-thumb:active {
+  background: #00913b;
+}
+
+.custom-range::-ms-thumb:active {
+  background: #00913b;
 }
 </style>

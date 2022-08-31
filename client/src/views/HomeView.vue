@@ -12,6 +12,8 @@
     <more-action
       @loadMusic="loadMusic()"
       @loadPlaylist="loadPlaylist()"
+      @updateAudioVolume="updateAudioVolume($event)"
+      @updateAudioTimecode="updateAudioTimecode($event)"
     />
 
     <music-list v-if="showMusic"
@@ -188,6 +190,12 @@ export default {
         this.loadPlaylist()
       }
       this.showMusic = show
+    },
+    updateAudioVolume (volume) {
+      this.audio.volume = volume
+    },
+    updateAudioTimecode (timecode) {
+      this.audio.currentTime = (this.audio.duration / 100) * timecode
     },
     setNavigatorMusic (id) {
       ApiManager.getMusic(id).then(response => {
