@@ -1,5 +1,5 @@
 <template>
-  <div id="add">
+  <div id="addTest">
     <div class="modal fade" id="addMusicModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered modal-sm">
         <div class="modal-content shadow-none" style="background-color: transparent;">
@@ -13,28 +13,25 @@
       </div>
     </div>
 
-    <div class="modal fade" id="addModal" tabindex="-1" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content bg-dark">
-          <div class="modal-header border-dark">
-            <h5 class="modal-title text-success" id="exampleModalLabel">Add music & playlist</h5>
-            <button type="button" id="closeModalButton" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <div class="input-group mb-3">
-              <input type="text" class="form-control border-success text-dark" placeholder="Title or URL" v-model="musicInput" @keyup.enter="download()">
-              <button class="btn btn-success" type="button" id="addMusicButton" data-bs-toggle="modal" :data-bs-target="musicInput === '' ? null : '#addMusicModal'" @click="addMusic(musicInput)"><i  class="fas fa-plus"></i></button>
-            </div>
-            <div class="input-group mb-3">
-              <button class="btn btn-success" type="button" @click="addPlaylist(playlistInput)"><i  class="fas fa-plus"></i></button>
-              <input type="text" class="form-control border-success text-dark" placeholder="Playlist name" v-model="playlistInput" @keyup.enter="addPlaylist(playlistInput)">
-            </div>
-          </div>
+    <div class="offcanvas offcanvas-start bg-dark" tabindex="-1" id="offcanvas">
+      <div class="offcanvas-header text-white">
+        <h5 class="offcanvas-title">Sukify</h5>
+        <button type="button" class="btn-close btn-close-white text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body">
+        <h5 class="text-success">Add music & playlist</h5>
+        <div class="input-group mb-3">
+          <input type="text" class="form-control border-success text-dark" placeholder="Title or URL" v-model="musicInput" @keyup.enter="download()">
+          <button class="btn btn-success" type="button" id="addMusicButton" data-bs-toggle="modal" :data-bs-target="musicInput === '' ? null : '#addMusicModal'" @click="addMusic(musicInput)"><i  class="fas fa-plus"></i></button>
+        </div>
+        <div class="input-group mb-3">
+          <button class="btn btn-success" type="button" @click="addPlaylist(playlistInput)"><i  class="fas fa-plus"></i></button>
+          <input type="text" class="form-control border-success text-dark" placeholder="Playlist name" v-model="playlistInput" @keyup.enter="addPlaylist(playlistInput)">
         </div>
       </div>
     </div>
 
-    <button id="addButton" class="btn btn-success btn-floating btn-lg" type="button" data-bs-toggle="modal" data-bs-target="#addModal"><i class="fas fa-plus"></i></button>
+    <button class="btn btn-success btn-floating btn-lg" id="plusButton" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas"><i class="fas fa-music"></i></button>
   </div>
 </template>
 
@@ -44,7 +41,7 @@ import ApiManager from '@/services/ApiManager.js'
 import InfoManager from '@/services/InfoManager.js'
 
 export default {
-  name: 'Add',
+  name: 'MoreAction',
   data () {
     return {
       musicInput: '',
@@ -97,7 +94,7 @@ export default {
 </script>
 
 <style>
-#addButton {
+#plusButton {
   position: fixed;
   right: 1%;
   top: 50%;
@@ -105,7 +102,7 @@ export default {
   z-index: 2;
 }
 
-#addButton:hover {
+#plusButton:hover {
   opacity: 1;
 }
 </style>

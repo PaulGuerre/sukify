@@ -9,7 +9,7 @@
       :showMusic="showMusic"
     />
 
-    <add
+    <more-action
       @loadMusic="loadMusic()"
       @loadPlaylist="loadPlaylist()"
     />
@@ -49,8 +49,8 @@ import NotConnected from '@/components/Utils/NotConnected.vue'
 import InfoManager from '@/services/InfoManager'
 import MusicList from '@/components/MusicList.vue'
 import PlaylistList from '@/components/PlaylistList.vue'
-import Add from '@/components/Add.vue'
 import BackToTop from '@/components/Utils/BackToTop.vue'
+import MoreAction from '../components/MoreAction.vue'
 
 export default {
   name: 'HomeView',
@@ -60,8 +60,8 @@ export default {
     NotConnected,
     MusicList,
     PlaylistList,
-    Add,
-    BackToTop
+    BackToTop,
+    MoreAction
   },
   data () {
     return {
