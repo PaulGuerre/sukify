@@ -158,8 +158,10 @@ export default {
     },
     removeMusic (id) {
       this.musics = this.musics.filter(music => music.id !== id)
-      if (id === this.loadedMusic) {
+      if (id === this.loadedMusic && this.musics.length !== 0) {
         this.nextMusic()
+      } else {
+        this.pauseMusic()
       }
     },
     removePlaylist (id) {

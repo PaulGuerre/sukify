@@ -17,7 +17,7 @@ class MusicsController < ApplicationController
 
     def play
         music = Music.find(params[:id])
-        render file: "#{ Rails.root }/src/#{ music.id }.mp3"
+        render file: "#{ Rails.root }/src/#{ generalizeTitle(music.title) }.mp3"
     end
 
     def videoID
@@ -26,28 +26,32 @@ class MusicsController < ApplicationController
     end
 
     def add
-        music = Music.new(title: params[:title], videoID: params[:videoID])
-        if music.save
-            system("yt-dlp -o #{ Rails.root }/src/#{ music.id }'.%(ext)s' --extract-audio --audio-format mp3 https://www.youtube.com/watch?v=#{ params[:videoID] }")
-            if File.exist?("#{ Rails.root }/src/#{ music.id }.mp3")
-                render json: { message: 'success' }
-            else 
-                music.delete
+        if File.exist?("#{ Rails.root }/src/#{ generalizeTitle(params[:title]) }.mp3")
+            render json: { message: 'error' }
+        else
+            music = Music.new(title: params[:title], videoID: params[:videoID])
+            if music.save
+                system("yt-dlp -o #{ Rails.root }/src/#{ generalizeTitle(music.title) }'.%(ext)s' --extract-audio --audio-format mp3 https://www.youtube.com/watch?v=#{ params[:videoID] }")
+                if File.exist?("#{ Rails.root }/src/#{ generalizeTitle(music.title) }.mp3")
+                    render json: { message: 'success' }
+                else 
+                    music.delete
+                    render json: { message: 'error' }
+                end
+            else
                 render json: { message: 'error' }
             end
-        else
-            render json: { message: 'error' }
         end
     end
 
     def delete
         playlistMusics = PlaylistMusic.where(music_id: params[:id])
         music = Music.find(params[:id])
-        if File.exist?("#{ Rails.root }/src/#{ music.id }.mp3")
-            File.delete("#{ Rails.root }/src/#{ music.id }.mp3")
+        if File.exist?("#{ Rails.root }/src/#{ generalizeTitle(music.title) }.mp3")
+            File.delete("#{ Rails.root }/src/#{ generalizeTitle(music.title)}.mp3")
         end
 
-        if playlistMusics.delete_all && music.delete && !File.exist?("#{ Rails.root }/src/#{ music.id }.mp3")
+        if playlistMusics.delete_all && music.delete && !File.exist?("#{ Rails.root }/src/#{ generalizeTitle(music.title) }.mp3")
             render json: { message: 'success' }
         else
             render json: { message: 'error' }
@@ -62,5 +66,10 @@ class MusicsController < ApplicationController
         else 
             render json: { message: 'error' }
         end
+    end
+
+    def generalizeTitle (title)
+        gTitle = title.gsub(/[^a-zA-Z-éèà-]/, '_').gsub(/[ -]/, ' ' => '', '-' => '_').gsub(/(__+)/, '_')
+        return gTitle[-1] == '_' ? gTitle[0...-1] : gTitle
     end
 end
