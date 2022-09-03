@@ -17,7 +17,7 @@ class MusicsController < ApplicationController
 
     def play
         music = Music.find(params[:id])
-        render file: "#{ Rails.root }/src/#{ generalizeTitle(music.title) }.mp3"
+        render file: "#{ Rails.root }/musics/#{ generalizeTitle(music.title) }.mp3"
     end
 
     def videoID
@@ -26,13 +26,13 @@ class MusicsController < ApplicationController
     end
 
     def add
-        if File.exist?("#{ Rails.root }/src/#{ generalizeTitle(params[:title]) }.mp3")
+        if File.exist?("#{ Rails.root }/musics/#{ generalizeTitle(params[:title]) }.mp3")
             render json: { message: 'error' }
         else
             music = Music.new(title: params[:title], videoID: params[:videoID])
             if music.save
-                system("yt-dlp -o #{ Rails.root }/src/#{ generalizeTitle(music.title) }'.%(ext)s' --extract-audio --audio-format mp3 https://www.youtube.com/watch?v=#{ params[:videoID] }")
-                if File.exist?("#{ Rails.root }/src/#{ generalizeTitle(music.title) }.mp3")
+                system("yt-dlp -o #{ Rails.root }/musics/#{ generalizeTitle(music.title) }'.%(ext)s' --extract-audio --audio-format mp3 https://www.youtube.com/watch?v=#{ params[:videoID] }")
+                if File.exist?("#{ Rails.root }/musics/#{ generalizeTitle(music.title) }.mp3")
                     render json: { message: 'success' }
                 else 
                     music.delete
@@ -47,11 +47,11 @@ class MusicsController < ApplicationController
     def delete
         playlistMusics = PlaylistMusic.where(music_id: params[:id])
         music = Music.find(params[:id])
-        if File.exist?("#{ Rails.root }/src/#{ generalizeTitle(music.title) }.mp3")
-            File.delete("#{ Rails.root }/src/#{ generalizeTitle(music.title)}.mp3")
+        if File.exist?("#{ Rails.root }/musics/#{ generalizeTitle(music.title) }.mp3")
+            File.delete("#{ Rails.root }/musics/#{ generalizeTitle(music.title)}.mp3")
         end
 
-        if playlistMusics.delete_all && music.delete && !File.exist?("#{ Rails.root }/src/#{ generalizeTitle(music.title) }.mp3")
+        if playlistMusics.delete_all && music.delete && !File.exist?("#{ Rails.root }/musics/#{ generalizeTitle(music.title) }.mp3")
             render json: { message: 'success' }
         else
             render json: { message: 'error' }
