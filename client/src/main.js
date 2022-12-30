@@ -5,5 +5,12 @@ import 'bootstrap/dist/js/bootstrap.esm'
 import 'bootstrap/dist/css/bootstrap.css'
 import mdb from 'mdb-ui-kit'
 import 'mdb-ui-kit/css/mdb.min.css'
+import store from './store/store.js'
 
-createApp(App).use(router).use(mdb).mount('#app')
+const app = createApp(App)
+
+app.use(router)
+app.use(mdb)
+app.use(store)
+
+app.mount('#app')

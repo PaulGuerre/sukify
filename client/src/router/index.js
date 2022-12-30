@@ -1,11 +1,14 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '@/views/HomeView.vue'
+// import HomeView from '@/views/HomeView.vue'
+import MusicView from '@/views/MusicView.vue'
+import PlaylistsView from '@/views/PlaylistsView.vue'
+import PlaylistView from '@/views/PlaylistView.vue'
 import LoginView from '@/views/LoginView.vue'
 
 const routes = [
   {
     path: '/',
-    redirect: '/home'
+    redirect: '/musics'
   },
   {
     path: '/login',
@@ -13,13 +16,23 @@ const routes = [
     component: LoginView
   },
   {
-    path: '/home',
-    name: 'home',
-    component: HomeView
+    path: '/musics',
+    name: 'musics',
+    component: MusicView
+  },
+  {
+    path: '/playlists',
+    name: 'playlists',
+    component: PlaylistsView
+  },
+  {
+    path: '/playlists/:id',
+    name: 'playlists',
+    component: PlaylistView
   },
   {
     path: '/:pathMatch(.*)*',
-    redirect: '/home'
+    redirect: '/musics'
   }
 ]
 

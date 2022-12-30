@@ -48,13 +48,6 @@ export default {
         }
       })
     }
-  },
-  created () {
-    ApiManager.compareToken(sessionStorage.getItem('token')).then(response => {
-      if (response.data.message === 'success') {
-        this.$router.push('/')
-      }
-    })
   }
 }
 </script>
