@@ -1,6 +1,6 @@
 const C = {
   NORMAL_MODE: 'normal',
-  RANDOM_MODE: 'random',
+  SHUFFLE_MODE: 'shuffle',
   REPEAT_MODE: 'repeat'
 }
 

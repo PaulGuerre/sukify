@@ -18,6 +18,7 @@ export default {
   mounted () {
     ApiManager.getMusics().then(response => {
       this.$store.dispatch('setMusics', response.data)
+      this.$store.dispatch('setCurrentMusic', response.data.at(0))
     })
   }
 }

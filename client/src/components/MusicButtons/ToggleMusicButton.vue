@@ -1,7 +1,7 @@
 <template>
-    <button class="btn text-success bg-transparent" type="button" @click="toggleMusic" :disabled="!music">
-        <i :class="{ 'fas fa-play': !isPlaying, 'fas fa-pause': isPlaying }"></i>
-    </button>
+  <button class="btn text-success bg-transparent" type="button" @click="toggleMusic">
+    <font-awesome-icon :icon="isPlaying ? 'fa-solid fa-pause' : 'fa-solid fa-play'" />
+  </button>
 </template>
 
 <script>
@@ -30,10 +30,8 @@ export default {
         AudioManager.play(musicSrc)
 
         this.$store.dispatch('setCurrentMusic', this.music)
-        this.$store.dispatch('setPlayState', true)
       } else {
         AudioManager.pause()
-        this.$store.dispatch('setPlayState', false)
       }
     }
   }

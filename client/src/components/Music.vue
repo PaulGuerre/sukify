@@ -7,17 +7,19 @@
             <span class="text-truncate col-12">{{ music.title }}</span>
             <div class="col-1 col-md-1 col-lg-1 btn-group btn-group-sm shadow-none" role="group" style="max-height: 30px;">
                 <ToggleMusicButton :music=music />
+                <DeleteMusicButton :musicId=music.id />
             </div>
         </div>
     </div>
 </template>
 
 <script>
+import DeleteMusicButton from './MusicButtons/DeleteMusicButton.vue'
 import ToggleMusicButton from './MusicButtons/ToggleMusicButton.vue'
 
 export default {
   name: 'Music',
   props: { music: Object },
-  components: { ToggleMusicButton }
+  components: { ToggleMusicButton, DeleteMusicButton }
 }
 </script>

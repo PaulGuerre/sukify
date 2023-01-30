@@ -1,7 +1,8 @@
 import axios from 'axios'
 
 class ApiManager {
-  baseURL = '/api/'
+  // baseURL = '/api/'
+  baseURL = 'http://localhost:3000/api/'
 
   getMusics () {
     return axios.get(this.baseURL + 'musics', { headers: { Authorization: sessionStorage.getItem('token') } })
@@ -19,7 +20,7 @@ class ApiManager {
     return axios.post(this.baseURL + 'musics', music, { headers: { Authorization: sessionStorage.getItem('token') } })
   }
 
-  removeMusic (id) {
+  deleteMusic (id) {
     return axios.delete(this.baseURL + 'musics/' + id, { headers: { Authorization: sessionStorage.getItem('token') } })
   }
 
@@ -28,7 +29,8 @@ class ApiManager {
   }
 
   getMusicSrc (id) {
-    return window.location.origin + this.baseURL + 'musics/' + id + '/src'
+    // return window.location.origin + this.baseURL + 'musics/' + id + '/src'
+    return this.baseURL + 'musics/' + id + '/src'
   }
 
   getPlaylists () {

@@ -30,6 +30,9 @@ export default createStore({
     },
     setMusics (state, musics) {
       state.music.musics = musics
+    },
+    deleteMusic (state, musicId) {
+      state.music.musics = state.music.musics.filter(music => music.id !== musicId)
     }
   },
   actions: {
@@ -50,6 +53,9 @@ export default createStore({
     },
     setMusics ({ commit }, musics) {
       commit('setMusics', musics)
+    },
+    deleteMusic ({ commit }, musicId) {
+      commit('deleteMusic', musicId)
     }
   },
   getters: {

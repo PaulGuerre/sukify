@@ -14,12 +14,10 @@
         </div>
         <div class="d-flex btn-group btn-group-sm border border-success" role="group">
           <SwitchMusicButton :isRight=false />
-          <ToggleMusicButton :music=this.currentMusic />&nbsp;
+          <ToggleMusicButton :music=currentMusic />
           <SwitchMusicButton :isRight=true />
-          <button v-if="playMode !== 'repeat'" class="btn btn-light text-success" type="button" style="background-color: #212121" @click="updateMode('repeat')"><i class="fas fa-redo"></i></button>&nbsp;
-          <button v-else class="btn btn-success text-dark" type="button" @click="updateMode('list')"><i class="fas fa-redo"></i></button>&nbsp;
-          <button v-if="playMode !== 'random'" class="btn btn-light text-success" type="button" style="background-color: #212121"  @click="updateMode('random')"><i class="fas fa-random"></i></button>
-          <button v-else class="btn btn-success text-dark" type="button" @click="updateMode('list')"><i class="fas fa-random"></i></button>
+          <SwitchModeButton :mode="'shuffle'" />
+          <SwitchModeButton :mode="'repeat'" />
         </div>
       </div>
     </div>
@@ -29,16 +27,18 @@
 <script>
 import SwitchMusicButton from './MusicButtons/SwitchMusicButton.vue'
 import ToggleMusicButton from './MusicButtons/ToggleMusicButton.vue'
+import SwitchModeButton from './MusicButtons/SwitchModeButton.vue'
 
 export default {
   name: 'NavBarMusic',
   components: {
     ToggleMusicButton,
-    SwitchMusicButton
+    SwitchMusicButton,
+    SwitchModeButton
   },
   computed: {
     currentMusic () {
-      return this.$store.getters.currentMusic || false
+      return this.$store.getters.currentMusic
     }
   }
 }
