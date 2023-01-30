@@ -15,9 +15,9 @@ default: &default
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   username: root
   password: root
-  
+
   # Docker only
-  host: sukify_db
+  # host: sukify_db
 
 development:
   <<: *default
