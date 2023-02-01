@@ -50,7 +50,7 @@ import NavBarMusic from '@/components/NavBarMusic.vue'
 import NotConnected from '@/components/Utils/NotConnected.vue'
 import InfoManager from '@/services/InfoManager'
 import MusicList from '@/components/MusicList.vue'
-import PlaylistList from '@/components/PlaylistList.vue'
+import PlaylistList from '@/components/Playlist.vue'
 import BackToTop from '@/components/Utils/BackToTop.vue'
 import MoreAction from '../components/MoreAction.vue'
 

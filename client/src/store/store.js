@@ -7,8 +7,6 @@ export default createStore({
       musicMode: C.NORMAL_MODE,
       playState: false,
       currentMusic: null,
-      currentPlaylist: null,
-      playlists: [],
       musics: []
     }
   },
@@ -21,12 +19,6 @@ export default createStore({
     },
     setCurrentMusic (state, music) {
       state.music.currentMusic = music
-    },
-    setCurrentPlaylist (state, playlist) {
-      state.music.currentPlaylist = playlist
-    },
-    setPlaylists (state, playlists) {
-      state.music.playlists = playlists
     },
     setMusics (state, musics) {
       state.music.musics = musics
@@ -45,12 +37,6 @@ export default createStore({
     setCurrentMusic ({ commit }, music) {
       commit('setCurrentMusic', music)
     },
-    setCurrentPlaylist ({ commit }, playlist) {
-      commit('setCurrentPlaylist', playlist)
-    },
-    setPlaylists ({ commit }, playlists) {
-      commit('setPlaylists', playlists)
-    },
     setMusics ({ commit }, musics) {
       commit('setMusics', musics)
     },
@@ -62,8 +48,6 @@ export default createStore({
     musicMode: state => state.music.musicMode,
     playState: state => state.music.playState,
     currentMusic: state => state.music.currentMusic,
-    currentPlaylist: state => state.music.currentPlaylist,
-    playlists: state => state.music.playlists,
     musics: state => state.music.musics
   }
 })

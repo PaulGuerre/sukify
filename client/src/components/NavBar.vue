@@ -8,7 +8,6 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <div class="container-fluid">
           <div class="row">
-            <button class="btn btn-link text-success border-0 col-6 col-md-2 col-lg-1" style="background-color: #212121" @click="$router.push('/playlists')">Playlists</button>
             <button class="btn btn-link text-success border-0 col-6 col-md-2 col-lg-1" style="background-color: #212121" @click="$router.push('/musics')">Musics</button>
           </div>
         </div>
