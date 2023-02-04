@@ -16,21 +16,14 @@
         <button class="w-100 btn btn-lg btn-success" type="button" @click="login()">Log in</button>
       </form>
     </div>
-
-    <info-displayer />
   </div>
 </template>
 
 <script>
 import ApiManager from '@/services/ApiManager'
-import InfoManager from '@/services/InfoManager'
-import InfoDisplayer from '@/components/Utils/InfoDisplayer'
 
 export default {
   name: 'LoginView',
-  components: {
-    InfoDisplayer
-  },
   data () {
     return {
       username: '',
@@ -43,8 +36,6 @@ export default {
         if (response.data.message === 'success') {
           sessionStorage.setItem('token', response.data.token)
           this.$router.push('/')
-        } else {
-          InfoManager.showInfo('Login failed', 'danger')
         }
       })
     }

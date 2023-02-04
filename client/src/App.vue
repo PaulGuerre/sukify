@@ -1,18 +1,20 @@
 <template>
-  <NavBar v-if="$route.name !== 'login'" />
-  <router-view/>
-  <!-- ADD COMPONENT -->
-  <!-- FUTUR MUSIC PLAYER COMPONENT -->
+  <v-app theme="dark">
+    <v-layout>
+      <nav-bar v-if="!isLogin" :isMobile=isMobile />
+      <v-main>
+        <v-container fluid>
+          <router-view />
+        </v-container>
+      </v-main>
+    </v-layout>
+  </v-app>
 </template>
 
 <style>
-body, html {
+.v-main {
+  height: 100vh;
   background-color: #303030;
-}
-
-#app {
-  background-color: #303030;
-  overflow-x: hidden;
 }
 </style>
 
@@ -24,6 +26,12 @@ export default {
   name: 'App',
   components: {
     NavBar
+  },
+  data () {
+    return {
+      isLogin: this.$route.name === 'login',
+      isMobile: window.innerWidth < 768
+    }
   },
   methods: {
     checkTokenAndRedirect () {
@@ -40,6 +48,11 @@ export default {
   },
   created () {
     this.checkTokenAndRedirect()
+  },
+  mounted () {
+    window.addEventListener('resize', () => {
+      this.isMobile = window.innerWidth < 768
+    })
   },
   updated () {
     this.checkTokenAndRedirect()
