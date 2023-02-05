@@ -1,6 +1,7 @@
 <template>
   <v-app theme="dark">
     <v-layout>
+      <player v-if="!isLogin" :isMobile=isMobile />
       <nav-bar v-if="!isLogin" :isMobile=isMobile />
       <v-main>
         <v-container fluid>
@@ -21,11 +22,13 @@
 <script>
 import NavBar from '@/components/NavBar.vue'
 import ApiManager from '@/services/ApiManager'
+import Player from './components/Player.vue'
 
 export default {
   name: 'App',
   components: {
-    NavBar
+    NavBar,
+    Player
   },
   data () {
     return {
@@ -50,6 +53,9 @@ export default {
     this.checkTokenAndRedirect()
   },
   mounted () {
+    this.$router.afterEach((to, from) => {
+      this.isLogin = to.name === 'login'
+    })
     window.addEventListener('resize', () => {
       this.isMobile = window.innerWidth < 768
     })

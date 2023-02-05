@@ -7,7 +7,8 @@ export default createStore({
       musicMode: C.NORMAL_MODE,
       playState: false,
       currentMusic: null,
-      musics: []
+      musics: [],
+      musicTime: 0
     }
   },
   mutations: {
@@ -25,6 +26,9 @@ export default createStore({
     },
     deleteMusic (state, musicId) {
       state.music.musics = state.music.musics.filter(music => music.id !== musicId)
+    },
+    setMusicTime (state, musicTime) {
+      state.music.musicTime = musicTime
     }
   },
   actions: {
@@ -42,12 +46,16 @@ export default createStore({
     },
     deleteMusic ({ commit }, musicId) {
       commit('deleteMusic', musicId)
+    },
+    setMusicTime ({ commit }, musicTime) {
+      commit('setMusicTime', musicTime)
     }
   },
   getters: {
     musicMode: state => state.music.musicMode,
     playState: state => state.music.playState,
     currentMusic: state => state.music.currentMusic,
-    musics: state => state.music.musics
+    musics: state => state.music.musics,
+    musicTime: state => state.music.musicTime
   }
 })

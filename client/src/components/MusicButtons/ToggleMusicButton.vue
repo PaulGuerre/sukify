@@ -1,7 +1,5 @@
 <template>
-  <button class="btn text-success bg-transparent" type="button" @click="toggleMusic">
-    <font-awesome-icon :icon="isPlaying ? 'fa-solid fa-pause' : 'fa-solid fa-play'" />
-  </button>
+  <font-awesome-icon :icon="isPlaying ? 'fa-solid fa-pause' : 'fa-solid fa-play'" class="toggle-music-icon" @click="toggleMusic" />
 </template>
 
 <script>
@@ -37,3 +35,15 @@ export default {
   }
 }
 </script>
+
+<style>
+.toggle-music-icon {
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+}
+
+.toggle-music-icon:hover {
+  color: #00b849;
+}
+</style>

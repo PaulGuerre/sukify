@@ -9,6 +9,10 @@ class AudioManager {
     this.audio.onended = () => {
       this.nextMusic()
     }
+
+    this.audio.ontimeupdate = () => {
+      store.dispatch('setMusicTime', (this.audio.currentTime / this.audio.duration) * 100)
+    }
   }
 
   play (url) {

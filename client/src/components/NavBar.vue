@@ -10,32 +10,31 @@
     </template>
 
     <div>
-      <font-awesome-icon icon="fa-solid fa-music" :class="location === 'musics' ? 'navbar-assets navbar-assets-selected' : 'navbar-assets'" />
+      <font-awesome-icon icon="fa-solid fa-music" :class="location === 'musics' ? 'navbar-assets assets-selected' : 'navbar-assets'" />
     </div>
 
     <div>
-      <font-awesome-icon icon="fa-solid fa-rectangle-list" :class="location === 'playlists' ? 'navbar-assets navbar-assets-selected' : 'navbar-assets'" />
+      <font-awesome-icon icon="fa-solid fa-rectangle-list" :class="location === 'playlists' ? 'navbar-assets assets-selected' : 'navbar-assets'" />
     </div>
 
     <template v-slot:append>
       <v-divider></v-divider>
       <font-awesome-icon icon="fa-solid fa-arrow-right-from-bracket" class="navbar-logout-icon" />
     </template>
-
   </v-navigation-drawer>
-  <v-bottom-navigation color="primary" theme="dark" v-else grow>
-    <v-col align-self="center" class="bottom-nav-items">
-      <button>
-        <font-awesome-icon icon="fa-solid fa-music" :class="location === 'musics' ? 'bottom-nav-assets navbar-assets-selected' : 'bottom-nav-assets'" />
-      </button>
-    </v-col>
 
-    <v-col align-self="center" class="bottom-nav-items">
-      <button>
-        <font-awesome-icon icon="fa-solid fa-rectangle-list" class="bottom-nav-assets" />
-      </button>
-    </v-col>
-</v-bottom-navigation>
+  <v-app-bar v-else>
+    <template v-slot:prepend>
+      <img src="@/assets/logo.png" alt="logo" class="top-nav-app-logo" />
+    </template>
+    <v-spacer></v-spacer>
+
+    <font-awesome-icon icon="fa-solid fa-music" :class="location === 'musics' ? 'top-nav-icon assets-selected' : 'top-nav-icon'" />
+
+    <font-awesome-icon icon="fa-solid fa-rectangle-list" :class="location === 'playlists' ? 'top-nav-icon assets-selected' : 'top-nav-icon'" />
+
+    <font-awesome-icon icon="fa-solid fa-arrow-right-from-bracket" class="top-nav-icon" />
+  </v-app-bar>
 </template>
 
 <script>
@@ -88,17 +87,19 @@ export default {
   margin-right: 15px;
 }
 
-.navbar-assets-selected {
+.assets-selected {
   color: #00b849;
 }
 
-.bottom-nav-items {
-  text-align: center;
+.top-nav-app-logo {
+  width: 40px;
+  height: 40px;
 }
 
-.bottom-nav-assets {
+.top-nav-icon {
   cursor: pointer;
   width: 20px;
   height: 20px;
+  margin-right: 5%;
 }
 </style>

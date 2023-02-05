@@ -1,7 +1,5 @@
 <template>
-  <button class="btn text-success bg-transparent" type="button" @click="switchMusic">
-    <font-awesome-icon :icon="isRight ? 'fa-solid fa-angles-right' : 'fa-solid fa-angles-left'" />
-  </button>
+  <font-awesome-icon :icon="isRight ? 'fa-solid fa-angles-right' : 'fa-solid fa-angles-left'" class="switch-music-icon" @click="switchMusic" />
 </template>
 
 <script>
@@ -21,3 +19,18 @@ export default {
   }
 }
 </script>
+
+<style>
+.switch-music-icon {
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+  border: 1px solid;
+  border-radius: 50%;
+  padding: 5px;
+}
+
+.switch-music-icon:hover {
+  color: #00b849;
+}
+</style>
