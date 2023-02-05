@@ -82,8 +82,8 @@ export default {
   cursor: pointer;
   width: 20px;
   height: 20px;
-  margin-top: 20%;
-  margin-bottom: 20%;
+  margin-top: 50%;
+  margin-bottom: 50%;
   margin-left: 15px;
   margin-right: 15px;
 }
