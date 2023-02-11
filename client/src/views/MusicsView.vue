@@ -1,9 +1,5 @@
 <template>
-  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3" style="margin-right: 2%; margin-left: 2%;">
-    <div class="col" v-for="music in $store.getters.musics" :key="music">
-      <Music :currentMusic="currentMusic" :music="music"/>
-    </div>
-  </div>
+  <Music v-for="music in $store.getters.musics" :key="music" :music="music" />
 </template>
 
 <script>

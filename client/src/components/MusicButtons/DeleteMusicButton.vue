@@ -1,7 +1,5 @@
 <template>
-  <button class="btn text-success bg-transparent" type="button" @click="deleteMusic">
-    <font-awesome-icon icon='fa-solid fa-trash' />
-  </button>
+  <font-awesome-icon icon="fa-solid fa-trash" class="delete-music-icon" @click="deleteMusic" />
 </template>
 
 <script>
@@ -23,3 +21,17 @@ export default {
   }
 }
 </script>
+
+<style>
+.delete-music-icon {
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+  padding: 5px;
+  padding-bottom: 0;
+}
+
+.delete-music-icon:hover {
+  color: #ff5252;
+}
+</style>

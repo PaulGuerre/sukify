@@ -1,7 +1,5 @@
 <template>
-  <button :class="{ 'btn text-success bg-transparent': musicMode !== mode, 'btn btn-success text-dark': musicMode === mode }" type="button" @click="switchMode">
-    <font-awesome-icon :icon="'fa-solid fa-' + mode" />
-  </button>
+  <font-awesome-icon :icon="'fa-solid fa-' + mode" class="switch-mode-icon" :color="musicMode === mode ? 'green' : ''" @click="switchMode" />
 </template>
 
 <script>
@@ -22,3 +20,17 @@ export default {
   }
 }
 </script>
+
+<style>
+.switch-mode-icon {
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+  padding: 5px;
+  padding-bottom: 0;
+}
+
+.switch-mode-icon:hover {
+  color: #00b849;
+}
+</style>

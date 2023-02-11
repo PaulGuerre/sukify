@@ -39,8 +39,10 @@ export default {
 <style>
 .toggle-music-icon {
   cursor: pointer;
-  width: 40px;
-  height: 40px;
+  width: 20px;
+  height: 20px;
+  padding: 5px;
+  padding-bottom: 0;
 }
 
 .toggle-music-icon:hover {

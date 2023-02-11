@@ -8,7 +8,8 @@ export default createStore({
       playState: false,
       currentMusic: null,
       musics: [],
-      musicTime: 0
+      musicTime: 0,
+      isMobile: window.innerWidth < 768
     }
   },
   mutations: {
@@ -29,6 +30,9 @@ export default createStore({
     },
     setMusicTime (state, musicTime) {
       state.music.musicTime = musicTime
+    },
+    setIsMobile (state, isMobile) {
+      state.music.isMobile = isMobile
     }
   },
   actions: {
@@ -49,6 +53,9 @@ export default createStore({
     },
     setMusicTime ({ commit }, musicTime) {
       commit('setMusicTime', musicTime)
+    },
+    setIsMobile ({ commit }, isMobile) {
+      commit('setIsMobile', isMobile)
     }
   },
   getters: {
@@ -56,6 +63,7 @@ export default createStore({
     playState: state => state.music.playState,
     currentMusic: state => state.music.currentMusic,
     musics: state => state.music.musics,
-    musicTime: state => state.music.musicTime
+    musicTime: state => state.music.musicTime,
+    isMobile: state => state.music.isMobile
   }
 })

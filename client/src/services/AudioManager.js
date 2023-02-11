@@ -6,6 +6,8 @@ class AudioManager {
   constructor () {
     this.audio = new Audio()
 
+    this.audio.volume = 0.5
+
     this.audio.onended = () => {
       this.nextMusic()
     }
@@ -70,6 +72,14 @@ class AudioManager {
       case C.REPEAT_MODE:
         return currentMusicIndex
     }
+  }
+
+  getVolume () {
+    return this.audio.volume
+  }
+
+  setVolume (volume) {
+    this.audio.volume = volume
   }
 }
 

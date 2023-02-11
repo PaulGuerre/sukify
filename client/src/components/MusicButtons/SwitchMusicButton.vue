@@ -23,11 +23,10 @@ export default {
 <style>
 .switch-music-icon {
   cursor: pointer;
-  width: 30px;
-  height: 30px;
-  border: 1px solid;
-  border-radius: 50%;
+  width: 20px;
+  height: 20px;
   padding: 5px;
+  padding-bottom: 0;
 }
 
 .switch-music-icon:hover {

@@ -40,15 +40,14 @@
 <script>
 export default {
   name: 'NavBarMusic',
-  props: {
-    isMobile: {
-      type: Boolean,
-      required: true
-    }
-  },
   data () {
     return {
       location: this.$route.fullPath.slice(1)
+    }
+  },
+  computed: {
+    isMobile () {
+      return this.$store.getters.isMobile
     }
   },
   mounted () {

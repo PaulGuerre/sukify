@@ -1,8 +1,8 @@
 <template>
   <v-app theme="dark">
     <v-layout>
-      <player v-if="!isLogin" :isMobile=isMobile />
-      <nav-bar v-if="!isLogin" :isMobile=isMobile />
+      <player v-if="!isLogin" />
+      <nav-bar v-if="!isLogin" />
       <v-main>
         <v-container fluid>
           <router-view />
@@ -32,8 +32,12 @@ export default {
   },
   data () {
     return {
-      isLogin: this.$route.name === 'login',
-      isMobile: window.innerWidth < 768
+      isLogin: this.$route.name === 'login'
+    }
+  },
+  computed: {
+    isMobile () {
+      return this.$store.getters.isMobile
     }
   },
   methods: {
@@ -57,7 +61,7 @@ export default {
       this.isLogin = to.name === 'login'
     })
     window.addEventListener('resize', () => {
-      this.isMobile = window.innerWidth < 768
+      this.$store.dispatch('setIsMobile', window.innerWidth < 768)
     })
   },
   updated () {
