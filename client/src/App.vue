@@ -53,10 +53,8 @@ export default {
       }
     }
   },
-  created () {
-    this.checkTokenAndRedirect()
-  },
   mounted () {
+    this.checkTokenAndRedirect()
     this.$router.afterEach((to, from) => {
       this.isLogin = to.name === 'login'
     })

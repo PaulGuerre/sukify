@@ -9,17 +9,12 @@
       <v-divider></v-divider>
     </template>
 
-    <div>
-      <font-awesome-icon icon="fa-solid fa-music" :class="location === 'musics' ? 'navbar-assets assets-selected' : 'navbar-assets'" />
-    </div>
-
-    <div>
-      <font-awesome-icon icon="fa-solid fa-rectangle-list" :class="location === 'playlists' ? 'navbar-assets assets-selected' : 'navbar-assets'" />
-    </div>
+    <font-awesome-icon icon="fa-solid fa-music" :class="location === 'musics' ? 'navbar-assets assets-selected' : 'navbar-assets'" />
+    <font-awesome-icon icon="fa-solid fa-rectangle-list" :class="location === 'playlists' ? 'navbar-assets assets-selected' : 'navbar-assets'" />
 
     <template v-slot:append>
       <v-divider></v-divider>
-      <font-awesome-icon icon="fa-solid fa-arrow-right-from-bracket" class="navbar-logout-icon" />
+      <font-awesome-icon icon="fa-solid fa-arrow-right-from-bracket" class="navbar-logout-icon" @click="disconnect" />
     </template>
   </v-navigation-drawer>
 
@@ -33,7 +28,7 @@
 
     <font-awesome-icon icon="fa-solid fa-rectangle-list" :class="location === 'playlists' ? 'top-nav-icon assets-selected' : 'top-nav-icon'" />
 
-    <font-awesome-icon icon="fa-solid fa-arrow-right-from-bracket" class="top-nav-icon" />
+    <font-awesome-icon icon="fa-solid fa-arrow-right-from-bracket" class="top-nav-icon" @click="disconnect" />
   </v-app-bar>
 </template>
 
@@ -43,6 +38,12 @@ export default {
   data () {
     return {
       location: this.$route.fullPath.slice(1)
+    }
+  },
+  methods: {
+    disconnect () {
+      sessionStorage.removeItem('token')
+      this.$router.push('/login')
     }
   },
   computed: {
@@ -71,6 +72,7 @@ export default {
   cursor: pointer;
   width: 20px;
   height: 20px;
+  margin-top: 30%;
   margin-bottom: 20%;
   margin-left: 15px;
   margin-right: 15px;

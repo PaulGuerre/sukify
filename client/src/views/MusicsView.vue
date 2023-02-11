@@ -1,5 +1,7 @@
 <template>
-  <Music v-for="music in $store.getters.musics" :key="music" :music="music" />
+  <section>
+    <Music v-for="music in $store.getters.musics" :key="music" :music="music" />
+  </section>
 </template>
 
 <script>

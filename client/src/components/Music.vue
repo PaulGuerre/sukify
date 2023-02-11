@@ -1,7 +1,7 @@
 <template>
-  <v-card class="m-2 p-3">
+  <v-card class="ma-2 pa-3">
     <v-row no-gutters>
-      <v-col v-if="!isMobile" cols="2">
+      <v-col v-if="!isMobile" cols="2" align-self="center">
           <img :src="'https://i.ytimg.com/vi/' + music.videoID + '/mqdefault.jpg'" alt="Music thumbnail" class="music-thumbnail">
       </v-col>
       <v-col align-self="center" class="music-title">
@@ -34,6 +34,7 @@ export default {
 <style>
 .music-thumbnail {
   height: 50px;
+  margin-top: 5px;
 }
 
 .music-title {
