@@ -1,23 +1,24 @@
 <template>
   <section>
-    <Music v-for="music in $store.getters.musics" :key="music" :music="music" />
+    <music v-for="music in musics" :key="music" :music="music" />
+    <add-music />
   </section>
 </template>
 
 <script>
-import Music from '@/components/Music.vue'
-import ApiManager from '@/services/ApiManager'
+import Music from '@/components/music/Music.vue'
+import AddMusic from '@/components/music/AddMusic.vue'
 
 export default {
-  name: 'MusicList',
+  name: 'MusicsView',
   components: {
-    Music
+    Music,
+    AddMusic
   },
-  mounted () {
-    ApiManager.getMusics().then(response => {
-      this.$store.dispatch('setMusics', response.data)
-      this.$store.dispatch('setCurrentMusic', response.data.at(0))
-    })
+  computed: {
+    musics () {
+      return this.$store.getters.musics
+    }
   }
 }
 </script>

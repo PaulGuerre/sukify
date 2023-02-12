@@ -3,14 +3,12 @@
     <div class="form-signin">
       <form>
         <img class="ma-4" src="../assets/logo.png" alt="" width="64" height="64">
-
         <div class="form-group ma-1">
-          <input v-model="username" type="email" class="form-control input-field" placeholder="Username">
+          <input v-model="username" type="email" class="form-control input-field" placeholder="Username" />
         </div>
         <div class="form-group ma-3">
-          <input v-model="password" type="password" class="form-control input-field" placeholder="Password" @keyup.enter="login()">
+          <input v-model="password" type="password" class="form-control input-field" placeholder="Password" @keyup.enter="login()" />
         </div>
-
         <button class="login-btn" type="button" @click="login()">Log in</button>
       </form>
     </div>

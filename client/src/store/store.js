@@ -8,6 +8,7 @@ export default createStore({
       playState: false,
       currentMusic: null,
       musics: [],
+      playlist: [],
       musicTime: 0,
       isMobile: window.innerWidth < 768
     }
@@ -24,6 +25,9 @@ export default createStore({
     },
     setMusics (state, musics) {
       state.music.musics = musics
+    },
+    setPlaylists (state, playlists) {
+      state.music.playlists = playlists
     },
     deleteMusic (state, musicId) {
       state.music.musics = state.music.musics.filter(music => music.id !== musicId)
@@ -48,6 +52,9 @@ export default createStore({
     setMusics ({ commit }, musics) {
       commit('setMusics', musics)
     },
+    setPlaylists ({ commit }, playlists) {
+      commit('setPlaylists', playlists)
+    },
     deleteMusic ({ commit }, musicId) {
       commit('deleteMusic', musicId)
     },
@@ -63,6 +70,7 @@ export default createStore({
     playState: state => state.music.playState,
     currentMusic: state => state.music.currentMusic,
     musics: state => state.music.musics,
+    playlists: state => state.music.playlists,
     musicTime: state => state.music.musicTime,
     isMobile: state => state.music.isMobile
   }

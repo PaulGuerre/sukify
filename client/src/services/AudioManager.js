@@ -9,7 +9,9 @@ class AudioManager {
     this.audio.volume = 0.5
 
     this.audio.onended = () => {
-      this.nextMusic()
+      const musicMode = store.getters.musicMode
+      if (musicMode === C.REPEAT_MODE) this.play(this.audio.src)
+      else this.nextMusic()
     }
 
     this.audio.ontimeupdate = () => {
@@ -48,30 +50,25 @@ class AudioManager {
     store.dispatch('setCurrentMusic', prevMusic)
   }
 
+  onDeleteMusic (musicId) {
+    this.nextMusic()
+    store.dispatch('deleteMusic', musicId)
+  }
+
   getNextMusicIndex (musicMode) {
     const currentMusicIndex = store.getters.musics.findIndex(music => music.id === store.getters.currentMusic.id)
 
-    switch (musicMode) {
-      case C.NORMAL_MODE:
-        return currentMusicIndex + 1 >= store.getters.musics.length ? 0 : currentMusicIndex + 1
-      case C.SHUFFLE_MODE:
-        return Math.floor(Math.random() * store.getters.musics.length)
-      case C.REPEAT_MODE:
-        return currentMusicIndex
-    }
+    if (musicMode === C.SHUFFLE_MODE) return Math.floor(Math.random() * store.getters.musics.length)
+
+    return currentMusicIndex + 1 >= store.getters.musics.length ? 0 : currentMusicIndex + 1
   }
 
   getPrevMusicIndex (musicMode) {
     const currentMusicIndex = store.getters.musics.findIndex(music => music.id === store.getters.currentMusic.id)
 
-    switch (musicMode) {
-      case C.NORMAL_MODE:
-        return currentMusicIndex - 1 < 0 ? store.getters.musics.length - 1 : currentMusicIndex - 1
-      case C.SHUFFLE_MODE:
-        return Math.floor(Math.random() * store.getters.musics.length)
-      case C.REPEAT_MODE:
-        return currentMusicIndex
-    }
+    if (musicMode === C.SHUFFLE_MODE) return Math.floor(Math.random() * store.getters.musics.length)
+
+    return currentMusicIndex - 1 < 0 ? store.getters.musics.length - 1 : currentMusicIndex - 1
   }
 
   getVolume () {

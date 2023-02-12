@@ -9,8 +9,8 @@
       <v-divider></v-divider>
     </template>
 
-    <font-awesome-icon icon="fa-solid fa-music" :class="location === 'musics' ? 'navbar-assets assets-selected' : 'navbar-assets'" />
-    <font-awesome-icon icon="fa-solid fa-rectangle-list" :class="location === 'playlists' ? 'navbar-assets assets-selected' : 'navbar-assets'" />
+    <font-awesome-icon icon="fa-solid fa-music" :class="location === 'musics' ? 'navbar-assets assets-selected' : 'navbar-assets'" @click="$router.push('musics')" />
+    <font-awesome-icon icon="fa-solid fa-rectangle-list" :class="location === 'playlists' ? 'navbar-assets assets-selected' : 'navbar-assets'" @click="$router.push('playlists')" />
 
     <template v-slot:append>
       <v-divider></v-divider>
@@ -24,10 +24,8 @@
     </template>
     <v-spacer></v-spacer>
 
-    <font-awesome-icon icon="fa-solid fa-music" :class="location === 'musics' ? 'top-nav-icon assets-selected' : 'top-nav-icon'" />
-
-    <font-awesome-icon icon="fa-solid fa-rectangle-list" :class="location === 'playlists' ? 'top-nav-icon assets-selected' : 'top-nav-icon'" />
-
+    <font-awesome-icon icon="fa-solid fa-music" :class="location === 'musics' ? 'top-nav-icon assets-selected' : 'top-nav-icon'" @click="$router.push('musics')" />
+    <font-awesome-icon icon="fa-solid fa-rectangle-list" :class="location === 'playlists' ? 'top-nav-icon assets-selected' : 'top-nav-icon'" @click="$router.push('playlists')" />
     <font-awesome-icon icon="fa-solid fa-arrow-right-from-bracket" class="top-nav-icon" @click="disconnect" />
   </v-app-bar>
 </template>

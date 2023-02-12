@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import MusicsView from '@/views/MusicsView.vue'
+import PlaylistsView from '@/views/PlaylistsView.vue'
 import LoginView from '@/views/LoginView.vue'
 
 const routes = [
@@ -16,6 +17,11 @@ const routes = [
     path: '/musics',
     name: 'musics',
     component: MusicsView
+  },
+  {
+    path: '/playlists',
+    name: 'playlists',
+    component: PlaylistsView
   },
   {
     path: '/:pathMatch(.*)*',

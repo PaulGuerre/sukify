@@ -16,8 +16,8 @@
 </template>
 
 <script>
-import DeleteMusicButton from './MusicButtons/DeleteMusicButton.vue'
-import ToggleMusicButton from './MusicButtons/ToggleMusicButton.vue'
+import DeleteMusicButton from '../musicButtons/DeleteMusicButton.vue'
+import ToggleMusicButton from '../musicButtons/ToggleMusicButton.vue'
 
 export default {
   name: 'Music',

@@ -1,9 +1,7 @@
 <template>
   <v-bottom-navigation :height="70" :elevation="0">
     <v-col cols="auto" align-self="center">
-      <v-avatar>
-        <img :src="'https://i.ytimg.com/vi/' + currentMusic?.videoID + '/mqdefault.jpg'" alt="Current music thumbnail" class="current-music-thumbnail">
-      </v-avatar>
+      <img :src="'https://i.ytimg.com/vi/' + currentMusic?.videoID + '/mqdefault.jpg'" alt="Current music thumbnail" class="current-music-thumbnail">
     </v-col>
     <v-col v-if="!isMobile" cols="auto" align-self="center">
       <span>{{ currentMusic?.title }}</span>
@@ -30,11 +28,12 @@
 </template>
 
 <script>
-import SwitchMusicButton from '@/components/MusicButtons/SwitchMusicButton.vue'
-import SwitchModeButton from '@/components/MusicButtons/SwitchModeButton.vue'
-import ToggleMusicButton from '@/components/MusicButtons/ToggleMusicButton.vue'
+import SwitchMusicButton from '@/components/musicButtons/SwitchMusicButton.vue'
+import SwitchModeButton from '@/components/musicButtons/SwitchModeButton.vue'
+import ToggleMusicButton from '@/components/musicButtons/ToggleMusicButton.vue'
 import C from '@/constants/constants'
 import AudioManager from '@/services/AudioManager'
+import ApiManager from '@/services/ApiManager'
 
 export default {
   name: 'Player',
@@ -48,7 +47,6 @@ export default {
   components: { SwitchMusicButton, SwitchModeButton, ToggleMusicButton },
   watch: {
     volume (value) {
-      console.log(value)
       AudioManager.setVolume(value)
     }
   },
@@ -62,6 +60,15 @@ export default {
     isMobile () {
       return this.$store.getters.isMobile
     }
+  },
+  mounted () {
+    ApiManager.getMusics().then(response => {
+      this.$store.dispatch('setMusics', response.data)
+      this.$store.dispatch('setCurrentMusic', response.data.at(0))
+    })
+    ApiManager.getPlaylists().then(response => {
+      this.$store.dispatch('setPlaylists', response.data)
+    })
   }
 }
 </script>
@@ -72,7 +79,7 @@ export default {
 }
 
 .current-music-thumbnail {
-  height: 100%;
+  height: 50px;
   border: 4px solid #424242;
   border-radius: 5px;
 }

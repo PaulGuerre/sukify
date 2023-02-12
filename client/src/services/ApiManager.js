@@ -17,7 +17,7 @@ class ApiManager {
   }
 
   addMusic (music) {
-    return axios.post(this.baseURL + 'musics', music, { headers: { Authorization: sessionStorage.getItem('token') } })
+    return axios.post(this.baseURL + 'musics', { title: music }, { headers: { Authorization: sessionStorage.getItem('token') } })
   }
 
   deleteMusic (id) {
@@ -42,7 +42,7 @@ class ApiManager {
   }
 
   addPlaylist (playlist) {
-    return axios.post(this.baseURL + 'playlists', playlist, { headers: { Authorization: sessionStorage.getItem('token') } })
+    return axios.post(this.baseURL + 'playlists', { name: playlist }, { headers: { Authorization: sessionStorage.getItem('token') } })
   }
 
   getPlaylistMusics (id) {
