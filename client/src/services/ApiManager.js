@@ -53,7 +53,7 @@ class ApiManager {
     return axios.post(this.baseURL + 'playlists/' + playlistId, { musicId: musicId }, { headers: { Authorization: sessionStorage.getItem('token') } })
   }
 
-  removePlaylist (id) {
+  deletePlaylist (id) {
     return axios.delete(this.baseURL + 'playlists/' + id, { headers: { Authorization: sessionStorage.getItem('token') } })
   }
 
