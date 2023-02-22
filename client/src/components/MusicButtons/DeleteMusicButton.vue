@@ -1,5 +1,5 @@
 <template>
-  <font-awesome-icon icon="fa-solid fa-trash" class="delete-music-icon" @click="deleteMusic" />
+  <font-awesome-icon :icon="playlistId ? 'fa-solid fa-minus' : 'fa-solid fa-trash'" class="delete-music-icon" @click="deleteMusic" />
 </template>
 
 <script>
@@ -8,6 +8,11 @@ import ApiManager from '@/services/ApiManager'
 export default {
   name: 'DeleteMusicButton',
   props: { musicId: Number },
+  data () {
+    return {
+      playlistId: this.$route.params.id
+    }
+  },
   computed: {
     musics () {
       return this.$store.getters.musics
@@ -15,7 +20,7 @@ export default {
   },
   methods: {
     deleteMusic () {
-      ApiManager.deleteMusic(this.musicId)
+      this.playlistId ? ApiManager.removePlaylistMusic(this.musicId, this.playlistId) : ApiManager.deleteMusic(this.musicId)
       this.$store.dispatch('deleteMusic', this.musicId)
     }
   }
