@@ -30,6 +30,17 @@ app.use(router)
 app.use(store)
 app.use(vuetify)
 
+const overrideRipple = {
+  directives: {
+    ripple: {
+      inserted: () => {
+        console.log('Ripple overrided')
+      }
+    }
+  }
+}
+app.mixin(overrideRipple)
+
 app.component('font-awesome-icon', FontAwesomeIcon)
 
 app.mount('#app')
