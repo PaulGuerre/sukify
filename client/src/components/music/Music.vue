@@ -8,8 +8,9 @@
         <span>{{ music.title }}</span>
       </v-col>
       <v-col cols="auto" align-self="center">
-        <ToggleMusicButton :music=music />
-        <DeleteMusicButton :musicId=music.id />
+        <toggle-music-button :music=music />
+        <add-to-playlist-button :musicId="music.id" />
+        <delete-music-button :musicId=music.id />
       </v-col>
     </v-row>
   </v-card>
@@ -18,11 +19,16 @@
 <script>
 import DeleteMusicButton from '../musicButtons/DeleteMusicButton.vue'
 import ToggleMusicButton from '../musicButtons/ToggleMusicButton.vue'
+import AddToPlaylistButton from '../musicButtons/AddToPlaylistButton.vue'
 
 export default {
   name: 'Music',
   props: { music: Object },
-  components: { ToggleMusicButton, DeleteMusicButton },
+  components: {
+    ToggleMusicButton,
+    DeleteMusicButton,
+    AddToPlaylistButton
+  },
   computed: {
     isMobile () {
       return this.$store.getters.isMobile
