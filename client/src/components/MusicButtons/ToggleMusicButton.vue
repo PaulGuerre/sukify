@@ -8,7 +8,7 @@ import ApiManager from '@/services/ApiManager'
 
 export default {
   name: 'ToggleMusicButton',
-  props: { music: Boolean },
+  props: { music: Object },
   computed: {
     currentMusic () {
       return this.$store.getters.currentMusic
@@ -28,6 +28,7 @@ export default {
         AudioManager.play(musicSrc)
 
         this.$store.dispatch('setCurrentMusic', this.music)
+        this.$store.dispatch('setCurrentPlaylist', null)
       } else {
         AudioManager.pause()
       }
