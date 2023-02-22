@@ -7,10 +7,12 @@ export default createStore({
       musicMode: C.NORMAL_MODE,
       playState: false,
       currentMusic: null,
+      currentPlaylist: null,
       musics: [],
       playlist: [],
       musicTime: 0,
-      isMobile: window.innerWidth < 768
+      isMobile: window.innerWidth < 768,
+      currentMusics: []
     }
   },
   mutations: {
@@ -23,6 +25,9 @@ export default createStore({
     setCurrentMusic (state, music) {
       state.music.currentMusic = music
     },
+    setCurrentPlaylist (state, playlist) {
+      state.music.currentPlaylist = playlist
+    },
     setMusics (state, musics) {
       state.music.musics = musics
     },
@@ -32,11 +37,17 @@ export default createStore({
     deleteMusic (state, musicId) {
       state.music.musics = state.music.musics.filter(music => music.id !== musicId)
     },
+    deletePlaylist (state, playlistId) {
+      state.music.playlists = state.music.playlists.filter(playlist => playlist.id !== playlistId)
+    },
     setMusicTime (state, musicTime) {
       state.music.musicTime = musicTime
     },
     setIsMobile (state, isMobile) {
       state.music.isMobile = isMobile
+    },
+    setCurrentMusics (state, currentMusics) {
+      state.music.currentMusics = currentMusics
     }
   },
   actions: {
@@ -49,6 +60,9 @@ export default createStore({
     setCurrentMusic ({ commit }, music) {
       commit('setCurrentMusic', music)
     },
+    setCurrentPlaylist ({ commit }, playlist) {
+      commit('setCurrentPlaylist', playlist)
+    },
     setMusics ({ commit }, musics) {
       commit('setMusics', musics)
     },
@@ -58,20 +72,28 @@ export default createStore({
     deleteMusic ({ commit }, musicId) {
       commit('deleteMusic', musicId)
     },
+    deletePlaylist ({ commit }, playlistId) {
+      commit('deletePlaylist', playlistId)
+    },
     setMusicTime ({ commit }, musicTime) {
       commit('setMusicTime', musicTime)
     },
     setIsMobile ({ commit }, isMobile) {
       commit('setIsMobile', isMobile)
+    },
+    setCurrentMusics ({ commit }, currentMusics) {
+      commit('setCurrentMusics', currentMusics)
     }
   },
   getters: {
     musicMode: state => state.music.musicMode,
     playState: state => state.music.playState,
     currentMusic: state => state.music.currentMusic,
+    currentPlaylist: state => state.music.currentPlaylist,
     musics: state => state.music.musics,
     playlists: state => state.music.playlists,
     musicTime: state => state.music.musicTime,
-    isMobile: state => state.music.isMobile
+    isMobile: state => state.music.isMobile,
+    currentMusics: state => state.music.currentMusics
   }
 })

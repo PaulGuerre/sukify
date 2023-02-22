@@ -24,6 +24,11 @@ const routes = [
     component: PlaylistsView
   },
   {
+    path: '/playlists/:id/musics',
+    name: 'playlist-musics',
+    component: MusicsView
+  },
+  {
     path: '/:pathMatch(.*)*',
     redirect: '/musics'
   }

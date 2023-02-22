@@ -9,8 +9,8 @@
       <v-divider></v-divider>
     </template>
 
-    <font-awesome-icon icon="fa-solid fa-music" :class="location === 'musics' ? 'navbar-assets assets-selected' : 'navbar-assets'" @click="$router.push('musics')" />
-    <font-awesome-icon icon="fa-solid fa-rectangle-list" :class="location === 'playlists' ? 'navbar-assets assets-selected' : 'navbar-assets'" @click="$router.push('playlists')" />
+    <font-awesome-icon icon="fa-solid fa-music" :class="location ? 'navbar-assets' : 'navbar-assets assets-selected'" @click="$router.push('/musics')" />
+    <font-awesome-icon icon="fa-solid fa-rectangle-list" :class="location ? 'navbar-assets assets-selected' : 'navbar-assets'" @click="$router.push('/playlists')" />
 
     <template v-slot:append>
       <v-divider></v-divider>
@@ -24,8 +24,8 @@
     </template>
     <v-spacer></v-spacer>
 
-    <font-awesome-icon icon="fa-solid fa-music" :class="location === 'musics' ? 'top-nav-icon assets-selected' : 'top-nav-icon'" @click="$router.push('musics')" />
-    <font-awesome-icon icon="fa-solid fa-rectangle-list" :class="location === 'playlists' ? 'top-nav-icon assets-selected' : 'top-nav-icon'" @click="$router.push('playlists')" />
+    <font-awesome-icon icon="fa-solid fa-music" :class="location ? 'top-nav-icon' : 'top-nav-icon assets-selected'" @click="$router.push('/musics')" />
+    <font-awesome-icon icon="fa-solid fa-rectangle-list" :class="location ? 'top-nav-icon assets-selected' : 'top-nav-icon'" @click="$router.push('/playlists')" />
     <font-awesome-icon icon="fa-solid fa-arrow-right-from-bracket" class="top-nav-icon" @click="disconnect" />
   </v-app-bar>
 </template>
@@ -35,24 +35,27 @@ export default {
   name: 'NavBarMusic',
   data () {
     return {
-      location: this.$route.fullPath.slice(1)
+      location: this.$route.name === 'playlists'
     }
   },
   methods: {
     disconnect () {
       sessionStorage.removeItem('token')
       this.$router.push('/login')
+    },
+    getCurrentLocation () {
+      this.location = this.$route.name
+    }
+  },
+  watch: {
+    $route (to, from) {
+      this.location = to.name === 'playlists'
     }
   },
   computed: {
     isMobile () {
       return this.$store.getters.isMobile
     }
-  },
-  mounted () {
-    this.$router.afterEach((to, from) => {
-      this.location = to.fullPath.slice(1)
-    })
   }
 }
 </script>

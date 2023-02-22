@@ -33,7 +33,7 @@ class AudioManager {
   nextMusic () {
     const musicMode = store.getters.musicMode
     const nextMusicIndex = this.getNextMusicIndex(musicMode)
-    const nextMusic = store.getters.musics[nextMusicIndex]
+    const nextMusic = store.getters.currentMusics[nextMusicIndex]
     const nextMusicUrl = ApiManager.getMusicSrc(nextMusic.id)
 
     this.play(nextMusicUrl)
@@ -43,7 +43,7 @@ class AudioManager {
   prevMusic () {
     const musicMode = store.getters.musicMode
     const prevMusicIndex = this.getPrevMusicIndex(musicMode)
-    const prevMusic = store.getters.musics[prevMusicIndex]
+    const prevMusic = store.getters.currentMusics[prevMusicIndex]
     const prevMusicUrl = ApiManager.getMusicSrc(prevMusic.id)
 
     this.play(prevMusicUrl)
@@ -56,19 +56,19 @@ class AudioManager {
   }
 
   getNextMusicIndex (musicMode) {
-    const currentMusicIndex = store.getters.musics.findIndex(music => music.id === store.getters.currentMusic.id)
+    const currentMusicIndex = store.getters.currentMusics.findIndex(music => music.id === store.getters.currentMusic.id)
 
-    if (musicMode === C.SHUFFLE_MODE) return Math.floor(Math.random() * store.getters.musics.length)
+    if (musicMode === C.SHUFFLE_MODE) return Math.floor(Math.random() * store.getters.currentMusics.length)
 
-    return currentMusicIndex + 1 >= store.getters.musics.length ? 0 : currentMusicIndex + 1
+    return currentMusicIndex + 1 >= store.getters.currentMusics.length ? 0 : currentMusicIndex + 1
   }
 
   getPrevMusicIndex (musicMode) {
-    const currentMusicIndex = store.getters.musics.findIndex(music => music.id === store.getters.currentMusic.id)
+    const currentMusicIndex = store.getters.currentMusics.findIndex(music => music.id === store.getters.currentMusic.id)
 
-    if (musicMode === C.SHUFFLE_MODE) return Math.floor(Math.random() * store.getters.musics.length)
+    if (musicMode === C.SHUFFLE_MODE) return Math.floor(Math.random() * store.getters.currentMusics.length)
 
-    return currentMusicIndex - 1 < 0 ? store.getters.musics.length - 1 : currentMusicIndex - 1
+    return currentMusicIndex - 1 < 0 ? store.getters.currentMusics.length - 1 : currentMusicIndex - 1
   }
 
   getVolume () {

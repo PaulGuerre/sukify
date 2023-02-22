@@ -33,7 +33,6 @@ import SwitchModeButton from '@/components/musicButtons/SwitchModeButton.vue'
 import ToggleMusicButton from '@/components/musicButtons/ToggleMusicButton.vue'
 import C from '@/constants/constants'
 import AudioManager from '@/services/AudioManager'
-import ApiManager from '@/services/ApiManager'
 
 export default {
   name: 'Player',
@@ -60,15 +59,6 @@ export default {
     isMobile () {
       return this.$store.getters.isMobile
     }
-  },
-  mounted () {
-    ApiManager.getMusics().then(response => {
-      this.$store.dispatch('setMusics', response.data)
-      this.$store.dispatch('setCurrentMusic', response.data.at(0))
-    })
-    ApiManager.getPlaylists().then(response => {
-      this.$store.dispatch('setPlaylists', response.data)
-    })
   }
 }
 </script>
