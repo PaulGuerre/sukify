@@ -1,3 +1,5 @@
+require_relative './spotify_scraper'
+
 class PlaylistsController < ApplicationController
     use MiddlewareManager
 
@@ -14,9 +16,9 @@ class PlaylistsController < ApplicationController
     def add
         playlist = Playlist.new(name: params[:name])
         if playlist.save
-            render json: { message: 'success' }
+            render json: { message: 'Successfully created' }
         else
-            render json: { message: 'error' }
+            render json: { message: 'Error while creating' }
         end
     end
 
@@ -28,9 +30,24 @@ class PlaylistsController < ApplicationController
     def addMusic
         playlistMusic = PlaylistMusic.new(playlist_id: Playlist.find(params[:id]).id, music_id: params[:musicId])
         if playlistMusic.save
-            render json: { message: 'success' }
+            render json: { message: 'Successfully added music' }
         else
-            render json: { message: 'error' }
+            render json: { message: 'Error while adding music' }
+        end
+    end
+
+    def addSpotifyPlaylist      
+        name, titles, videoIds = SpotifyScraper.scrapPlaylistVideoList(params[:url])
+        
+        playlist = Playlist.new(name: name)
+        
+        playlist.save
+
+        for i in 1..(titles.length-1) do
+            music = Music.new(title: titles[i], videoID: videoIds[i])
+            music.save
+            playlistMusic = PlaylistMusic.new(playlist_id: playlist.id, music_id: music.id)
+            playlistMusic.save
         end
     end
 
@@ -38,28 +55,18 @@ class PlaylistsController < ApplicationController
         playlistMusics = PlaylistMusic.where(playlist_id: params[:id])
         playlist = Playlist.find(params[:id])
         if playlistMusics.delete_all && playlist.delete
-            render json: { message: 'success' }
+            render json: { message: 'Successfully deleted playlist' }
         else
-            render json: { message: 'error' }
+            render json: { message: 'Error while deleting playlist' }
         end
     end
 
     def deleteMusic
         playlistMusic = PlaylistMusic.where(playlist_id: params[:id], music_id: params[:music_id])
         if playlistMusic.delete_all
-            render json: { message: 'success' }
+            render json: { message: 'Successfully removed music' }
         else
-            render json: { message: 'error' }
-        end
-    end
-
-    def update
-        playlist = Playlist.find(params[:id])
-        playlist.update(name: params[:name])
-        if playlist.save
-            render json: { message: 'success' }
-        else
-            render json: { message: 'error' }
+            render json: { message: 'Error while removing music' }
         end
     end
 end

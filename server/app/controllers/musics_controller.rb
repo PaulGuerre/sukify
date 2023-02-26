@@ -1,9 +1,8 @@
+require_relative './youtube_scraper'
+require_relative '../utils'
+
 class MusicsController < ApplicationController
     use MiddlewareManager
-
-    def youtubeApiKey
-        render json: { message: 'success', youtubeApiKey: ENV["YOUTUBE_API_KEY"] }
-    end
 
     def index
         musics = Music.all
@@ -17,7 +16,7 @@ class MusicsController < ApplicationController
 
     def play
         music = Music.find(params[:id])
-        render file: "#{ Rails.root }/musics/#{ generalizeTitle(music.title) }.mp3"
+        render file: "#{ Rails.root }/musics/#{ Utils.generalizeTitle(music.title) }.mp3"
     end
 
     def videoID
@@ -26,50 +25,50 @@ class MusicsController < ApplicationController
     end
 
     def add
-        if File.exist?("#{ Rails.root }/musics/#{ generalizeTitle(params[:title]) }.mp3")
-            render json: { message: 'error' }
+        page = HTTParty.get('https://www.youtube.com/results?search_query=' + params[:title].gsub(' ', '+').gsub(/[[:^ascii:]]/, ""))
+        parsed_page = Nokogiri::HTML(page.body)
+
+        title = parsed_page.to_s[/title":{"runs":\[{"text":"(.*?)"}],"accessibility/m, 1]
+        videoId = parsed_page.to_s[/videoId":"(.*?)","thumbnail/m, 1]
+        gTitle = Utils.generalizeTitle(title)
+
+        if File.exist?("#{ Rails.root }/musics/#{ gTitle }.mp3")
+            render json: { success: false, message: 'Music already exists' }
+            exit
         else
-            music = Music.new(title: params[:title], videoID: params[:videoID])
-            if music.save
-                system("yt-dlp -o #{ Rails.root }/musics/#{ generalizeTitle(music.title) }'.%(ext)s' --extract-audio --audio-format mp3 https://www.youtube.com/watch?v=#{ params[:videoID] }")
-                if File.exist?("#{ Rails.root }/musics/#{ generalizeTitle(music.title) }.mp3")
-                    render json: { message: 'success' }
-                else 
-                    music.delete
-                    render json: { message: 'error' }
-                end
-            else
-                render json: { message: 'error' }
-            end
+            puts "DICK"
+            system("yt-dlp -o #{ Rails.root }/musics/#{ gTitle }'.%(ext)s' --extract-audio --audio-format mp3 https://www.youtube.com/watch?v=#{ videoId }")
+        end
+
+        if !File.exist?("#{ Rails.root }/musics/#{ gTitle }.mp3")
+            render json: { success: false, message: 'Error on downloading' }
+            exit
+        end
+
+        music = Music.new(title: title, videoID: videoId)
+        puts music
+
+        if music.save
+            render json: { success: true, message: 'Successfully downloaded' }
+        else
+            music.delete
+            File.delete("#{ Rails.root }/musics/#{ gTitle }.mp3")
+            render json: { success: false, message: 'Error on downloading' }
         end
     end
 
     def delete
         playlistMusics = PlaylistMusic.where(music_id: params[:id])
         music = Music.find(params[:id])
-        if File.exist?("#{ Rails.root }/musics/#{ generalizeTitle(music.title) }.mp3")
-            File.delete("#{ Rails.root }/musics/#{ generalizeTitle(music.title)}.mp3")
+        title = Utils.generalizeTitle(music.title)
+        if File.exist?("#{ Rails.root }/musics/#{ title }.mp3")
+            File.delete("#{ Rails.root }/musics/#{ title }.mp3")
         end
 
-        if playlistMusics.delete_all && music.delete && !File.exist?("#{ Rails.root }/musics/#{ generalizeTitle(music.title) }.mp3")
-            render json: { message: 'success' }
+        if playlistMusics.delete_all && music.delete && !File.exist?("#{ Rails.root }/musics/#{ title }.mp3")
+            render json: { message: 'Music successfully deleted' }
         else
-            render json: { message: 'error' }
+            render json: { message: 'Error while deleting' }
         end
-    end
-
-    def update
-        music = Music.find(params[:id])
-        music.update(title: params[:title], videoID: params[:videoID])
-        if music.save
-            render json: { message: 'success' }
-        else 
-            render json: { message: 'error' }
-        end
-    end
-
-    def generalizeTitle (title)
-        gTitle = title.gsub(/[^a-zA-Z-éèà-]/, '_').gsub(/[ -]/, ' ' => '', '-' => '_').gsub(/(__+)/, '_')
-        return gTitle[-1] == '_' ? gTitle[0...-1] : gTitle
     end
 end

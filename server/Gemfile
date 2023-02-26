@@ -16,6 +16,10 @@ gem 'rack-cors'
 gem 'bcrypt'
 gem 'jwt_sessions'
 
+# Web Scraping
+gem 'nokogiri'
+gem 'httparty'
+
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails"
 
