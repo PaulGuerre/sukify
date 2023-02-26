@@ -35,7 +35,6 @@ export default {
         : ApiManager.addPlaylist(this.playlistTitle)
 
       addPlaylist.then(response => {
-        console.log(JSON.stringify(this.$refs, null, 2))
         this.$refs.info.showSuccess(response.data.message)
         this.playlistTitle = ''
         ApiManager.getPlaylists().then(response => {
