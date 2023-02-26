@@ -17,15 +17,4 @@ Docker is the best way to install Sukify.
 5. Run : ``docker-compose up -d --build``
 6. Run : ``docker-compose run sukify_backend rake db:create`` then : ``docker-compose run sukify_backend rake db:migrate``
 
-
-## Rendering
-Login page :
-![Screenshot 2022-05-13 at 17-04-37 Sukify](https://user-images.githubusercontent.com/56794631/168390186-7940e179-d54a-48ec-b745-e9be50fb4e32.png)
-
-
-Musics page :
-![Screenshot 2022-05-13 at 17-08-28 Sukify](https://user-images.githubusercontent.com/56794631/168390224-6148f0bf-4206-41a6-bd72-0b63441834f3.png)
-
-
-Playlists page :
-![Screenshot 2022-05-13 at 17-08-37 Sukify](https://user-images.githubusercontent.com/56794631/168390250-5cd2d2f3-71f6-4755-b253-d93bec8bc028.png)
+## RIP
