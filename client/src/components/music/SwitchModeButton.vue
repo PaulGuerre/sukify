@@ -21,7 +21,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .switch-mode-icon {
   cursor: pointer;
   width: 20px;

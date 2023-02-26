@@ -28,9 +28,9 @@
 </template>
 
 <script>
-import SwitchMusicButton from '@/components/musicButtons/SwitchMusicButton.vue'
-import SwitchModeButton from '@/components/musicButtons/SwitchModeButton.vue'
-import ToggleMusicButton from '@/components/musicButtons/ToggleMusicButton.vue'
+import SwitchMusicButton from '@/components/music/SwitchMusicButton.vue'
+import SwitchModeButton from '@/components/music/SwitchModeButton.vue'
+import ToggleMusicButton from '@/components/music/ToggleMusicButton.vue'
 import C from '@/constants/constants'
 import AudioManager from '@/services/AudioManager'
 
@@ -63,7 +63,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .v-bottom-navigation__content {
   border-top: 1px solid #3c3c3c;
 }

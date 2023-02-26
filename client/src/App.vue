@@ -12,10 +12,11 @@
   </v-app>
 </template>
 
-<style>
+<style scoped>
 .v-main {
   height: 100vh;
   background-color: #303030;
+  overflow: scroll;
 }
 </style>
 

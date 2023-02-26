@@ -1,6 +1,6 @@
 <template>
   <v-col>
-    <v-card class="ma-2 pa-3 playlist-card" ripple="false" @click=" $router.push('/playlists/' + playlist.id + '/musics')">
+    <v-card class="ma-2 pa-3 playlist-card" @click=" $router.push('/playlists/' + playlist.id + '/musics')">
       <v-row no-gutters>
         <v-avatar
           class="ma-3"
@@ -16,7 +16,7 @@
 
           <v-card-text>{{ playlistMusics.length }} music(s)</v-card-text>
 
-          <v-card-actions>
+          <v-card-actions @click.stop>
             <toggle-playlist-button :playlistMusics=playlistMusics :playlistId=playlist.id />
             <delete-playlist-button :playlistId=playlist.id />
           </v-card-actions>
@@ -50,7 +50,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .playlist-card {
   max-width: 350px;
 }

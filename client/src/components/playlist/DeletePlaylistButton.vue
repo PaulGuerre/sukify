@@ -22,7 +22,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .delete-playlist-icon {
   cursor: pointer;
   width: 20px;

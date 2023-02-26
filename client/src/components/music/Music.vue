@@ -17,9 +17,9 @@
 </template>
 
 <script>
-import DeleteMusicButton from '../musicButtons/DeleteMusicButton.vue'
-import ToggleMusicButton from '../musicButtons/ToggleMusicButton.vue'
-import AddToPlaylistButton from '../musicButtons/AddToPlaylistButton.vue'
+import DeleteMusicButton from './DeleteMusicButton.vue'
+import ToggleMusicButton from './ToggleMusicButton.vue'
+import AddToPlaylistButton from './AddToPlaylistButton.vue'
 
 export default {
   name: 'Music',
@@ -37,7 +37,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .music-thumbnail {
   height: 50px;
   margin-top: 5px;

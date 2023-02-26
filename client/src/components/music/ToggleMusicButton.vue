@@ -37,7 +37,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .toggle-music-icon {
   cursor: pointer;
   width: 20px;

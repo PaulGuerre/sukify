@@ -39,7 +39,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .form-signin {
   width: 100%;
   max-width: 330px;
